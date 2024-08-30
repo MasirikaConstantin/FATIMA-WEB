@@ -11,7 +11,7 @@ Route::get('/', function () {
 $dernierProgramme = Programme::orderBy('id', 'desc')->first();
 
   
-        $programmesSansDernier = Programme::where('id', '<>', $dernierProgramme->id)->get();
+        $programmesSansDernier = Programme::orderBy('id', 'desc')->paginate(4)->where('id', '<>', $dernierProgramme->id);
     
    // dd(Programme::paginate(3));
     return view('welcome',["presentation"=> Programme::latest()->first(),'programmes' =>$programmesSansDernier]);
