@@ -1,10 +1,20 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
+use App\Models\Programme;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    // Récupérer le dernier enregistrement
+$dernierProgramme = Programme::orderBy('id', 'desc')->first();
+
+  
+        $programmesSansDernier = Programme::where('id', '<>', $dernierProgramme->id)->get();
+    
+   // dd(Programme::paginate(3));
+    return view('welcome',["presentation"=> Programme::latest()->first(),'programmes' =>$programmesSansDernier]);
 })->name('welcome');
 
 Route::get('/dashboard', function () {
@@ -26,3 +36,16 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+Route::prefix('admin')->name('admin.')->controller(AdminController::class)->group( function () {
+    Route::get('newprogram','newprogramme')->name('newprogramme');
+    Route::post('newprogram','newprogrammesave');
+});
+
+Route::prefix('programme')->name('programme.')->controller(UserController::class)->group( function () {
+    Route::get('/{pro}-{id}','lirepro')->where([
+        'id'=>'[0-9]+',
+        'pro'=>'[a-zA-Z0-9\-]+'
+    ])->name('lireprogramme');
+    Route::post('newprogram','newprogrammesave');
+});
