@@ -15,10 +15,42 @@
                         </div>
                     </div>
                 </address>
-                <h1 class="mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl dark:text-white">{{ $programme->titre }}</h1>
+                @php
 
+                $date = \Carbon\Carbon::createFromFormat('Y-m-d', $programme->date)->startOfDay();
+
+                                    //dd($date);
+            @endphp
+                @if ($programme->etat == 0)
+                <div>
+                    <span class=" mb-4 inline-block rounded bg-red-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-red-900 dark:text-red-300 md:mb-0">Evenement déjà passer ou annuler
+
+                    </span>
+                </div>
+               
+
+
+
+
+                @elseif($date->isPast())
+                    <div>
+                        <span class="inline-block rounded bg-red-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-red-900 dark:text-red-300 md:mb-0">Evenement déjà passer
+
+                        </span>
+                    </div>
+                @else
+                    <div>
+                        <span class="inline-block rounded bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-red-900 dark:text-red-300 md:mb-0">Evenement à venir le {{ $date->translatedFormat('d F Y') }} à {{ $programme->h_debut}}
+
+                        </span>
+                    </div>
+                @endif
+                <h1 class="mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl dark:text-white">{{ $programme->titre }}</h1>
+                
+                @if ($programme->image)
                 <img class="h-auto max-w-xl rounded-lg shadow-xl dark:shadow-gray-800" src="{{ $programme->imageUrls() }}" alt="image description">
 
+                @endif
             </header>
             <p class="lead mb-4">
                 {{ $programme->description }}
@@ -95,7 +127,7 @@
   
   <aside aria-label="Related articles" class="py-8 lg:py-24 bg-gray-50 dark:bg-gray-800">
     <div class="px-4 mx-auto max-w-screen-xl">
-        <h2 class="mb-8 text-2xl font-bold text-gray-900 dark:text-white">Related articles</h2>
+        <h2 class="mb-8 text-2xl font-bold text-gray-900 dark:text-white">Autres Programmes</h2>
         <div class="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
             @foreach ($autres as $au )
                 <article class="max-w-xs" style="overflow: hidden;">

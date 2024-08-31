@@ -12,8 +12,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('programmes', function(Blueprint $t) {
-            $t->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
+        Schema::table('programmes', function (Blueprint $table) {
+            // Change la colonne 'date' en type 'datetime'
+            $table->datetime('date')->change();
         });
     }
 
@@ -22,6 +23,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::table('programmes', function (Blueprint $table) {
+            // Optionnel : Revenir à l'ancien type de la colonne, par exemple 'date'
+            $table->date('date')->change();
+        });
     }
 };

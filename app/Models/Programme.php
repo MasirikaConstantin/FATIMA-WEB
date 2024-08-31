@@ -28,4 +28,7 @@ class Programme extends Model
         return Storage::disk('public')->url($this->image); 
     }
 
+    public function User(){
+        return $this->belongsTo(User::class,'user_id');
+    }
 }

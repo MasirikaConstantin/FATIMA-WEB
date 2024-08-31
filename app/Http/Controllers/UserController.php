@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RechercherProgramme;
 use App\Models\Programme;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,22 @@ class UserController extends Controller
        // dump($autres);
         return view('lireprogramme',['programme'=>$programe,'autres'=>$autres]);
     }
-    public function all(){
-        return view('all');
+    public function all(RechercherProgramme $request){
+
+        $query=Programme::query();
+        if($titre=$request->validated('titre')){
+            $query=$query->where('titre','like', "%{$titre}%" );
+        }
+       
+        
+            return view ('all', [
+                'program' => $query->orderByDesc('id')->where('id','!=','0')->paginate(4),
+            ]);
+        
+        
+
+        //$programes = Programme::paginate(2);
+
+       // return view('all',['program'=>$programes]);
     }
 }
