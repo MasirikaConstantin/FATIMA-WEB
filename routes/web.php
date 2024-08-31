@@ -8,13 +8,21 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     // Récupérer le dernier enregistrement
-$dernierProgramme = Programme::orderBy('id', 'desc')->first();
-
-  
-        $programmesSansDernier = Programme::orderBy('id', 'desc')->paginate(4)->where('id', '<>', $dernierProgramme->id);
+    $dernierProgramme = Programme::orderBy('id', 'desc')->first();
     
-   // dd(Programme::paginate(3));
-    return view('welcome',["presentation"=> Programme::latest()->first(),'programmes' =>$programmesSansDernier]);
+    // Récupérer tous les programmes sauf le dernier, avec une pagination de 4
+    $programmesSansDernierQuery = Programme::orderBy('id', 'desc');
+    
+    if ($dernierProgramme) {
+        $programmesSansDernierQuery = $programmesSansDernierQuery->where('id', '<>', $dernierProgramme->id);
+    }
+    
+    $programmesSansDernier = $programmesSansDernierQuery->paginate(4);
+
+    return view('welcome', [
+        "presentation" => Programme::latest()->first(),
+        'programmes' => $programmesSansDernier
+    ]);
 })->name('welcome');
 
 Route::get('/dashboard', function () {
