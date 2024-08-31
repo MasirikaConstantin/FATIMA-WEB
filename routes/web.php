@@ -45,7 +45,7 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::prefix('admin')->name('admin.')->controller(AdminController::class)->group( function () {
+Route::prefix('admin')->name('admin.')->controller(AdminController::class)->middleware(['auth', 'verified','rolemanager:admin'])->group( function () {
     Route::get('newprogram','newprogramme')->name('newprogramme');
     Route::post('newprogram','newprogrammesave');
 });
@@ -56,4 +56,6 @@ Route::prefix('programme')->name('programme.')->controller(UserController::class
         'pro'=>'[a-zA-Z0-9\-]+'
     ])->name('lireprogramme');
     Route::post('newprogram','newprogrammesave');
+
+    Route::get('tous','all')->name('tous');
 });

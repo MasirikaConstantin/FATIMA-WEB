@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ValiderProgramme;
 use App\Models\Programme;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
@@ -40,6 +41,7 @@ class AdminController extends Controller
     private function extractData(Programme $programme,ValiderProgramme $request){
         $data=$request->validated();
 
+        $data['user_id']=Auth::user()->id;
       
 
         //dd($data);

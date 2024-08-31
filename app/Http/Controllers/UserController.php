@@ -13,4 +13,7 @@ class UserController extends Controller
        // dump($autres);
         return view('lireprogramme',['programme'=>$programe,'autres'=>$autres]);
     }
+    public function all(){
+        return view('all');
+    }
 }
