@@ -108,14 +108,31 @@ class AdminController extends Controller
 
 }
 
-public function deletpro( Programme  $id ){
-    if($id->image){
-        Storage::disk('public')->delete($id->image);
+    public function deletpro( Programme  $id ){
+        if($id->image){
+            Storage::disk('public')->delete($id->image);
+        }
+
+        $id->delete();
+        return redirect()->route('admin')->with('success','Le Programme  a été supprimer  avec Success ! ! ! ');
+
+
     }
 
-    $id->delete();
-    return redirect()->route('admin')->with('success','Le Programme  a été supprimer  avec Success ! ! ! ');
-
-
-}
+    public function updates(Request $request, Programme $id)
+        {
+            // Valider uniquement le champ 'etat'
+            $request->validate([
+                'etat' => 'required|boolean',
+            ]);
+    
+            // Récupérer la valeur de 'etat'
+            $etat = $request->input('etat');
+    
+            // Mettre à jour le champ 'etat' du post
+            $id->update(['etat' => $etat]);
+    
+            // Redirection après la mise à jour
+            return redirect()->route('dashboard')->with('success', 'Post status updated successfully');
+        }
 }

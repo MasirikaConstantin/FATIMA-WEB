@@ -3,28 +3,38 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RechercherProgramme;
+use App\Http\Requests\ValiderCommentaire;
+use App\Models\Commentaire;
 use App\Models\Programme;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
     public function lirepro(string $pro, string $id){
         // Trouver le programme spécifique par ID
         $programe = Programme::find($id);
-    
+
+       
         // Filtrer les programmes en excluant celui avec l'ID donné
         $autresQuery = Programme::where('id', '!=', $id)
                                  ->orderBy('id', 'desc');
     
         // Appliquer la pagination
         $autres = $autresQuery->paginate(5);
-    
+        if($programe->slug  != $pro){
+            return to_route('programme.commentaire',['id'=>$programe,'pro'=>$programe->slug,'Commentaire'=>$programe->Commentaire::paginate(1)]);
+        }
+
+        
         // Passer les données à la vue
         return view('lireprogramme', [
             'programme' => $programe,
-            'autres' => $autres
+            'autres' => $autres,
+            'Commentaire'=>$programe->Commentaire()->paginate(5)
         ]);
     }
+    
     
     public function all(RechercherProgramme $request){
 
@@ -43,5 +53,23 @@ class UserController extends Controller
         //$programes = Programme::paginate(2);
 
        // return view('all',['program'=>$programes]);
+    }
+    public function storecomme(ValiderCommentaire $request , string $pro,string $id)
+    {
+        //dd($pro);
+        $programe = Programme::find($id);
+$data =$request->validated();
+        //dd($programe);
+        $data['user_id'] = Auth::user()->id;
+
+        $data['programme_id'] = $programe['id'];
+        //dd($data);
+        Commentaire::create($data);
+        if($programe->slug  != $pro){
+            return to_route('programme.commentaire',['id'=>$programe,'pro'=>$programe->slug]);
+        }
+
+        return redirect()->back()->with('success', 'Commentaire publié avec succès');
+        
     }
 }

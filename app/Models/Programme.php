@@ -21,7 +21,8 @@ class Programme extends Model
         'slug',
         'created_at',
         'updated_at',
-        'user_id'
+        'user_id',
+        'etat'
     ];
 
     public function imageUrls(){
@@ -30,5 +31,9 @@ class Programme extends Model
 
     public function User(){
         return $this->belongsTo(User::class,'user_id');
+    }
+
+    public function Commentaire(){
+        return $this->hasMany(Commentaire::class);
     }
 }

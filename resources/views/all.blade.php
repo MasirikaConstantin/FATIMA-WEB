@@ -49,9 +49,13 @@
                                     
                                 @php
 
-                                $date = \Carbon\Carbon::createFromFormat('Y-m-d', $pr->date)->startOfDay();
+                                    $dateString = $pr->date;
 
-                                                    //dd($date);
+                                                        // Nettoyer la date en cas d'information supplémentaire
+                                                        $dateString = strtok($dateString, ' ');
+
+                                                    $date = \Carbon\Carbon::createFromFormat('Y-m-d', $dateString)->startOfDay();
+
                             @endphp
                                     
                                     <div class="space-y-4 py-6 md:py-8">

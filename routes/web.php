@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CommentaireControle;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Models\Programme;
@@ -8,19 +9,19 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     // Récupérer le dernier enregistrement
-    $dernierProgramme = Programme::orderBy('id', 'desc')->first();
+    $dernierProgramme = Programme::orderBy('id', 'desc')->where('etat',"==",0)->first();
     
     // Récupérer tous les programmes sauf le dernier, avec une pagination de 4
-    $programmesSansDernierQuery = Programme::orderBy('id', 'desc');
+    $programmesSansDernierQuery = Programme::orderBy('id', 'desc')->where('etat',"==",0);
     
     if ($dernierProgramme) {
-        $programmesSansDernierQuery = $programmesSansDernierQuery->where('id', '<>', $dernierProgramme->id);
+        $programmesSansDernierQuery = $programmesSansDernierQuery->where('etat',"==",0)->where('id', '<>', $dernierProgramme->id);
     }
     
     $programmesSansDernier = $programmesSansDernierQuery->paginate(4);
 
     return view('welcome', [
-        "presentation" => Programme::latest()->first(),
+        "presentation" => Programme::latest()->where('etat',"==",0)->first(),
         'programmes' => $programmesSansDernier
     ]);
 })->name('welcome');
@@ -59,6 +60,8 @@ Route::prefix('admin')->name('admin.')->controller(AdminController::class)->midd
     Route::get('/modif/{id}','editpro')->name('editpro');
     Route::put('/modif/{id}','edit');
     Route::get('/delet/{id}','deletpro')->name('deletprogram');
+    Route::put('/prog/{id}', 'updates')->name('posts.update');
+
 });
 
 Route::prefix('programme')->name('programme.')->controller(UserController::class)->group( function () {
@@ -66,6 +69,10 @@ Route::prefix('programme')->name('programme.')->controller(UserController::class
         'id'=>'[0-9]+',
         'pro'=>'[a-zA-Z0-9\-]+'
     ])->name('lireprogramme');
+
+    Route::post('/{pro}-{id}',  'storecomme')->name('commentaire');
+
+
     Route::post('newprogram','newprogrammesave');
 
     Route::get('tous','all')->name('tous');

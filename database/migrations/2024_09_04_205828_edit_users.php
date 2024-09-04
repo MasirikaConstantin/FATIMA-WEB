@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('programmes', function(Blueprint $t) {
-            $t->tinyInteger('etat')->default(0);
+        Schema::table('users', function(Blueprint $t) {
+            $t->dropColumn('user_id');
         });
     }
 
