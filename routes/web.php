@@ -30,7 +30,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified','rolemanager:autre'])->name('dashboard');
 
 Route::get('gest-admin/dashboard', function () {
-
+//dd(Programme::all());
     return view('admin',
 [
     'tous'=>Programme::orderBy('id','desc')->paginate(6),
@@ -57,7 +57,8 @@ Route::prefix('admin')->name('admin.')->controller(AdminController::class)->midd
     Route::post('newprogram','newprogrammesave');
 
     Route::get('/modif/{id}','editpro')->name('editpro');
-    Route::post('/modif/{id}','edit');
+    Route::put('/modif/{id}','edit');
+    Route::get('/delet/{id}','deletpro')->name('deletprogram');
 });
 
 Route::prefix('programme')->name('programme.')->controller(UserController::class)->group( function () {

@@ -22,6 +22,7 @@ class ValiderProgramme extends FormRequest
      */
     public function rules(): array
     {
+        
         return [
             'titre' => ['required', 'min:4'],
             'date' => ['required', 'date'],
@@ -29,10 +30,11 @@ class ValiderProgramme extends FormRequest
             'h_fin' => ['required', 'date_format:H:i'],
             'description' => ['required', 'string'],
             'image' => [
-                'image',            // Doit être un fichier image (jpeg, png, bmp, gif, svg, webp)
-                'mimes:jpeg,png,bmp,gif,svg,webp,PNG', // Types de fichiers autorisés
-                'max:5048',         // Taille maximale en kilo-octets (ici, 2 Mo)
-                'dimensions:min_width=100,min_height=200,max_width=2000,max_height=4000', // Dimensions minimales et maximales
+                'nullable',
+                'image',            
+                'mimes:jpeg,png,bmp,gif,svg,webp,PNG',
+                'max:5048',   
+                'dimensions:min_width=100,min_height=200,max_width=2000,max_height=4000', 
             ],
             'slug'=>['required', 'min:8' ,'regex:/^[0-9a-z\-]+$/', 'unique:programmes,slug'],
             'user_id'=>['required', 'exists:users,id'],
@@ -46,5 +48,19 @@ class ValiderProgramme extends FormRequest
             'slug'=>$this->input('slug')?: Str::slug($this->input('titre'))
     
             ]);
+
+        // Formater le champ h_debut pour enlever les secondes
+        if ($this->has('h_debut')) {
+            $this->merge([
+                'h_debut' => date('H:i', strtotime($this->input('h_debut')))
+            ]);
+        }
+
+        // Formater le champ h_fin de la même manière si nécessaire
+        if ($this->has('h_fin')) {
+            $this->merge([
+                'h_fin' => date('H:i', strtotime($this->input('h_fin')))
+            ]);
+        }
     }
 }

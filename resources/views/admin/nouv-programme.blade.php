@@ -3,8 +3,19 @@
     <div class="py-12">
         <div class=" max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class=" p-6 bg-gray-300 overflow-hidden shadow-sm sm:rounded-lg">
+                @php
+                // Vérifier la valeur
+                    $dateString = $programme->date;
 
-                <form  method="POST" enctype="multipart/form-data" >
+                    // Nettoyer la date en cas d'information supplémentaire
+                    $dateString = strtok($dateString, ' ');
+
+                $date = \Carbon\Carbon::createFromFormat('Y-m-d', $dateString)->startOfDay();
+
+                                    //dd($date);
+             @endphp
+                <form {{route($programme->exists ? 'admin.editpro': 'admin.newprogramme', $programme->id)}} id="myForm"  method="POST" enctype="multipart/form-data" >
+                    @method('PUT')
                     @csrf
                     <input type="hidden" name="user_id" value="{{Auth::user()->id}}" autocomplete="off" >
                     <div class="grid gap-4 mb-4 sm:grid-cols-2">
@@ -12,7 +23,7 @@
                             <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ __('Title') }}</label>
                             <input type="text" @error("titre")
                             class="bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500"
-                            @enderror name="titre" id="name" value="{{ old('titre') }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Ex. Programme">
+                            @enderror name="titre" id="name" value="{{ old('titre',$programme->titre) }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Ex. Programme">
                            
                             @error('titre')
                             <p class="mt-2 text-sm text-red-600 dark:text-red-500"> {{ $message }} </p>
@@ -23,25 +34,25 @@
                             <label for="brand" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ __('Date') }}</label>
                             <input type="date" name="date" @error("date")
                             class="bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500"
-                            @enderror id="brand" value="{{ old('date') }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" >
+                            @enderror id="brand" value="{{ old('date',$dateString) }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" >
                             @error('date')
                             <p class="mt-2 text-sm text-red-600 dark:text-red-500"> {{ $message }} </p>
                             @enderror
                         </div>
-                        <div>
-                            <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ __('Heure début') }}</label>
-                            <input type="time" @error("h_debut")
-                            class="bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500"
-                            @enderror value="{{ old('h_debut') }}" name="h_debut" id="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" >
-                            @error('h_debut')
-                            <p class="mt-2 text-sm text-red-600 dark:text-red-500"> {{ $message }} </p>
-                            @enderror
-                        </div>
+                            <div>
+                                <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ __('Heure début') }}</label>
+                                <input type="time" @error("h_debut")
+                                class="bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500"
+                                @enderror value="{{ old('h_debut',$programme->h_debut) }}" name="h_debut"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" >
+                                @error('h_debut')
+                                <p class="mt-2 text-sm text-red-600 dark:text-red-500"> {{ $message }} </p>
+                                @enderror
+                            </div>
                         <div>
                             <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ __('Heure de Fin') }}</label>
                             <input type="time" @error("h_fin")
                             class="bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500"
-                            @enderror value="{{ old('h_fin') }}" name="h_fin" id="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="$299">
+                            @enderror value="{{ old('h_fin',$programme->h_fin) }}" name="h_fin" id="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="$299">
                             @error('h_fin')
                             <p class="mt-2 text-sm text-red-600 dark:text-red-500"> {{ $message }} </p>
                             @enderror
@@ -50,7 +61,7 @@
                             <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
                             <textarea id="description" name="description" @error("description")
                             class="bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500"
-                            @enderror rows="5" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="{{ __('Write a description...') }}">{{ old('description') }}</textarea>                    
+                            @enderror rows="5" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="{{ __('Write a description...') }}">{{ old('description' ,$programme->description) }}</textarea>                    
                         </div>
                     </div>
                    
@@ -64,7 +75,7 @@
                             @enderror
                         </div>
                         <div class=" border lg:mt-0 lg:col-span-5 lg:flex">
-                            <img id='imageDiv' >
+                            <img id='imageDiv'>
                         </div>                
                     </div>
                     <div class="flex items-center space-x-4">
@@ -80,6 +91,7 @@
                             Delete
                         </button>
                     </div>
+                    
                 </form>
                 
                

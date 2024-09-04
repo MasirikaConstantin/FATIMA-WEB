@@ -10,8 +10,8 @@ use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
-    public function newprogramme(){
-        return view('admin.nouv-programme');
+    public function newprogramme(Programme $programme){
+        return view('admin.nouv-programme',['programme' => $programme]);
     }
     public function newprogrammesave(ValiderProgramme $request){
         
@@ -62,5 +62,60 @@ class AdminController extends Controller
     public function editpro(Programme $id){
         //    dd($id);
             return view('admin.nouv-programme',['programme' =>$id]);
+    }
+
+
+    public function edit(ValiderProgramme $request, Programme $id)
+    {
+        $data=$request->validated();
+        $image=$request->validated('image');
+        $programme=$id;
+        $status=$request->validated('status');
+
+        //dd($id);
+        if($image == null || $image->getError()){
+            if($status==null){
+                $data['status']=0;
+                $programme->update($data);
+                return redirect()->route('admin')->with('success','programme  Modifiée  avec Success ! ! ! ');
+
+            }else{
+                $programme->update($data);
+                return redirect()->route('admin')->with('success','programme  Modifiée  avec Success ! ! ! ');
+
+            }
+
         }
+        if($programme->image){
+            Storage::disk('public')->delete($programme->image);
+
+        }
+
+        if($status==null){
+        $data['image']=$image->store('imagecat','public');
+
+            $data['status']=0;
+            $programme->update($data);
+            return redirect()->route('admin')->with('success','programme  Modifiée  avec Success ! ! ! ');
+
+        }else{
+        $data['image']=$image->store('imagecat','public');
+
+            $programme->update($data);
+        
+        return redirect()->route('admin')->with('success', 'Programme modifié avec succès !');
+    }
+
+}
+
+public function deletpro( Programme  $id ){
+    if($id->image){
+        Storage::disk('public')->delete($id->image);
+    }
+
+    $id->delete();
+    return redirect()->route('admin')->with('success','Le Programme  a été supprimer  avec Success ! ! ! ');
+
+
+}
 }
