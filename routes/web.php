@@ -30,7 +30,14 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified','rolemanager:autre'])->name('dashboard');
 
 Route::get('gest-admin/dashboard', function () {
-    return view('admin');
+
+    return view('admin',
+[
+    'tous'=>Programme::orderBy('id','desc')->paginate(6),
+    'nombre'=>Programme::count(),
+    'nombre_actif'=>Programme::where("etat", 1)->count()
+
+]);
 })->middleware(['auth', 'verified','rolemanager:admin'])->name('admin');
 
 Route::get('utilisateur/dashboard', function () {
@@ -48,6 +55,9 @@ require __DIR__.'/auth.php';
 Route::prefix('admin')->name('admin.')->controller(AdminController::class)->middleware(['auth', 'verified','rolemanager:admin'])->group( function () {
     Route::get('newprogram','newprogramme')->name('newprogramme');
     Route::post('newprogram','newprogrammesave');
+
+    Route::get('/modif/{id}','editpro')->name('editpro');
+    Route::post('/modif/{id}','edit');
 });
 
 Route::prefix('programme')->name('programme.')->controller(UserController::class)->group( function () {

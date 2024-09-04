@@ -9,11 +9,23 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     public function lirepro(string $pro, string $id){
-       $programe = Programme::find($id);
-       $autres = Programme::orderBy('id', 'desc')->paginate(5)->where('id', '!=', $id);
-       // dump($autres);
-        return view('lireprogramme',['programme'=>$programe,'autres'=>$autres]);
+        // Trouver le programme spécifique par ID
+        $programe = Programme::find($id);
+    
+        // Filtrer les programmes en excluant celui avec l'ID donné
+        $autresQuery = Programme::where('id', '!=', $id)
+                                 ->orderBy('id', 'desc');
+    
+        // Appliquer la pagination
+        $autres = $autresQuery->paginate(5);
+    
+        // Passer les données à la vue
+        return view('lireprogramme', [
+            'programme' => $programe,
+            'autres' => $autres
+        ]);
     }
+    
     public function all(RechercherProgramme $request){
 
         $query=Programme::query();

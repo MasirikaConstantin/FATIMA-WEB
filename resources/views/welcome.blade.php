@@ -153,7 +153,7 @@
             </div>
         </div>
         <div class="content  bg-gray-50 text-black/50 dark:bg-black dark:text-white/50">
-            <div class="relative min-h-screen flex flex-col items-center justify-center selection:bg-[#FF2D20] selection:text-white">
+            <div class="relative min-h-screen flex flex-col items-center  selection:bg-[#FF2D20] selection:text-white">
                 <div class="relative w-full max-w-2xl px-6 lg:max-w-7xl">
                     
                     <h1 style="color: black;" class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-4xl dark:text-white">Programmes</h1>
@@ -222,11 +222,11 @@
                             </a>
                             @endif
 
-                            @foreach ($programmes as $p)
+                            @forelse ($programmes as $p)
                                     <a
                                     href="{{ route('programme.lireprogramme',['pro'=>$p->slug,"id"=>$p->id]) }}"
                                     class="flex items-start gap-4 rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] lg:pb-10 dark:bg-zinc-900 dark:ring-zinc-800 dark:hover:text-white/70 dark:hover:ring-zinc-700 dark:focus-visible:ring-[#FF2D20]"
-                                >
+                                    >
                                     <div class="flex size-12 shrink-0 items-center justify-center rounded-full bg-[#1d8abdd7]/10 sm:size-16">
                                         
                                         <img src="{{ asset('icon_pri.svg') }}" class="size-5 sm:size-8" xmlns="http://www.w3.org/2000/svg"  fill="none" viewBox="0 0 24 24"  />
@@ -239,14 +239,24 @@
                                             {{Str::limit($p->description,200)}}
                                         </p>
                                     </div>
-<style>
-    canvas{
-        color: #1d8abdd7;
-    }
-</style>
+                                    <style>
+                                        canvas{
+                                            color: #1d8abdd7;
+                                        }
+                                    </style>
                                     <svg  class="size-6 shrink-0 self-center stroke-[#1d8abdd7]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"/></svg>
                                 </a>
-                            @endforeach
+                            @empty
+                                <div class="flex items-center p-4 mb-4 text-sm text-green-800 border border-green-300 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400 dark:border-green-800" role="alert">
+                                    <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                                    </svg>
+                                    <span class="sr-only">Info</span>
+                                    <div>
+                                    <span class="font-medium"></span> Aucun Programme supplementaire n'est disponible pour l'instant
+                                    </div>
+                                </div>
+                            @endforelse
 
                            
                         </div>

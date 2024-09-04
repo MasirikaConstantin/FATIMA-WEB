@@ -41,10 +41,10 @@ class AdminController extends Controller
     private function extractData(Programme $programme,ValiderProgramme $request){
         $data=$request->validated();
 
-        $data['user_id']=Auth::user()->id;
+        
       
 
-        //dd($data);
+       // dd($data);
         /**
         * @var UploadedFile $image
          */
@@ -58,4 +58,9 @@ class AdminController extends Controller
             $data['image']=$image->store("imageprogramme",'public');
         return $data;
     }
+
+    public function editpro(Programme $id){
+        //    dd($id);
+            return view('admin.nouv-programme',['programme' =>$id]);
+        }
 }

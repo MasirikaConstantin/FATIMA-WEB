@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 class ValiderProgramme extends FormRequest
 {
@@ -34,6 +35,7 @@ class ValiderProgramme extends FormRequest
                 'dimensions:min_width=100,min_height=200,max_width=2000,max_height=4000', // Dimensions minimales et maximales
             ],
             'slug'=>['required', 'min:8' ,'regex:/^[0-9a-z\-]+$/', 'unique:programmes,slug'],
+            'user_id'=>['required', 'exists:users,id'],
 
 
         ];

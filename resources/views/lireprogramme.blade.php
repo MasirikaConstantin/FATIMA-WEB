@@ -16,11 +16,16 @@
                     </div>
                 </address>
                 @php
+                // Vérifier la valeur
+                    $dateString = $programme->date;
 
-                $date = \Carbon\Carbon::createFromFormat('Y-m-d', $programme->date)->startOfDay();
+                    // Nettoyer la date en cas d'information supplémentaire
+                    $dateString = strtok($dateString, ' ');
+
+                $date = \Carbon\Carbon::createFromFormat('Y-m-d', $dateString)->startOfDay();
 
                                     //dd($date);
-            @endphp
+             @endphp
                 @if ($programme->etat == 0)
                 <div>
                     <span class=" mb-4 inline-block rounded bg-red-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-red-900 dark:text-red-300 md:mb-0">Evenement déjà passer ou annuler

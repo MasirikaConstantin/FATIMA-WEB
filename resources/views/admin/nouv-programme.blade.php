@@ -6,6 +6,7 @@
 
                 <form  method="POST" enctype="multipart/form-data" >
                     @csrf
+                    <input type="hidden" name="user_id" value="{{Auth::user()->id}}" autocomplete="off" >
                     <div class="grid gap-4 mb-4 sm:grid-cols-2">
                         <div>
                             <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ __('Title') }}</label>
@@ -20,9 +21,9 @@
                         </div>
                         <div>
                             <label for="brand" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ __('Date') }}</label>
-                            <input type="datetime" name="date" @error("date")
+                            <input type="date" name="date" @error("date")
                             class="bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500"
-                            @enderror id="brand" value="{{ old('date') }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Ex. Apple">
+                            @enderror id="brand" value="{{ old('date') }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" >
                             @error('date')
                             <p class="mt-2 text-sm text-red-600 dark:text-red-500"> {{ $message }} </p>
                             @enderror
