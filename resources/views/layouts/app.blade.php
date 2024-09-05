@@ -14,7 +14,12 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased">
+    <style>
+        html{
+            width: 100%;
+        }
+    </style>
+    <body class="font-sans antialiased" style="width: 100% ;" >
 
                             
 
@@ -34,7 +39,7 @@
             <!-- Page Content -->
 
             
-            <main  >
+            <main style="width: 100%" >
                 {{ $slot }}
 
                 
@@ -61,11 +66,11 @@
                     }
                 }
                 .footer {
-            position: relative; /* Position relative pour permettre le positionnement absolu si nécessaire */
-            z-index: 2; /* Assure que le contenu passe au-dessus de l'image fixe */
-            padding: 20px; /* Ajoute du padding autour du contenu */
-            margin-top: 55px; /* Décale le contenu pour qu'il commence en dessous de l'image fixe */
-        }
+                    position: relative; /* Position relative pour permettre le positionnement absolu si nécessaire */
+                    z-index: 2; /* Assure que le contenu passe au-dessus de l'image fixe */
+                    padding: 20px; /* Ajoute du padding autour du contenu */
+                    margin-top: 55px; /* Décale le contenu pour qu'il commence en dessous de l'image fixe */
+                }
 
 
             </style>
