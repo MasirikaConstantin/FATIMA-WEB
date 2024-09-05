@@ -1,3 +1,5 @@
+@section("titre",'Programme');
+
 <x-app-layout>
    
 

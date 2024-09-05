@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>@yield('titre' ,'Site Officiel Notre dame de Fatima')</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -15,11 +15,18 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <style>
-        html{
-            width: 100%;
-        }
+        @font-face {
+                        font-family: 'Google';
+                        src: url('{{asset('ProductSans-Light.ttf')}}');
+                        font-weight: 500;
+                        
+                    }
+                    body{
+                        font-family: 'Google' !important;
+                    }
+                    
     </style>
-    <body class="font-sans antialiased" style="width: 100% ;" >
+    <body class="font-sans bg-gray-100 antialiased" style="width: 100% ;" >
 
                             
 

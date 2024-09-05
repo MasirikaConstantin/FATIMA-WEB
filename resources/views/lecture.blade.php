@@ -1,3 +1,5 @@
+@section("titre",'Lecture du jour');
+
 <x-app-layout>
 
         <!-- En-tête -->

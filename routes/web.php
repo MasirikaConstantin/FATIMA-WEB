@@ -8,7 +8,8 @@ use App\Models\Programme;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    // Récupérer le dernier enregistrement
+   /*
+     // Récupérer le dernier enregistrement
     $dernierProgramme = Programme::orderBy('id', 'desc')->where('etat',"==",0)->first();
     
     // Récupérer tous les programmes sauf le dernier, avec une pagination de 4
@@ -19,10 +20,10 @@ Route::get('/', function () {
     }
     
     $programmesSansDernier = $programmesSansDernierQuery->paginate(4);
-
+*/
     return view('welcome', [
-        "presentation" => Programme::latest()->where('etat',"==",0)->first(),
-        'programmes' => $programmesSansDernier
+       // "presentation" => Programme::latest()->where('etat',"==",0)->first(),
+        'programmes' => Programme::orderBy('id', 'desc')->where('etat',"==",0)->paginate(4),
     ]);
 })->name('welcome');
 
@@ -56,6 +57,8 @@ require __DIR__.'/auth.php';
 Route::prefix('admin')->name('admin.')->controller(AdminController::class)->middleware(['auth', 'verified','rolemanager:admin'])->group( function () {
     Route::get('newprogram','newprogramme')->name('newprogramme');
     Route::post('newprogram','newprogrammesave');
+
+    Route::get('newevent','newevent')->name('newevent');
 
     Route::get('/modif/{id}','editpro')->name('editpro');
     Route::put('/modif/{id}','edit');

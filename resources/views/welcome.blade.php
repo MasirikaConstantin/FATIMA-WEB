@@ -15,7 +15,7 @@
     <!-- Section Programmes -->
     <section id="programmes" class="py-16 bg-white">
         <div class="container mx-auto text-center">
-            <h2 class="text-4xl font-bold mb-8">Nos Programmes à Venir</h2>
+            <h2 class="text-4xl font-bold mb-8">Nos Programmes</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <!-- Programme 1 -->
                 <div class="bg-gray-100 p-6 rounded-lg shadow-lg">
@@ -38,14 +38,52 @@
                     <p class="text-gray-700">Tous les mercredis à 15h.</p>
                 </div>
             </div>
-            <a href="#" class="mt-8 inline-block bg-yellow-500 text-black font-semibold py-2 px-4 rounded hover:bg-yellow-600">Voir tous les programmes</a>
+        </div>
+    </section>
+
+    <!-- Section Programmes -->
+    <section id="programmes" class="py-16 bg-white">
+        <div class="container mx-auto text-censter">
+            <h2 class="text-4xl font-bold mb-8 text-center">Nos Programmes à Venir</h2>
+                <!-- Programme 1 -->
+                <div class="grid gap-6 lg:grid-cols-2 lg:gap-8">
+
+                @forelse ($programmes as $p )
+                    <a href="{{ route('programme.lireprogramme',['pro'=>$p->slug,"id"=>$p->id]) }}" class="flex items-start gap-4 rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] lg:pb-10 dark:bg-zinc-900 dark:ring-zinc-800 dark:hover:text-white/70 dark:hover:ring-zinc-700 dark:focus-visible:ring-[#FF2D20]" >
+                        <div class="flex size-12 shrink-0 items-center justify-center rounded-full bg-[#1d8abdd7]/10 sm:size-16">
+                        <img src="{{ asset('icon_pri.svg') }}" class="size-5 sm:size-8" xmlns="http://www.w3.org/2000/svg"  fill="none" viewBox="0 0 24 24"  />
+                        </div>
+
+                        <div class="pt-3 sm:pt-5">
+                            <h2 class="text-xl font-semibold text-black dark:text-white">{{ $p->titre }}</h2>
+
+                            <p class="mt-4 text-sm/relaxed">
+                                {{Str::limit($p->description,200)}}
+                            </p>
+                        </div>
+                        <style>
+                            canvas{
+                                color: #1d8abdd7;
+                            }
+                        </style>
+                        <svg  class="size-6 shrink-0 self-center stroke-[#1d8abdd7]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"/></svg>
+                    </a>
+
+                @empty
+                   
+                @endforelse
+                </div>
+                <div class="text-center" >
+                    <a href="{{ route('programme.tous') }}" class="mt-8 text-center inline-block bg-yellow-500 text-black font-semibold py-2 px-4 rounded hover:bg-yellow-600">Voir tous les programmes</a>
+                </div>                
+            </div>
         </div>
     </section>
 
     <!-- Section Événements -->
     <section id="evenements" class="py-16 bg-gray-50">
         <div class="container mx-auto text-center">
-            <h2 class="text-4xl font-bold mb-8">Événements à Venir</h2>
+            <h2 class="text-4xl font-bold mb-8 ">Événements à Venir</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <!-- Événement 1 -->
                 <div class="bg-white p-6 rounded-lg shadow-lg">
@@ -58,7 +96,10 @@
                     <p class="text-gray-700">15 août 2024</p>
                 </div>
             </div>
-            <a href="#" class="mt-8 inline-block bg-yellow-500 text-black font-semibold py-2 px-4 rounded hover:bg-yellow-600">Voir tous les événements</a>
+            <div class="text-center">
+                <a href="#" class="mt-8 inline-block bg-yellow-500 text-black font-semibold py-2 px-4 rounded hover:bg-yellow-600">Voir tous les événements</a>
+
+            </div>
         </div>
     </section>
 

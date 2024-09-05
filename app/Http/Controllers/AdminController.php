@@ -15,14 +15,12 @@ class AdminController extends Controller
     }
     public function newprogrammesave(ValiderProgramme $request){
         
-       // dd($request->validated());
              // Extraire les heures de début et de fin
              $hDebut = $request->validated('h_debut');
              $hFin = $request->validated('h_fin');
              // Convertir les heures en objets DateTime pour la comparaison
              $debut = \DateTime::createFromFormat('H:i', $hDebut);
              $fin = \DateTime::createFromFormat('H:i', $hFin);
-             //dd($fin);
      
                // Vérifier si l'heure de début est avant l'heure de fin
              if ($debut >= $fin) {
@@ -31,7 +29,6 @@ class AdminController extends Controller
              }else{
 
                 Programme::create($this->extractData(new Programme(), $request));
-                //return back();
              }
 
         return redirect()->route('admin')->with('success','Programme publier avec Success ! ! ! ');
@@ -135,4 +132,68 @@ class AdminController extends Controller
             // Redirection après la mise à jour
             return redirect()->route('dashboard')->with('success', 'Post status updated successfully');
         }
+
+        public function newevent(){
+            return view('admin.nouv-evenement');
+        }
+
+
+        public function saveEvenement(Request $request)
+{
+    // Validation des données
+    $validatedData = $request->validate([
+        'titre' => 'required|string|max:255',
+        'description' => 'required|string',
+        'date_debut' => 'required|date',
+        'date_fin' => 'required|date|after_or_equal:date_debut',
+        'h_debut' => 'required|date_format:H:i',
+        'h_fin' => 'required|date_format:H:i|after:h_debut',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'slug' => 'required|string|unique:evenements,slug',
+        'etat' => 'required|boolean',
+        'user_id' => 'nullable|exists:users,id'
+    ]);
+
+    // Extraire les heures de début et de fin
+    $hDebut = $validatedData['h_debut'];
+    $hFin = $validatedData['h_fin'];
+
+    // Convertir les heures en objets DateTime pour la comparaison
+    $debut = \DateTime::createFromFormat('H:i', $hDebut);
+    $fin = \DateTime::createFromFormat('H:i', $hFin);
+
+    // Vérifier si l'heure de début est avant l'heure de fin
+    if ($debut >= $fin) {
+        return redirect()->back()->withErrors(['h_debut' => 'L\'heure de début doit être avant l\'heure de fin.']);
+    } else {
+        // Créer un nouvel événement
+        Evenement::create($this->extractEventData(new Evenement(), $request));
+    }
+
+    return redirect()->route('admin')->with('success', 'Événement publié avec succès !');
+}
+
+private function extractEventData(Evenement $evenement, Request $request)
+{
+    // Extraire les données validées
+    $data = $request->validated();
+
+    // Gérer l'image
+    /**
+     * @var \Illuminate\Http\UploadedFile $image
+     */
+    $image = $request->file('image');
+    if ($image && !$image->getError()) {
+        if ($evenement->image) {
+            // Supprimer l'ancienne image si elle existe
+            \Storage::disk('public')->delete($evenement->image);
+        }
+        // Sauvegarder la nouvelle image
+        $data['image'] = $image->store('evenements', 'public');
+    }
+
+    return $data;
+}
+
+
 }
