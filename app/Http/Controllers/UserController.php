@@ -6,12 +6,14 @@ use App\Http\Requests\RechercherProgramme;
 use App\Http\Requests\ValiderCommentaire;
 use App\Models\Commentaire;
 use App\Models\Programme;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
     public function lirepro(string $pro, string $id){
+
         // Trouver le programme spécifique par ID
         $programe = Programme::find($id);
 
@@ -23,15 +25,20 @@ class UserController extends Controller
         // Appliquer la pagination
         $autres = $autresQuery->paginate(5);
         if($programe->slug  != $pro){
-            return to_route('programme.commentaire',['id'=>$programe,'pro'=>$programe->slug,'Commentaire'=>$programe->Commentaire::paginate(1)]);
+            return to_route('programme.commentaire',['id'=>$programe,'pro'=>$programe->slug,'Commentaire'=>$programe->Commentaire()->orderBy('id','desc')->paginate(5)]);
         }
 
+        
+        $count = $programe->users()->count();
+    
+//dd($count);
         
         // Passer les données à la vue
         return view('lireprogramme', [
             'programme' => $programe,
             'autres' => $autres,
-            'Commentaire'=>$programe->Commentaire()->paginate(5)
+            'count' => $count,
+            'Commentaire'=>$programe->Commentaire()->orderBy('id','desc')->paginate(5)
         ]);
     }
     
@@ -56,9 +63,9 @@ class UserController extends Controller
     }
     public function storecomme(ValiderCommentaire $request , string $pro,string $id)
     {
-        //dd($pro);
+        //dd($id);
         $programe = Programme::find($id);
-$data =$request->validated();
+        $data =$request->validated();
         //dd($programe);
         $data['user_id'] = Auth::user()->id;
 
@@ -71,5 +78,38 @@ $data =$request->validated();
 
         return redirect()->back()->with('success', 'Commentaire publié avec succès');
         
+    }
+
+    public function commentedelete( Commentaire $id ){
+
+        //$post=Commentaire::findOrFail($id);
+        //dd($id);
+        $id->delete();
+        return back()->with('success','Commentaire supprimer avec success');
+    
+    }
+
+
+
+    public function attend(string $pro, string $id)
+
+    {
+        $program = Programme::findOrFail($id);
+        $user = Auth::user();
+
+        if ($user->programs->contains($program)) {
+            $user->programs()->detach($program);
+        } else {
+            $user->programs()->attach($program);
+        }
+
+        return redirect()->back();
+    }
+
+    public function countParticipants(string $pro, string $id)
+    {
+        $program = Programme::findOrFail($id);
+        $count = $program->users()->count();
+        return response()->json(['count' => $count]);
     }
 }

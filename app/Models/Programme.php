@@ -36,4 +36,9 @@ class Programme extends Model
     public function Commentaire(){
         return $this->hasMany(Commentaire::class);
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
 }

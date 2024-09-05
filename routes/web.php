@@ -70,10 +70,21 @@ Route::prefix('programme')->name('programme.')->controller(UserController::class
         'pro'=>'[a-zA-Z0-9\-]+'
     ])->name('lireprogramme');
 
-    Route::post('/{pro}-{id}',  'storecomme')->name('commentaire');
+    Route::post('/{pro}-{id}',  'storecomme')->where([
+        'id'=>'[0-9]+',
+        'pro'=>'[a-zA-Z0-9\-]+'
+    ])->name('commentaire');
+    Route::get('/supp/{id}', 'commentedelete')->name('deletecomm');
 
 
     Route::post('newprogram','newprogrammesave');
 
     Route::get('tous','all')->name('tous');
+
+    Route::post('/{pro}-{id}', 'attend')->where([
+        'id'=>'[0-9]+',
+        'pro'=>'[a-zA-Z0-9\-]+'
+    ])->name('attend');
+    //Route::get('/{pro}-{id}', 'countParticipants')->name('programs.count');
+
 });
