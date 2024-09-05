@@ -100,27 +100,7 @@
     </div>
 </section>
 
-    <!-- Section Contact -->
-    <section id="contact" class="py-16 bg-white">
-        <div class="container mx-auto text-center">
-            <h2 class="text-4xl font-bold mb-8">Nous Contacter</h2>
-            <p class="text-gray-700 mb-8">N'hésitez pas à nous contacter pour plus d'informations ou pour planifier une visite.</p>
-            <div class="flex flex-col items-center">
-                <form class="w-full max-w-lg">
-                    <div class="mb-6">
-                        <input type="text" placeholder="Votre nom" class="w-full p-4 bg-gray-100 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500">
-                    </div>
-                    <div class="mb-6">
-                        <input type="email" placeholder="Votre email" class="w-full p-4 bg-gray-100 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500">
-                    </div>
-                    <div class="mb-6">
-                        <textarea placeholder="Votre message" rows="4" class="w-full p-4 bg-gray-100 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500"></textarea>
-                    </div>
-                    <button type="submit" class="bg-yellow-500 text-black font-semibold py-2 px-4 rounded hover:bg-yellow-600">Envoyer</button>
-                </form>
-            </div>
-        </div>
-    </section>
+
 
 
     </x-app-layout>

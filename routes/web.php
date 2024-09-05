@@ -85,6 +85,11 @@ Route::prefix('programme')->name('programme.')->controller(UserController::class
         'id'=>'[0-9]+',
         'pro'=>'[a-zA-Z0-9\-]+'
     ])->name('attend');
+   
     //Route::get('/{pro}-{id}', 'countParticipants')->name('programs.count');
 
 });
+
+Route::get('lecture-jour',[UserController::class,'lecture'])->name('lecture-jour');
+Route::get('dons',[UserController::class,'dons'])->name('dons');
+Route::get('galerie',[UserController::class,'galerie'])->name('galerie');

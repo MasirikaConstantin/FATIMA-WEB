@@ -77,99 +77,60 @@
             </div>
 
             
-            <footer class="footer bg-gray-50 dark:bg-gray-800 antialiased" style="margin-top: 0px;!important z-index: 5;" >
-                    <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8">
+           
 
-                <div class="p-4 py-6 mx-auto max-w-screen-xl md:p-8 lg:p-10">
-                    <div class="grid grid-cols-2 gap-8 md:grid-cols-3 lg:grid-cols-5">
-                        <div>
-                            <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Company</h2>
-                            <ul class="text-gray-500 dark:text-gray-400">
-                                <li class="mb-4">
-                                    <a href="#" class=" hover:underline">About</a>
-                                </li>
-                                <li class="mb-4">
-                                    <a href="#" class="hover:underline">Careers</a>
-                                </li>
-                                <li class="mb-4">
-                                    <a href="#" class="hover:underline">Brand Center</a>
-                                </li>
-                                <li class="mb-4">
-                                    <a href="#" class="hover:underline">Blog</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Help center</h2>
-                            <ul class="text-gray-500 dark:text-gray-400">
-                                <li class="mb-4">
-                                    <a href="#" class="hover:underline">Discord Server</a>
-                                </li>
-                                <li class="mb-4">
-                                    <a href="#" class="hover:underline">Twitter</a>
-                                </li>
-                                <li class="mb-4">
-                                    <a href="#" class="hover:underline">Facebook</a>
-                                </li>
-                                <li class="mb-4">
-                                    <a href="#" class="hover:underline">Contact Us</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Legal</h2>
-                            <ul class="text-gray-500 dark:text-gray-400">
-                                <li class="mb-4">
-                                    <a href="#" class="hover:underline">Privacy Policy</a>
-                                </li>
-                                <li class="mb-4">
-                                    <a href="#" class="hover:underline">Licensing</a>
-                                </li>
-                                <li class="mb-4">
-                                    <a href="#" class="hover:underline">Terms</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Company</h2>
-                            <ul class="text-gray-500 dark:text-gray-400">
-                                <li class="mb-4">
-                                    <a href="#" class=" hover:underline">About</a>
-                                </li>
-                                <li class="mb-4">
-                                    <a href="#" class="hover:underline">Careers</a>
-                                </li>
-                                <li class="mb-4">
-                                    <a href="#" class="hover:underline">Brand Center</a>
-                                </li>
-                                <li class="mb-4">
-                                    <a href="#" class="hover:underline">Blog</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Download</h2>
-                            <ul class="text-gray-500 dark:text-gray-400">
-                                <li class="mb-4">
-                                    <a href="#" class="hover:underline">iOS</a>
-                                </li>
-                                <li class="mb-4">
-                                    <a href="#" class="hover:underline">Android</a>
-                                </li>
-                                <li class="mb-4">
-                                    <a href="#" class="hover:underline">Windows</a>
-                                </li>
-                                <li class="mb-4">
-                                    <a href="#" class="hover:underline">MacOS</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!--hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8"-->
-                    
+    <!-- Footer Futuriste -->
+<footer class="bg-gray-900 text-white py-16">
+    <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Section À Propos -->
+        <div>
+            <h3 class="text-2xl font-semibold mb-4">À propos de nous</h3>
+            <p class="text-gray-400 mb-6">La Paroisse Notre Dame de Fatima est un lieu de paix et de foi, dédié à la communauté et à la spiritualité.</p>
+            <div class="flex space-x-4">
+                <a href="#" class="text-gray-400 hover:text-yellow-500"><i class="fab fa-facebook fa-2x"></i></a>
+                <a href="#" class="text-gray-400 hover:text-yellow-500"><i class="fab fa-twitter fa-2x"></i></a>
+                <a href="#" class="text-gray-400 hover:text-yellow-500"><i class="fab fa-instagram fa-2x"></i></a>
+            </div>
+        </div>
+
+        <!-- Section Liens Utiles -->
+        <div>
+            <h3 class="text-2xl font-semibold mb-4">Liens Utiles</h3>
+            <ul class="text-gray-400 space-y-2">
+                <li><a href="#" class="hover:text-yellow-500">Accueil</a></li>
+                <li><a href="#" class="hover:text-yellow-500">Nos Programmes</a></li>
+                <li><a href="#" class="hover:text-yellow-500">Événements</a></li>
+                <li><a href="#" class="hover:text-yellow-500">Actualités</a></li>
+            </ul>
+        </div>
+
+        <!-- Section Nous Contacter -->
+        <div>
+            <h3 class="text-2xl font-semibold mb-4">Nous Contacter</h3>
+            <form>
+                <div class="mb-4">
+                    <input type="text" placeholder="Votre nom" class="w-full p-3 bg-gray-800 text-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500">
                 </div>
-              </footer>
-    
+                <div class="mb-4">
+                    <input type="email" placeholder="Votre email" class="w-full p-3 bg-gray-800 text-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                </div>
+                <div class="mb-4">
+                    <textarea placeholder="Votre message" rows="4" class="w-full p-3 bg-gray-800 text-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"></textarea>
+                </div>
+                <button type="submit" class="w-full bg-yellow-500 text-black py-3 px-4 rounded-lg hover:bg-yellow-600 font-semibold">Envoyer</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bottom Footer -->
+    <div class="mt-12 border-t border-gray-800 pt-8 text-center text-gray-400">
+        <p>&copy; 2024 Paroisse Notre Dame de Fatima. Tous droits réservés.</p>
+    </div>
+</footer>
+
+<!-- FontAwesome Icons (optional for social icons) -->
+<script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+
 
 
               @vite(['resources/js/app.js'])

@@ -112,4 +112,15 @@ class UserController extends Controller
         $count = $program->users()->count();
         return response()->json(['count' => $count]);
     }
+
+    public function lecture(){
+        return view('lecture');
+    }
+    public function dons(){
+        return view('dons');
+    }
+
+    public function galerie(){
+        return view('galerie');
+    }
 }
