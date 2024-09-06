@@ -93,7 +93,6 @@ Route::prefix('admin')->name('admin.')->controller(AdminController::class)->midd
 
     Route::get('/modif/{id}','editpro')->name('editpro');
     Route::put('/modif/{id}','edit');
-
     Route::get('/modif_event/{id}','edit_evnt')->name('edit_evnt');
     Route::put('/modif_event/{id}','editevent');
 
@@ -109,6 +108,7 @@ Route::prefix('admin')->name('admin.')->controller(AdminController::class)->midd
     Route::get('/delet-news/{id}','deletnews')->name('deletnews');
     //archiver
     Route::put('/modif-news/{id}','editnews_archive')->name('editnews_archive');
+    Route::put('/modif_events/{id}','editevents_archive')->name('editevents_archive');
 
 
 
@@ -151,6 +151,10 @@ Route::get('galerie',[UserController::class,'galerie'])->name('galerie');
 Route::get('news',[UserController::class,'news'])->name('news');
 Route::put('/profile', [UserController::class, 'profil'])->name('photo');
 
+Route::get('/{pro}-{id}', [ UserController::class, 'actuslire'])->where([
+    'id'=>'[0-9]+',
+    'pro'=>'[a-zA-Z0-9\-]+'
+])->name('actuslire');
 
 Route::prefix('event')->name('event.')->controller(UserController::class)->group( function () {
     Route::get('tousevents','allevents')->name('tousevent');

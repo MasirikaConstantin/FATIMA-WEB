@@ -192,7 +192,7 @@
                         <h3 class="text-2xl font-semibold mb-2">🚨🚨{{ Str::limit($act->titre,10) }}</h3>
                         <p class="text-gray-700 mb-4">{{ Str::limit($act->description, 50) }}
                         </p>
-                        <a href="#" class="text-yellow-500 font-semibold hover:underline">Lire plus</a>
+                        <a href="{{ route('actuslire', ['pro' => $act->slug, 'id' => $act->id]) }}" class="text-yellow-500 font-semibold hover:underline">Lire plus</a>
                     </div>
                 </div>
                
@@ -202,7 +202,7 @@
             </div>
             <a href="{{ route('news') }}"
                 class="mt-8 inline-block bg-yellow-500 text-black font-semibold py-2 px-4 rounded hover:bg-yellow-600">Voir
-                toutes les actualités</a>
+                Toutes les actualités</a>
         </div>
     </section>
 

@@ -46,7 +46,7 @@
             <!-- Page Content -->
 
             
-            <main style="width: 100%" >
+            <main style="width: 100%" class=" bg-gray-100" >
                 {{ $slot }}
 
                 
@@ -141,7 +141,56 @@
 
 
               @vite(['resources/js/app.js'])
-        
+              <script>
+                
+                // Sélectionnez tous les éléments du tableau
+        var elements = document.querySelectorAll("table #tr");
+
+        // Parcourez tous les éléments
+        for(var i = 0; i < elements.length; i++) {
+            // Si l'élément est supérieur à 3, cachez-le
+            if(i >= 15) {
+                elements[i].style.display = "none";
+            }
+        }
+
+        // Sélectionnez tous les éléments du tableau
+        var elements = document.querySelectorAll("table #trs");
+
+        // Parcourez tous les éléments
+        for(var i = 0; i < elements.length; i++) {
+            // Si l'élément est supérieur à 3, cachez-le
+            if(i >= 5) {
+                elements[i].style.display = "none";
+            }
+        }
+
+        function filterTable() {
+
+            // Declare variables
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+
+            // Loop through all table rows, and hide those who don't match the search query
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+
+        }
+
+</script>
               
         </body>
 </html>

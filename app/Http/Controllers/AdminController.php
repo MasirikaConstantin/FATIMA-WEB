@@ -35,7 +35,7 @@ class AdminController extends Controller
                 Programme::create($this->extractData(new Programme(), $request));
              }
 
-        return redirect()->route('admin')->with('success','Programme publier avec Success ! ! ! ');
+        return redirect()->route('admin.allpro')->with('success','Programme publier avec Success ! ! ! ');
 
     }
 
@@ -211,11 +211,11 @@ public function editevent(EvenementsValidateur $request, Evenements $id)
             if($status==null){
                 $data['status']=0;
                 $evenement->update($data);
-                return redirect()->route('admin')->with('success','evenement  Modifiée  avec Success ! ! ! ');
+                return redirect()->route('admin.alleve')->with('success','evenement  Modifiée  avec Success ! ! ! ');
 
             }else{
                 $evenement->update($data);
-                return redirect()->route('admin')->with('success','evenement  Modifiée  avec Success ! ! ! ');
+                return redirect()->route('admin.alleve')->with('success','evenement  Modifiée  avec Success ! ! ! ');
 
             }
 
@@ -230,14 +230,14 @@ public function editevent(EvenementsValidateur $request, Evenements $id)
 
             $data['status']=0;
             $evenement->update($data);
-            return redirect()->route('admin')->with('success','evenement  Modifiée  avec Success ! ! ! ');
+            return redirect()->route('admin.alleve')->with('success','evenement  Modifiée  avec Success ! ! ! ');
 
         }else{
         $data['image']=$image->store('evenements','public');
 
             $evenement->update($data);
         
-        return redirect()->route('admin')->with('success', 'evenement modifié avec succès !');
+        return redirect()->route('admin.alleve')->with('success', 'evenement modifié avec succès !');
     }
 
 }
@@ -301,7 +301,7 @@ private function extractActusData(Actu $evenement, Request $request)
         [
             'nombre_eve' => Evenements::count(),
             'nombre_actif_eve' => Evenements::where("etat", 1)->count(),
-            'tous_eve' => Evenements::orderBy('id', 'desc')->paginate(6),
+            'tous_eve' => Evenements::orderBy('id', 'desc')->get(),
 
 
 
@@ -375,5 +375,23 @@ public function editnews_archive(Request $request, Actu $id){
 
     // Redirection après la mise à jour
     return redirect()->route('admin.allnew')->with('success', 'L\'actus  a été modifier  avec Success ! ! !');
+}
+
+public function editevents_archive(Request $request, Evenements $id){
+
+    
+    // Valider uniquement le champ 'etat'
+    $request->validate([
+       'etat' => 'required|boolean',
+   ]);
+
+   // Récupérer la valeur de 'etat'
+   $etat = $request->input('etat');
+   //dd($etat);
+   // Mettre à jour le champ 'etat' du post
+   $id->update(['etat' => $etat]);
+
+   // Redirection après la mise à jour
+   return redirect()->route('admin.alleve')->with('success', 'L\'événement  a été modifier  avec Success ! ! !');
 }
 }

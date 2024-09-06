@@ -1,3 +1,5 @@
+@section("titre",'Administration')
+
 <x-app-layout>
     <style>
         .nav{

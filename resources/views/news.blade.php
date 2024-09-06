@@ -19,7 +19,7 @@
 
                     @endif
                     <div class="p-4">
-                        <h3 class="text-2xl font-semibold mb-2">{{ $dernier->titre }}</h3>
+                        <a href="{{ route('actuslire', ['pro' => $dernier->slug, 'id' => $dernier->id]) }}" class="text-2xl font-semibold mb-2">{{ $dernier->titre }}</a>
                         <p>
                             🚨🚨
                         </p>
@@ -38,7 +38,7 @@
 
                     @endif
                         <div class="p-4">
-                            <h3 class="text-xl font-semibold mb-2">{{ Str::limit($d->titre, 25) }}</h3>
+                            <a href="{{ route('actuslire', ['pro' => $d->slug, 'id' => $d->id]) }}" class="text-xl font-semibold mb-2">{{ Str::limit($d->titre, 25) }}</a>
                             <p class="text-gray-600 text-sm">{{ Str::limit($d->description, 105) }}.</p>
                         </div>
                     </div>
@@ -62,13 +62,14 @@
 
             @forelse ($anciens as $a )
                 <div class="flex items-center p-4 bg-blue-50 rounded-lg shadow-md">
-                    @if ($d->image)
-                         <img src="{{ $d->imageUrls()  }}" alt="Catégorie Image 1" class="w-12 h-12 object-cover rounded-full mr-4">
+                    @if ($a->image)
+                         <img src="{{ $a->imageUrls()  }}" alt="Catégorie Image 1" class="w-12 h-12 object-cover rounded-full mr-4">
                     @else
                         <img src="{{ asset('presentation/IMG_20240827_122849_600.jpg')  }}" alt="Catégorie Image 1" class="w-12 h-12 object-cover rounded-full mr-4">
                     @endif
                     <div>
-                        <h3 class="font-semibold text-lg">{{ Str::limit($a->titre, 15) }}</h3>
+                        <a href="{{ route('actuslire', ['pro' => $a->slug, 'id' => $a->id]) }}" class="font-semibold text-lg">{{ Str::limit($a->titre, 15) }}</a>
+
                         <p class="text-sm text-gray-600"> 🚨🚨{{ Str::limit($a->description, 50) }}</p>
                     </div>
                 </div>
