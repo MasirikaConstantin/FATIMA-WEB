@@ -6,19 +6,30 @@
         <div class="bg-white p-6 rounded-lg shadow-lg">
             <h1 class="text-2xl font-bold mb-6 text-center">Créer un événement</h1>
 
-            <form action="/admin/evenement/store" method="POST" enctype="multipart/form-data" class="space-y-6">
+            <form {{route($evenement->exists ? 'admin.edit_evnt': 'admin.newevent', $evenement->id)}} method="POST" enctype="multipart/form-data" class="space-y-6">
+                @if ($evenement->exists) 
+                    @method('PUT')
+                    @endif
+                @csrf
+                <input type="hidden"  autocomplete="off" name="user_id" value="{{ Auth::user()->id }}" >
                 <!-- Titre -->
                 <div>
                     <label for="titre" class="block text-gray-700 font-medium">Titre</label>
-                    <input type="text" id="titre" name="titre" required
+                    <input type="text" id="titre" name="titre" dddd value="{{ old('titre',$evenement->titre) }}"
                         class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        @error('titre')
+                        <p class="mt-2 text-sm text-red-600 dark:text-red-500"> {{ $message }} </p>
+                        @enderror
                 </div>
 
                 <!-- Description -->
                 <div>
                     <label for="description" class="block text-gray-700 font-medium">Description</label>
-                    <textarea id="description" name="description" rows="4" required
-                        class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
+                    <textarea id="description" name="description" rows="4" dddd 
+                        class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">{{ old('description',$evenement->description) }}</textarea>
+                        @error('description')
+                        <p class="mt-2 text-sm text-red-600 dark:text-red-500"> {{ $message }} </p>
+                        @enderror
                 </div>
 
                 <!-- Date de début et Date de fin -->
@@ -26,14 +37,20 @@
                     <!-- Date début -->
                     <div class="w-1/2">
                         <label for="date_debut" class="block text-gray-700 font-medium">Date de début</label>
-                        <input type="date" id="date_debut" name="date_debut" required
+                        <input type="date" id="date_debut" name="date_debut" value="{{ old('date_debut',$evenement->date_debut) }}"
                             class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            @error('date_debut')
+                        <p class="mt-2 text-sm text-red-600 dark:text-red-500"> {{ $message }} </p>
+                        @enderror
                     </div>
                     <!-- Date fin -->
                     <div class="w-1/2">
                         <label for="date_fin" class="block text-gray-700 font-medium">Date de fin</label>
-                        <input type="date" id="date_fin" name="date_fin" required
+                        <input type="date" id="date_fin" name="date_fin" value="{{ old('date_fin',$evenement->date_fin) }}"
                             class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            @error('date_fin')
+                        <p class="mt-2 text-sm text-red-600 dark:text-red-500"> {{ $message }} </p>
+                        @enderror
                     </div>
                 </div>
 
@@ -42,13 +59,16 @@
                     <!-- Heure début -->
                     <div class="w-1/2">
                         <label for="h_debut" class="block text-gray-700 font-medium">Heure de début</label>
-                        <input type="time" id="h_debut" name="h_debut" required
+                        <input type="time" id="h_debut" name="h_debut" value="{{ old('h_debut',$evenement->h_debut) }}"
                             class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            @error('h_debut')
+                            <p class="mt-2 text-sm text-red-600 dark:text-red-500"> {{ $message }} </p>
+                            @enderror
                     </div>
                     <!-- Heure fin -->
                     <div class="w-1/2">
                         <label for="h_fin" class="block text-gray-700 font-medium">Heure de fin</label>
-                        <input type="time" id="h_fin" name="h_fin" required
+                        <input type="time" id="h_fin" name="h_fin" value="{{ old('h_debut',$evenement->h_fin) }}"
                             class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
                     </div>
                 </div>
@@ -69,7 +89,6 @@
                         <img id='imageDiv'>
                     </div>                
                 </div>
-
                 <!-- Bouton de soumission -->
                 <div class="text-center">
                     <button type="submit"

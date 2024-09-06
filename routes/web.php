@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CommentaireControle;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Models\Evenements;
 use App\Models\Programme;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +25,7 @@ Route::get('/', function () {
     return view('welcome', [
        // "presentation" => Programme::latest()->where('etat',"==",0)->first(),
         'programmes' => Programme::orderBy('id', 'desc')->where('etat',"==",0)->paginate(4),
+        'evenements' => Evenements::orderBy('id', 'desc')->where('etat',"==",0)->paginate(2),
     ]);
 })->name('welcome');
 
@@ -36,8 +38,11 @@ Route::get('gest-admin/dashboard', function () {
     return view('admin',
 [
     'tous'=>Programme::orderBy('id','desc')->paginate(6),
+    'tous_eve'=>Evenements::orderBy('id','desc')->paginate(6),
     'nombre'=>Programme::count(),
-    'nombre_actif'=>Programme::where("etat", 1)->count()
+    'nombre_eve'=>Evenements::count(),
+    'nombre_actif'=>Programme::where("etat", 1)->count(),
+    'nombre_actif_eve'=>Evenements::where("etat", 1)->count()
 
 ]);
 })->middleware(['auth', 'verified','rolemanager:admin'])->name('admin');
@@ -59,9 +64,15 @@ Route::prefix('admin')->name('admin.')->controller(AdminController::class)->midd
     Route::post('newprogram','newprogrammesave');
 
     Route::get('newevent','newevent')->name('newevent');
+    Route::post('newevent','saveEvenement');
+
 
     Route::get('/modif/{id}','editpro')->name('editpro');
     Route::put('/modif/{id}','edit');
+
+    Route::get('/modif_event/{id}','edit_evnt')->name('edit_evnt');
+    Route::put('/modif_event/{id}','editevent');
+
     Route::get('/delet/{id}','deletpro')->name('deletprogram');
     Route::put('/prog/{id}', 'updates')->name('posts.update');
 
@@ -73,6 +84,11 @@ Route::prefix('programme')->name('programme.')->controller(UserController::class
         'pro'=>'[a-zA-Z0-9\-]+'
     ])->name('lireprogramme');
 
+    Route::get('/event/{pro}-{id}','lireevent')->where([
+        'id'=>'[0-9]+',
+        'pro'=>'[a-zA-Z0-9\-]+'
+    ])->name('lireeventsme');
+
     Route::post('/{pro}-{id}',  'storecomme')->where([
         'id'=>'[0-9]+',
         'pro'=>'[a-zA-Z0-9\-]+'
@@ -83,6 +99,7 @@ Route::prefix('programme')->name('programme.')->controller(UserController::class
     Route::post('newprogram','newprogrammesave');
 
     Route::get('tous','all')->name('tous');
+    Route::get('tousevents','allevents')->name('tousevent');
 
     Route::post('/{pro}-{id}', 'attend')->where([
         'id'=>'[0-9]+',

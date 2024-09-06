@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EvenementsValidateur;
 use App\Http\Requests\ValiderProgramme;
+use App\Models\Evenements;
 use App\Models\Programme;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -56,9 +58,36 @@ class AdminController extends Controller
         return $data;
     }
 
+    private function extractEventData(Evenements $evenement, Request $request)
+{
+    // Extraire les données validées
+    $data = $request->validated();
+
+    // Gérer l'image
+    /**
+     * @var \Illuminate\Http\UploadedFile $image
+     */
+    $image = $request->file('image');
+    if ($image && !$image->getError()) {
+        if ($evenement->image) {
+            // Supprimer l'ancienne image si elle existe
+            Storage::disk('public')->delete($evenement->image);
+        }
+        // Sauvegarder la nouvelle image
+        $data['image'] = $image->store('evenements', 'public');
+    }
+
+    return $data;
+}
+
     public function editpro(Programme $id){
         //    dd($id);
             return view('admin.nouv-programme',['programme' =>$id]);
+    }
+
+    public function edit_evnt(Evenements $id){
+        //    dd($id);
+            return view('admin.nouv-evenement',['evenement' =>$id]);
     }
 
 
@@ -89,14 +118,14 @@ class AdminController extends Controller
         }
 
         if($status==null){
-        $data['image']=$image->store('imagecat','public');
+        $data['image']=$image->store('imageprogramme','public');
 
             $data['status']=0;
             $programme->update($data);
             return redirect()->route('admin')->with('success','programme  Modifiée  avec Success ! ! ! ');
 
         }else{
-        $data['image']=$image->store('imagecat','public');
+        $data['image']=$image->store('imageprogramme','public');
 
             $programme->update($data);
         
@@ -133,26 +162,15 @@ class AdminController extends Controller
             return redirect()->route('dashboard')->with('success', 'Post status updated successfully');
         }
 
-        public function newevent(){
-            return view('admin.nouv-evenement');
+        public function newevent(Evenements $event){
+            return view('admin.nouv-evenement',['evenement' =>$event]);
         }
 
 
-        public function saveEvenement(Request $request)
+        public function saveEvenement(EvenementsValidateur $request)
 {
     // Validation des données
-    $validatedData = $request->validate([
-        'titre' => 'required|string|max:255',
-        'description' => 'required|string',
-        'date_debut' => 'required|date',
-        'date_fin' => 'required|date|after_or_equal:date_debut',
-        'h_debut' => 'required|date_format:H:i',
-        'h_fin' => 'required|date_format:H:i|after:h_debut',
-        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        'slug' => 'required|string|unique:evenements,slug',
-        'etat' => 'required|boolean',
-        'user_id' => 'nullable|exists:users,id'
-    ]);
+    $validatedData = $request->validated();
 
     // Extraire les heures de début et de fin
     $hDebut = $validatedData['h_debut'];
@@ -167,33 +185,57 @@ class AdminController extends Controller
         return redirect()->back()->withErrors(['h_debut' => 'L\'heure de début doit être avant l\'heure de fin.']);
     } else {
         // Créer un nouvel événement
-        Evenement::create($this->extractEventData(new Evenement(), $request));
+        Evenements::create($this->extractEventData(new Evenements(), $request));
+    return redirect()->route('admin')->with('success', 'Événement publié avec succès !');
+
     }
 
     return redirect()->route('admin')->with('success', 'Événement publié avec succès !');
 }
 
-private function extractEventData(Evenement $evenement, Request $request)
-{
-    // Extraire les données validées
-    $data = $request->validated();
+public function editevent(EvenementsValidateur $request, Evenements $id)
+    {
+        $data=$request->validated();
+        $image=$request->validated('image');
+        $evenement=$id;
+        $status=$request->validated('status');
 
-    // Gérer l'image
-    /**
-     * @var \Illuminate\Http\UploadedFile $image
-     */
-    $image = $request->file('image');
-    if ($image && !$image->getError()) {
-        if ($evenement->image) {
-            // Supprimer l'ancienne image si elle existe
-            \Storage::disk('public')->delete($evenement->image);
+        //dd($id);
+        if($image == null || $image->getError()){
+            if($status==null){
+                $data['status']=0;
+                $evenement->update($data);
+                return redirect()->route('admin')->with('success','evenement  Modifiée  avec Success ! ! ! ');
+
+            }else{
+                $evenement->update($data);
+                return redirect()->route('admin')->with('success','evenement  Modifiée  avec Success ! ! ! ');
+
+            }
+
         }
-        // Sauvegarder la nouvelle image
-        $data['image'] = $image->store('evenements', 'public');
+        if($evenement->image){
+            Storage::disk('public')->delete($evenement->image);
+
+        }
+
+        if($status==null){
+        $data['image']=$image->store('evenements','public');
+
+            $data['status']=0;
+            $evenement->update($data);
+            return redirect()->route('admin')->with('success','evenement  Modifiée  avec Success ! ! ! ');
+
+        }else{
+        $data['image']=$image->store('evenements','public');
+
+            $evenement->update($data);
+        
+        return redirect()->route('admin')->with('success', 'evenement modifié avec succès !');
     }
 
-    return $data;
 }
+
 
 
 }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Evenements extends Model
 {
@@ -23,4 +24,11 @@ class Evenements extends Model
         'user_id',
         'etat'
     ];
+    public function imageUrls(){
+        return Storage::disk('public')->url($this->image); 
+    }
+
+    public function User(){
+        return $this->belongsTo(User::class,'user_id');
+    }
 }

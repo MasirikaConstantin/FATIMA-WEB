@@ -37,8 +37,8 @@ class EvenementsValidateur extends FormRequest
                 'dimensions:min_width=100,min_height=200,max_width=2000,max_height=4000',
             ],
             'slug' => ['required', 'min:8', 'regex:/^[0-9a-z\-]+$/', 'unique:evenements,slug'],
+
             'user_id' => ['required', 'exists:users,id'],
-            'etat' => ['required', 'boolean'],
         ];
     }
 

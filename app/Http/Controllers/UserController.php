@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RechercheEvent;
 use App\Http\Requests\RechercherProgramme;
 use App\Http\Requests\ValiderCommentaire;
 use App\Models\Commentaire;
+use App\Models\Evenements;
 use App\Models\Programme;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -122,5 +124,20 @@ class UserController extends Controller
 
     public function galerie(){
         return view('galerie');
+    }
+    public function allevents(RechercheEvent $request){
+        $query=Evenements::query();
+        if($titre=$request->validated('titre')){
+            $query=$query->where('titre','like', "%{$titre}%" );
+        }
+       
+        
+            return view ('allevent', [
+                'events' => $query->orderByDesc('id')->where('id','!=','0')->paginate(4),
+            ]);
+        
+    }
+    public function lireevent(string $pro, string $id){
+        return Evenements::findorfail($id);
     }
 }
