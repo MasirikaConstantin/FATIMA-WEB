@@ -33,17 +33,16 @@
             </div>
             <ul class="py-2" aria-labelledby="user-menu-button">
                 @auth
-
+                @if (Auth::user()->role == 0)
                 <li>
                   <a href="{{ route("admin") }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</a>
                   </li>
+                @endif
                   <li>
                   <a href="{{route('profile.edit')}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Mon Profil</a>
                   </li>
 
-                  <li>
-                  <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Earnings</a>
-                  </li>
+                 
                   <li>
 
                     <form method="POST" action="{{ route('logout') }}">

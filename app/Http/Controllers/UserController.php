@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Photoprofilvalidator;
-use App\Http\Requests\RechercheEvent;
+use App\Http\Requests\Rechercheactusnt;
 use App\Http\Requests\RechercherProgramme;
 use App\Http\Requests\ValiderCommentaire;
+use App\Models\Actu;
 use App\Models\Commentaire;
-use App\Models\CommentaireEvent;
-use App\Models\Evenements;
+use App\Models\Commentaireactusnt;
+use App\Models\actusnements;
 use App\Models\Programme;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -128,69 +129,69 @@ class UserController extends Controller
     public function galerie(){
         return view('galerie');
     }
-    public function allevents(RechercheEvent $request){
-        $query=Evenements::query();
+    public function allactusnts(Rechercheactusnt $request){
+        $query=actusnements::query();
         if($titre=$request->validated('titre')){
             $query=$query->where('titre','like', "%{$titre}%" );
         }
        
         
-            return view ('allevent', [
-                'events' => $query->orderByDesc('id')->where('id','!=','0')->paginate(4),
+            return view ('allactusnt', [
+                'actusnts' => $query->orderByDesc('id')->where('id','!=','0')->paginate(4),
             ]);
         
     }
-    public function lireevent(string $pro, string $id){
+    public function lireactusnt(string $pro, string $id){
         // Trouver le programme spécifique par ID
-        $evenement = Evenements::find($id);
+        $actusnement = actusnements::find($id);
 
        
         // Filtrer les programmes en excluant celui avec l'ID donné
-        $autresQuery = Evenements::where('id', '!=', $id)
+        $autresQuery = actusnements::where('id', '!=', $id)
                                  ->orderBy('id', 'desc');
     
         // Appliquer la pagination
         $autres = $autresQuery->paginate(5);
-        if($evenement->slug  != $pro){
-            return to_route('programme.commentaire',['id'=>$evenement,'pro'=>$evenement->slug]);
+        if($actusnement->slug  != $pro){
+            return to_route('programme.commentaire',['id'=>$actusnement,'pro'=>$actusnement->slug]);
         }
 
         
-       // $count = $evenement->users()->count();
+       // $count = $actusnement->users()->count();
     
 //dd($count);
         
         // Passer les données à la vue
-        return view('lireevent', [
-            'evenement' => $evenement,
+        return view('lireactusnt', [
+            'actusnement' => $actusnement,
             'autres' => $autres,
             //'count' => $count,
-            'Commentaire'=>$evenement->commentaires()->orderBy('id','desc')->paginate(5)
+            'Commentaire'=>$actusnement->commentaires()->orderBy('id','desc')->paginate(5)
         ]);
-        //return Evenements::findorfail($id);
+        //return actusnements::findorfail($id);
     }
 
 
-    public function storecommeevent(ValiderCommentaire $request , string $pro,string $id)
+    public function storecommeactusnt(ValiderCommentaire $request , string $pro,string $id)
     {
         //dd($id);
-        $evenement = Evenements::find($id);
+        $actusnement = actusnements::find($id);
         $data =$request->validated();
         //dd($programe);
         $data['user_id'] = Auth::user()->id;
 
-        $data['evenements_id'] = $evenement['id'];
+        $data['actusnements_id'] = $actusnement['id'];
         //dd($data);
-        CommentaireEvent::create($data);
-        if($evenement->slug  != $pro){
-            return to_route('programme.commentaire',['id'=>$evenement,'pro'=>$evenement->slug]);
+        Commentaireactusnt::create($data);
+        if($actusnement->slug  != $pro){
+            return to_route('programme.commentaire',['id'=>$actusnement,'pro'=>$actusnement->slug]);
         }
 
         return redirect()->back()->with('success', 'Commentaire publié avec succès');
         
     }
 
-    public function commentedeleteevent( CommentaireEvent $id ){
+    public function commentedeleteactusnt( Commentaireactusnt $id ){
 
         //$post=Commentaire::findOrFail($id);
        // dd($id);
@@ -222,7 +223,29 @@ class UserController extends Controller
         
 
     }
-    public function news() {
-        return view('news');
+    public function news () {
+
+        // Récupérer le dernier enregistrement
+    $dernierProgramme = Actu::orderBy('id', 'desc')->where('etat',"==",0)->first();
+    
+    // Récupérer tous les programmes sauf le dernier, avec une pagination de 4
+    $programmesSansDernierQuery = Actu::orderBy('id', 'desc')->where('etat',"==",0);
+    
+    if ($dernierProgramme) {
+        $programmesSansDernierQuery = $programmesSansDernierQuery->where('etat',"==",0)->where('id', '<>', $dernierProgramme->id);
     }
+    
+    $programmesSansDernier = $programmesSansDernierQuery->paginate(8);
+
+        return view('news',
+        [
+            'dernier' => $dernierProgramme,
+            "deux" =>$programmesSansDernier,
+            "anciens" =>Actu::paginate(5)
+        ]
+    );
+    }
+
+    
+
 }

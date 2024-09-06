@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Actu extends Model
 {
@@ -15,5 +16,10 @@ class Actu extends Model
             'slug',
             'image',
             'user_id',
+            'etat',
     ];
+
+    public function imageUrls(){
+        return Storage::disk('public')->url($this->image); 
+    }
 }

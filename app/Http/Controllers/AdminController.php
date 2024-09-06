@@ -93,6 +93,10 @@ class AdminController extends Controller
     }
 
 
+    public function edit_news(Actu $id){
+        //    dd($id);
+            return view('admin.nouv-actus',['actus' =>$id]);
+    }
     public function edit(ValiderProgramme $request, Programme $id)
     {
         $data=$request->validated();
@@ -278,5 +282,98 @@ private function extractActusData(Actu $evenement, Request $request)
     }
 
     return $data;
+}
+
+
+    public function allpro(){
+        return view('admin.tous-programme',
+        [
+            'tous' => Programme::orderBy('id', 'desc')->paginate(6),
+            'nombre' => Programme::count(),
+            'nombre_actif' => Programme::where("etat", 1)->count(),
+
+
+        ]);
+    }
+
+    public function alleve(){
+        return view('admin.tous-events',
+        [
+            'nombre_eve' => Evenements::count(),
+            'nombre_actif_eve' => Evenements::where("etat", 1)->count(),
+            'tous_eve' => Evenements::orderBy('id', 'desc')->paginate(6),
+
+
+
+        ]);
+    }
+
+    public function allnew(){
+        return view('admin.tous-news',
+        [
+            'tous_act' => Actu::orderBy('id', 'desc')->get(),
+            'nombre_act' => Actu::count(),
+            'nombre_actif_act' => Actu::where("etat", 1)->count(),
+
+        ]);
+    }
+
+
+
+
+    public function editnews(ActuValidator $request, Actu $id)
+    {
+        $data=$request->validated();
+        $image=$request->validated('image');
+        $programme=$id;
+
+        //dd($id);
+        if($image == null || $image->getError()){
+                $programme->update($data);
+                return redirect()->route('admin.allnew')->with('success','Actualité  Modifiée  avec Success ! ! ! ');
+
+           
+
+        }
+        if($programme->image){
+            Storage::disk('public')->delete($programme->image);
+
+        }
+
+        
+        $data['image']=$image->store('actus','public');
+
+            $programme->update($data);
+        
+        return redirect()->route('admin.allnew')->with('success', 'Actualité modifié avec succès !');
+
+}
+
+public function deletnews( Actu  $id ){
+    if($id->image){
+        Storage::disk('public')->delete($id->image);
+    }
+
+    $id->delete();
+    return redirect()->route('admin.allnew')->with('success','Le Programme  a été supprimer  avec Success ! ! ! ');
+
+
+}
+public function editnews_archive(Request $request, Actu $id){
+
+    
+     // Valider uniquement le champ 'etat'
+     $request->validate([
+        'etat' => 'required|boolean',
+    ]);
+
+    // Récupérer la valeur de 'etat'
+    $etat = $request->input('etat');
+    //dd($etat);
+    // Mettre à jour le champ 'etat' du post
+    $id->update(['etat' => $etat]);
+
+    // Redirection après la mise à jour
+    return redirect()->route('admin.allnew')->with('success', 'L\'actus  a été modifier  avec Success ! ! !');
 }
 }

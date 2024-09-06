@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CommentaireControle;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Models\Actu;
 use App\Models\Evenements;
 use App\Models\Programme;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +27,7 @@ Route::get('/', function () {
        // "presentation" => Programme::latest()->where('etat',"==",0)->first(),
         'programmes' => Programme::orderBy('id', 'desc')->where('etat',"==",0)->paginate(4),
         'evenements' => Evenements::orderBy('id', 'desc')->where('etat',"==",0)->paginate(2),
+        'actus' => Actu::orderBy('id', 'desc')->where('etat',"==",0)->paginate(3),
     ]);
 })->name('welcome');
 /*
@@ -60,12 +62,9 @@ Route::get('/dashboard', function () {
 
 Route::get('gest-admin/dashboard', function () {
     return view('admin', [
-        'tous' => Programme::orderBy('id', 'desc')->paginate(6),
-        'tous_eve' => Evenements::orderBy('id', 'desc')->paginate(6),
-        'nombre' => Programme::count(),
-        'nombre_eve' => Evenements::count(),
-        'nombre_actif' => Programme::where("etat", 1)->count(),
-        'nombre_actif_eve' => Evenements::where("etat", 1)->count()
+        'tous_act' => Actu::orderBy('id', 'desc')->paginate(6),
+        'nombre_act' => Actu::count(),
+        'nombre_actif_act' => Actu::where("etat", 1)->count(),
     ]);
 })->middleware(['auth', 'verified', 'rolemanager:admin'])->name('admin');
 
@@ -103,6 +102,19 @@ Route::prefix('admin')->name('admin.')->controller(AdminController::class)->midd
 
     Route::get('/modif_actus/{id}','edit_actus')->name('edit_actus');
     Route::put('/modif_actus/{id}','editactus');
+
+    Route::get('/modif_news/{id}','edit_news')->name('edit_news');
+    Route::put('/modif_news/{id}','editnews');
+
+    Route::get('/delet-news/{id}','deletnews')->name('deletnews');
+    //archiver
+    Route::put('/modif-news/{id}','editnews_archive')->name('editnews_archive');
+
+
+
+    Route::get('/allpro', 'allpro')->name('allpro');
+    Route::get('/alleve', 'alleve')->name('alleve');
+    Route::get('/allnew', 'allnew')->name('allnew');
 });
 
 Route::prefix('programme')->name('programme.')->controller(UserController::class)->group( function () {

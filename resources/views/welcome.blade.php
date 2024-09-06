@@ -180,44 +180,31 @@
             <h2 class="text-4xl font-bold mb-8">Actualités</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Actualité 1 -->
+                @forelse ($actus as $act)
                 <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                    <img src="https://source.unsplash.com/400x300/?church,event" alt="Actualité 1"
-                        class="w-full h-48 object-cover">
+                    @if ($act->image)
+                        <img src="{{ $act->imageUrls()  }}" alt="Actualité 1" class="w-full h-48 object-cover">
+                    @else
+                        <img src="{{ asset('presentation/IMG_20240827_122849_600.jpg')  }}" alt="Actualité 1" class="w-full h-48 object-cover">
+
+                    @endif
                     <div class="p-6">
-                        <h3 class="text-2xl font-semibold mb-2">Messe spéciale pour les jeunes</h3>
-                        <p class="text-gray-700 mb-4">Une messe dédiée aux jeunes aura lieu ce samedi à 16h.</p>
+                        <h3 class="text-2xl font-semibold mb-2">🚨🚨{{ Str::limit($act->titre,10) }}</h3>
+                        <p class="text-gray-700 mb-4">{{ Str::limit($act->description, 50) }}
+                        </p>
                         <a href="#" class="text-yellow-500 font-semibold hover:underline">Lire plus</a>
                     </div>
                 </div>
-                <!-- Actualité 2 -->
-                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                    <img src="{{ asset('presentation/IMG_20240827_122849_600.jpg') }}" alt="Actualité 2"
-                        class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-2xl font-semibold mb-2">Nouvelle retraite spirituelle</h3>
-                        <p class="text-gray-700 mb-4">Participez à notre retraite spirituelle du mois prochain.</p>
-                        <a href="#" class="text-yellow-500 font-semibold hover:underline">Lire plus</a>
-                    </div>
-                </div>
-                <!-- Actualité 3 -->
-                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                    <img src="https://source.unsplash.com/400x300/?community,gathering" alt="Actualité 3"
-                        class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-2xl font-semibold mb-2">Collecte de dons pour les nécessiteux</h3>
-                        <p class="text-gray-700 mb-4">Nous organisons une collecte de dons pour soutenir les familles
-                            démunies.</p>
-                        <a href="#" class="text-yellow-500 font-semibold hover:underline">Lire plus</a>
-                    </div>
-                </div>
+               
+                @empty
+                    
+                @endforelse
             </div>
             <a href="{{ route('news') }}"
                 class="mt-8 inline-block bg-yellow-500 text-black font-semibold py-2 px-4 rounded hover:bg-yellow-600">Voir
                 toutes les actualités</a>
         </div>
     </section>
-
-
 
 
 </x-app-layout>
