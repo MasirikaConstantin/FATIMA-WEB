@@ -11,7 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-       
+        Schema::create('actus', function (Blueprint $table) {
+            $table->id();
+            $table->string('titre');
+            $table->text('description');
+            $table->string('slug');
+            $table->string('image')->nullable();
+            $table->timestamps();
+        });
     }
 
     /**
@@ -19,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('actus');
     }
 };

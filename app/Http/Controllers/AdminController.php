@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ActuValidator;
 use App\Http\Requests\EvenementsValidateur;
 use App\Http\Requests\ValiderProgramme;
+use App\Models\Actu;
 use App\Models\Evenements;
 use App\Models\Programme;
 use Illuminate\Http\Request;
@@ -236,6 +238,45 @@ public function editevent(EvenementsValidateur $request, Evenements $id)
 
 }
 
+public function newactus(Actu $ac){
+    return view('admin.nouv-actus',['actus' =>$ac]);
+}
+
+public function saveActus(ActuValidator $request){
+    //dd($request->validated());
+
+    // Validation des données
+    $validatedData = $request->validated();
+
+   
+        // Créer un nouvel événement
+        Actu::create($this->extractActusData(new Actu(), $request));
+    return redirect()->route('admin')->with('success', 'Actus publié avec succès !');
 
 
+    return redirect()->route('admin')->with('success', 'Actus publié avec succès !');
+
+
+}
+private function extractActusData(Actu $evenement, Request $request)
+{
+    // Extraire les données validées
+    $data = $request->validated();
+
+    // Gérer l'image
+    /**
+     * @var \Illuminate\Http\UploadedFile $image
+     */
+    $image = $request->file('image');
+    if ($image && !$image->getError()) {
+        if ($evenement->image) {
+            // Supprimer l'ancienne image si elle existe
+            Storage::disk('public')->delete($evenement->image);
+        }
+        // Sauvegarder la nouvelle image
+        $data['image'] = $image->store('actus', 'public');
+    }
+
+    return $data;
+}
 }

@@ -88,6 +88,9 @@ Route::prefix('admin')->name('admin.')->controller(AdminController::class)->midd
     Route::get('newevent','newevent')->name('newevent');
     Route::post('newevent','saveEvenement');
 
+    Route::get('newactus','newactus')->name('newactus');
+    Route::post('newactus','saveActus');
+
 
     Route::get('/modif/{id}','editpro')->name('editpro');
     Route::put('/modif/{id}','edit');
@@ -98,6 +101,8 @@ Route::prefix('admin')->name('admin.')->controller(AdminController::class)->midd
     Route::get('/delet/{id}','deletpro')->name('deletprogram');
     Route::put('/prog/{id}', 'updates')->name('posts.update');
 
+    Route::get('/modif_actus/{id}','edit_actus')->name('edit_actus');
+    Route::put('/modif_actus/{id}','editactus');
 });
 
 Route::prefix('programme')->name('programme.')->controller(UserController::class)->group( function () {

@@ -11,7 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-       
+        Schema::table('actus', function(Blueprint $t) {
+            $t->tinyInteger('etat')->default(0);
+
+        });
     }
 
     /**

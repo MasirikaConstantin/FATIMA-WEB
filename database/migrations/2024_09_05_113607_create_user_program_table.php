@@ -14,14 +14,6 @@ return new class extends Migration
     public function up(): void
     {
        
-            Schema::create('programme_user', function (Blueprint $table) {
-                $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
-                $table->foreignIdFor(Programme::class)->constrained()->cascadeOnDelete();
-                $table->primary(['user_id','programme_id']);
-
-
-                $table->timestamps();
-            });
     }
 
     /**
@@ -29,6 +21,5 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('programme_user');
     }
 };
