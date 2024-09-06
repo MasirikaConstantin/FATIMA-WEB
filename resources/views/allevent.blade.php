@@ -48,16 +48,12 @@
                                 @forelse ( $events as $pr )
                                 
                                 
-     @php
+                                 @php
 
                                     $dateString = $pr->date_debut;
+                                    $date = \Carbon\Carbon::createFromFormat('Y-m-d', $dateString)->startOfDay();
 
-                                                        // Nettoyer la date en cas d'information supplémentaire
-                                                       // $dateString = strtok($dateString, ' ');
-
-                                                    $date = \Carbon\Carbon::createFromFormat('Y-m-d', $dateString)->startOfDay();
-
-                            @endphp
+                                @endphp
                                     
                                     <div class="space-y-4 py-6 md:py-8">
                                         <div class="grid gap-4">
@@ -67,7 +63,7 @@
                                             </span>
                                         </div>
                             
-                                        <a href="{{ route('programme.lireeventsme',['pro'=>$pr->slug,"id"=>$pr->id]) }}" class="text-xl font-semibold text-gray-900 hover:underline dark:text-white">{{$pr->titre}}</a>
+                                        <a href="{{ route('event.lireeventsme',['pro'=>$pr->slug,"id"=>$pr->id]) }}" class="text-xl font-semibold text-gray-900 hover:underline dark:text-white">{{$pr->titre}}</a>
                                         </div>
                                         <p class="text-base font-normal text-gray-500 dark:text-gray-400">{{Str::limit($pr->description,200)}}</p>
                                         @if ($pr->etat == 0)

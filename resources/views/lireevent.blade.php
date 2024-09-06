@@ -1,4 +1,4 @@
-@section("titre",'Programme');
+@section("titre",'evenement');
 
 <x-app-layout>
    
@@ -18,12 +18,8 @@
                     </div>
                 </address-->
                 @php
-                //dd($Commentaire);
-                // Vérifier la valeur
-                    $dateString = $programme->date;
+                    $dateString = $evenement->date_debut;
 
-                    // Nettoyer la date en cas d'information supplémentaire
-                    $dateString = strtok($dateString, ' ');
 
                 $date = \Carbon\Carbon::createFromFormat('Y-m-d', $dateString)->startOfDay();
 
@@ -40,9 +36,9 @@
                  </div>
                </div>
              @endif
-                @if ($programme->etat == 1)
+                @if ($evenement->etat == 1)
                 <div>
-                    <span class=" mb-4 inline-block rounded bg-red-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-red-900 dark:text-red-300 md:mb-0">Evenement déjà passer ou annuler {{ $date->translatedFormat('d F Y') }} à {{ $programme->h_debut}}
+                    <span class=" mb-4 inline-block rounded bg-red-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-red-900 dark:text-red-300 md:mb-0">Evenement déjà passer ou annuler {{ $date->translatedFormat('d F Y') }} à {{ $evenement->h_debut}}
 
                     </span>
                 </div>
@@ -59,32 +55,32 @@
                     </div>
                 @else
                     <div>
-                        <span class="inline-block rounded bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-red-900 dark:text-red-300 md:mb-0">Evenement à venir le {{ $date->translatedFormat('d F Y') }} à {{ $programme->h_debut}}
+                        <span class="inline-block rounded bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-red-900 dark:text-red-300 md:mb-0">Evenement à venir le {{ $date->translatedFormat('d F Y') }} à {{ $evenement->h_debut}}
 
                         </span>
                     </div>
                 @endif
-                <h1 class="mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl dark:text-white">{{ $programme->titre }}</h1>
+                <h1 class="mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl dark:text-white">{{ $evenement->titre }}</h1>
                 
-                @if ($programme->image)
-                <img class="h-auto max-w-xl rounded-lg shadow-xl dark:shadow-gray-800" src="{{ $programme->imageUrls() }}" alt="image description">
+                @if ($evenement->image)
+                <img class="h-auto max-w-xl rounded-lg shadow-xl dark:shadow-gray-800" src="{{ $evenement->imageUrls() }}" alt="image description">
 
                 @endif
             </header>
             <p class="lead mb-4">
-                {{ $programme->description }}
+                {{ $evenement->description }}
             </p>
 
             
 
                 @auth
-                <!--form action="{ { route('programme.attend', ['pro'=>$programme->slug, "id"=>$programme->id]) }}" method="POST">
+                <!--form action="{ { route('evenement.attend', ['pro'=>$evenement->slug, "id"=>$evenement->id]) }}" method="POST">
                     @ csrf
                     
 
                     
 
-                    @ if (auth()->user()->programs->contains($programme))
+                    @ if (auth()->user()->programs->contains($evenement))
                     
                         <button type="submit" class="text-white bg-[#FF9119] hover:bg-[#FF9119]/80 focus:ring-4 focus:outline-none focus:ring-[#FF9119]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:hover:bg-[#FF9119]/80 dark:focus:ring-[#FF9119]/40 me-2 mb-2">
                             
@@ -105,8 +101,8 @@
                         
                     @ endif
 
-                </form-->
-                <!--p>Participants : <span id="count-{ { $programme->id }}">{ { $count }}</span></p-->
+                </form>
+                <p>Participants : <span id="count-{ { $evenement->id }}">{ { $count }}</span></p-->
 
                 @endauth
                 @guest
@@ -116,9 +112,9 @@
                     </svg>
                     <span class="sr-only">Info</span>
                     <div>
-                      <span class="font-medium"> {{ $count>1 ? "".$count."  personnes vont participer à ce programme" : "".$count."Personne va perticiper à ce programme" }} 
+                      <span class="font-medium"> {{ $count>1 ? "".$count."  personnes vont participer à ce evenement" : "".$count."Personne va perticiper à ce evenement" }} 
                     </div>
-                  </div-->
+                  </div>
                 @endguest
 
             <hr class="mb-4" >
@@ -246,8 +242,8 @@
                                         <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
                                         </svg>
-                                        <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Êtes vous sur de vouloir supprimer ce Programme?</h3>
-                                        <a href="{{route('programme.deletecomm',['id'=>$c->id])}}" data-modal-hide="popup-modal{{  $count }}" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
+                                        <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Êtes vous sur de vouloir supprimer ce evenement?</h3>
+                                        <a href="{{route('event.deletecomm',['id'=>$c->id])}}" data-modal-hide="popup-modal{{  $count }}" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
                                             Oui je suis sur
                                         </a>
                                         <button data-modal-hide="popup-modal{{  $count }}" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Non, Annuler</button>
@@ -268,7 +264,7 @@
                   </div>
                 @endforelse
                 
-                <div class="mt-3">
+                <div class="">
                     {{$Commentaire->links()}}
                  </div>
                
@@ -279,11 +275,11 @@
   
   <aside aria-label="Related articles" class="py-8 lg:py-24 bg-gray-50 dark:bg-gray-800">
     <div class="px-4 mx-auto max-w-screen-xl">
-        <h2 class="mb-8 text-2xl font-bold text-gray-900 dark:text-white">Autres Programmes</h2>
+        <h2 class="mb-8 text-2xl font-bold text-gray-900 dark:text-white">Autres evenements</h2>
         <div class="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
             @foreach ($autres as $au )
                 <article class="max-w-xs" style="overflow: hidden;">
-                    <a href="{{ route('programme.lireprogramme',['pro'=>$au->slug,"id"=>$au->id]) }}">
+                    <a href="{{ route('event.lireeventsme',['pro'=>$au->slug,"id"=>$au->id]) }}">
                         @if ($au->image)
                         <img src="{{$au->imageUrls()}}" class="mb-5 rounded-lg" alt="Image 1">
                         @else
@@ -292,10 +288,10 @@
                         @endif
                     </a>
                     <h2 class="mb-2 text-xl font-bold leading-tight text-gray-900 dark:text-white">
-                        <a href="{{ route('programme.lireprogramme',['pro'=>$au->slug,"id"=>$au->id]) }}">{{Str::limit($au->titre,50)}}</a>
+                        <a href="{{ route('event.lireeventsme',['pro'=>$au->slug,"id"=>$au->id]) }}">{{Str::limit($au->titre,50)}}</a>
                     </h2>
                     <p class="mb-4 text-gray-500 dark:text-gray-400">{{Str::limit($au->description,50)}}</p>
-                    <a href="{{ route('programme.lireprogramme',['pro'=>$au->slug,"id"=>$au->id]) }}" class="inline-flex items-center font-medium underline underline-offset-4 text-primary-600 dark:text-primary-500 hover:no-underline">
+                    <a href="{{ route('event.lireeventsme',['pro'=>$au->slug,"id"=>$au->id]) }}" class="inline-flex items-center font-medium underline underline-offset-4 text-primary-600 dark:text-primary-500 hover:no-underline">
                         Lire la suite
                     </a>
                 </article>

@@ -31,4 +31,10 @@ class Evenements extends Model
     public function User(){
         return $this->belongsTo(User::class,'user_id');
     }
+
+    public function commentaires()
+    {
+        return $this->hasMany(CommentaireEvent::class, 'evenements_id');
+    }
+    
 }

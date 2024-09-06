@@ -84,10 +84,7 @@ Route::prefix('programme')->name('programme.')->controller(UserController::class
         'pro'=>'[a-zA-Z0-9\-]+'
     ])->name('lireprogramme');
 
-    Route::get('/event/{pro}-{id}','lireevent')->where([
-        'id'=>'[0-9]+',
-        'pro'=>'[a-zA-Z0-9\-]+'
-    ])->name('lireeventsme');
+    
 
     Route::post('/{pro}-{id}',  'storecomme')->where([
         'id'=>'[0-9]+',
@@ -99,13 +96,12 @@ Route::prefix('programme')->name('programme.')->controller(UserController::class
     Route::post('newprogram','newprogrammesave');
 
     Route::get('tous','all')->name('tous');
-    Route::get('tousevents','allevents')->name('tousevent');
 
-    Route::post('/{pro}-{id}', 'attend')->where([
+   /* Route::post('/{pro}-{id}', 'attend')->where([
         'id'=>'[0-9]+',
         'pro'=>'[a-zA-Z0-9\-]+'
     ])->name('attend');
-   
+   -*/
     //Route::get('/{pro}-{id}', 'countParticipants')->name('programs.count');
 
 });
@@ -113,3 +109,20 @@ Route::prefix('programme')->name('programme.')->controller(UserController::class
 Route::get('lecture-jour',[UserController::class,'lecture'])->name('lecture-jour');
 Route::get('dons',[UserController::class,'dons'])->name('dons');
 Route::get('galerie',[UserController::class,'galerie'])->name('galerie');
+
+
+Route::prefix('event')->name('event.')->controller(UserController::class)->group( function () {
+    Route::get('tousevents','allevents')->name('tousevent');
+
+    Route::get('/{pro}-{id}','lireevent')->where([
+        'id'=>'[0-9]+',
+        'pro'=>'[a-zA-Z0-9\-]+'
+    ])->name('lireeventsme');
+
+    Route::post('/{pro}-{id}',  'storecommeevent')->where([
+        'id'=>'[0-9]+',
+        'pro'=>'[a-zA-Z0-9\-]+'
+    ])->name('commentaire');
+    Route::get('/supp/{id}', 'commentedeleteevent')->name('deletecomm');
+ 
+});

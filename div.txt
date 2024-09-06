@@ -1,0 +1,66 @@
+<div>
+                    <label for="description" class="block text-gray-700 font-medium">Description</label>
+                    <textarea id="description" name="description" rows="4" dddd
+                        class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
+                        @error('description')
+                        <p class="mt-2 text-sm text-red-600 dark:text-red-500"> {{ $message }} </p>
+                        @enderror
+                </div>
+
+                <!-- Date de début et Date de fin -->
+                <div class="flex space-x-4">
+                    <!-- Date début -->
+                    <div class="w-1/2">
+                        <label for="date_debut" class="block text-gray-700 font-medium">Date de début</label>
+                        <input type="date" id="date_debut" name="date_debut" dddd
+                            class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            @error('date_debut')
+                        <p class="mt-2 text-sm text-red-600 dark:text-red-500"> {{ $message }} </p>
+                        @enderror
+                    </div>
+                    <!-- Date fin -->
+                    <div class="w-1/2">
+                        <label for="date_fin" class="block text-gray-700 font-medium">Date de fin</label>
+                        <input type="date" id="date_fin" name="date_fin" dddd
+                            class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            @error('date_fin')
+                        <p class="mt-2 text-sm text-red-600 dark:text-red-500"> {{ $message }} </p>
+                        @enderror
+                    </div>
+                </div>
+
+                <!-- Heure de début et Heure de fin -->
+                <div class="flex space-x-4">
+                    <!-- Heure début -->
+                    <div class="w-1/2">
+                        <label for="h_debut" class="block text-gray-700 font-medium">Heure de début</label>
+                        <input type="time" id="h_debut" name="h_debut" dddd
+                            class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            @error('h_debut')
+                            <p class="mt-2 text-sm text-red-600 dark:text-red-500"> {{ $message }} </p>
+                            @enderror
+                    </div>
+                    <!-- Heure fin -->
+                    <div class="w-1/2">
+                        <label for="h_fin" class="block text-gray-700 font-medium">Heure de fin</label>
+                        <input type="time" id="h_fin" name="h_fin" dddd
+                            class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    </div>
+                </div>
+
+                
+
+                <div class="">
+                    <div class="mr-auto place-self-center lg:col-span-4">
+                    <label for="image" class="block text-gray-700 font-medium">Image de l'événement</label>
+
+                        <input name="image" id='fileUpload' class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file_input" type="file">
+                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help"   >SVG, PNG, JPG or GIF (MAX. 800x400px).</p>
+                        @error('image')
+                        <p class="mt-2 text-sm text-red-600 dark:text-red-500"> {{ $message }} </p>
+                        @enderror
+                    </div>
+                    <div class=" border lg:mt-0 lg:col-span-5 lg:flex">
+                        <img id='imageDiv'>
+                    </div>                
+                </div>

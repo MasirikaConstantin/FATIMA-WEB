@@ -53,4 +53,9 @@ public function programs()
     {
         return $this->belongsToMany(Programme::class);
     }
+
+    public function evenements()
+    {
+        return $this->belongsToMany(Evenements::class);
+    }
 }

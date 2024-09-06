@@ -6,6 +6,7 @@ use App\Http\Requests\RechercheEvent;
 use App\Http\Requests\RechercherProgramme;
 use App\Http\Requests\ValiderCommentaire;
 use App\Models\Commentaire;
+use App\Models\CommentaireEvent;
 use App\Models\Evenements;
 use App\Models\Programme;
 use App\Models\User;
@@ -138,6 +139,61 @@ class UserController extends Controller
         
     }
     public function lireevent(string $pro, string $id){
-        return Evenements::findorfail($id);
+        // Trouver le programme spécifique par ID
+        $evenement = Evenements::find($id);
+
+       
+        // Filtrer les programmes en excluant celui avec l'ID donné
+        $autresQuery = Evenements::where('id', '!=', $id)
+                                 ->orderBy('id', 'desc');
+    
+        // Appliquer la pagination
+        $autres = $autresQuery->paginate(5);
+        if($evenement->slug  != $pro){
+            return to_route('programme.commentaire',['id'=>$evenement,'pro'=>$evenement->slug]);
+        }
+
+        
+       // $count = $programe->users()->count();
+    
+//dd($count);
+        
+        // Passer les données à la vue
+        return view('lireevent', [
+            'evenement' => $evenement,
+            'autres' => $autres,
+            //'count' => $count,
+            'Commentaire'=>$evenement->commentaires()->orderBy('id','desc')->paginate(5)
+        ]);
+        //return Evenements::findorfail($id);
+    }
+
+
+    public function storecommeevent(ValiderCommentaire $request , string $pro,string $id)
+    {
+        //dd($id);
+        $evenement = Evenements::find($id);
+        $data =$request->validated();
+        //dd($programe);
+        $data['user_id'] = Auth::user()->id;
+
+        $data['evenements_id'] = $evenement['id'];
+        //dd($data);
+        CommentaireEvent::create($data);
+        if($evenement->slug  != $pro){
+            return to_route('programme.commentaire',['id'=>$evenement,'pro'=>$evenement->slug]);
+        }
+
+        return redirect()->back()->with('success', 'Commentaire publié avec succès');
+        
+    }
+
+    public function commentedeleteevent( CommentaireEvent $id ){
+
+        //$post=Commentaire::findOrFail($id);
+       // dd($id);
+        $id->delete();
+        return back()->with('success','Commentaire supprimer avec success');
+    
     }
 }

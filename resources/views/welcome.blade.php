@@ -91,7 +91,7 @@
                 <div class="">
 
                     <a
-                                href="https://laravel.com/docs"
+                                href="{{ route('event.lireeventsme',['pro'=>$ev->slug,"id"=>$ev->id]) }}"
                                 id="docs-card"
                                 class="flex flex-col items-start gap-6 overflow-hidden rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] md:row-span-3 lg:p-10 lg:pb-10 dark:bg-zinc-900 dark:ring-zinc-800 dark:hover:text-white/70 dark:hover:ring-zinc-700 dark:focus-visible:ring-[#FF2D20]"
                             >
@@ -140,7 +140,7 @@
                 @endforelse
             </div>
             <div class="text-center">
-                <a href="{{ route('programme.tousevent') }}" class="mt-8 inline-block bg-yellow-500 text-black font-semibold py-2 px-4 rounded hover:bg-yellow-600">Voir tous les événements</a>
+                <a href="{{ route('event.tousevent') }}" class="mt-8 inline-block bg-yellow-500 text-black font-semibold py-2 px-4 rounded hover:bg-yellow-600">Voir tous les événements</a>
 
             </div>
         </div>
