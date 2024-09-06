@@ -156,7 +156,7 @@ class UserController extends Controller
         }
 
         
-       // $count = $programe->users()->count();
+       // $count = $evenement->users()->count();
     
 //dd($count);
         
@@ -221,5 +221,8 @@ class UserController extends Controller
         }
         
 
+    }
+    public function news() {
+        return view('news');
     }
 }

@@ -15,38 +15,41 @@ class RoleManager
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function handle(Request $request, Closure $next, $role): Response
-    {
-        if (!Auth::check()) {
-            return redirect()->route('login');
-        }
-        $autUser = Auth::user()->role;
-        switch ($role) {
-            case 'admin':
-                if ($autUser==0){
-                    return $next($request);
-                }
-                break;
-            case "utilisateur":
-                if ($autUser==1){
-                    return $next($request);
-                }
-                break;
-            case "autres":
-                if ($autUser==2){
-                    return $next($request);
-
-                }
-                break;
+{
+    if (!Auth::check()) {
+        session()->put('url.intended', $request->url()); // Stocker l'URL actuelle
+        return redirect()->route('login');
     }
+
+    $autUser = Auth::user()->role;
+    switch ($role) {
+        case 'admin':
+            if ($autUser == 0) {
+                return $next($request);
+            }
+            break;
+        case "utilisateur":
+            if ($autUser == 1) {
+                return $next($request);
+            }
+            break;
+        case "autres":
+            if ($autUser == 2) {
+                return $next($request);
+            }
+            break;
+    }
+
     switch ($autUser) {
         case 0:
-            return redirect()->route("admin");
-
+            return redirect()->intended(); // Redirige vers la page d'origine ou par défaut
         case 1:
-            return redirect()->route('utilisateur');
+            return redirect()->intended(); // Redirige vers la page d'origine ou par défaut
         case 2:
-            return redirect()->route('autres');
+            return redirect()->intended(); // Redirige vers la page d'origine ou par défaut
     }
+    
     return redirect()->route('login');
 }
+
 }

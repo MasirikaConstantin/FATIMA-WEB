@@ -9,7 +9,7 @@ use App\Models\Programme;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-   /*
+/*
      // Récupérer le dernier enregistrement
     $dernierProgramme = Programme::orderBy('id', 'desc')->where('etat',"==",0)->first();
     
@@ -28,28 +28,50 @@ Route::get('/', function () {
         'evenements' => Evenements::orderBy('id', 'desc')->where('etat',"==",0)->paginate(2),
     ]);
 })->name('welcome');
+/*
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->middleware(['auth', 'verified', 'rolemanager:autre'])->name('dashboard');
+
+    Route::get('gest-admin/dashboard', function () {
+        //dd(Programme::all());
+        return view(
+            'admin',
+            [
+                'tous' => Programme::orderBy('id', 'desc')->paginate(6),
+                'tous_eve' => Evenements::orderBy('id', 'desc')->paginate(6),
+                'nombre' => Programme::count(),
+                'nombre_eve' => Evenements::count(),
+                'nombre_actif' => Programme::where("etat", 1)->count(),
+                'nombre_actif_eve' => Evenements::where("etat", 1)->count()
+
+            ]
+        );
+    })->middleware(['auth', 'verified', 'rolemanager:admin'])->name('admin');
+
+    Route::get('utilisateur/dashboard', function () {
+        return view('utilisateur');
+    })->middleware(['auth', 'verified', 'rolemanager:utilisateur'])->name('utilisateur');
+*/
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified','rolemanager:autre'])->name('dashboard');
+})->middleware(['auth', 'verified', 'rolemanager:autre'])->name('dashboard');
 
 Route::get('gest-admin/dashboard', function () {
-//dd(Programme::all());
-    return view('admin',
-[
-    'tous'=>Programme::orderBy('id','desc')->paginate(6),
-    'tous_eve'=>Evenements::orderBy('id','desc')->paginate(6),
-    'nombre'=>Programme::count(),
-    'nombre_eve'=>Evenements::count(),
-    'nombre_actif'=>Programme::where("etat", 1)->count(),
-    'nombre_actif_eve'=>Evenements::where("etat", 1)->count()
-
-]);
-})->middleware(['auth', 'verified','rolemanager:admin'])->name('admin');
+    return view('admin', [
+        'tous' => Programme::orderBy('id', 'desc')->paginate(6),
+        'tous_eve' => Evenements::orderBy('id', 'desc')->paginate(6),
+        'nombre' => Programme::count(),
+        'nombre_eve' => Evenements::count(),
+        'nombre_actif' => Programme::where("etat", 1)->count(),
+        'nombre_actif_eve' => Evenements::where("etat", 1)->count()
+    ]);
+})->middleware(['auth', 'verified', 'rolemanager:admin'])->name('admin');
 
 Route::get('utilisateur/dashboard', function () {
     return view('utilisateur');
-})->middleware(['auth', 'verified','rolemanager:utilisateur'])->name('utilisateur');
+})->middleware(['auth', 'verified', 'rolemanager:utilisateur'])->name('utilisateur');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -109,6 +131,7 @@ Route::prefix('programme')->name('programme.')->controller(UserController::class
 Route::get('lecture-jour',[UserController::class,'lecture'])->name('lecture-jour');
 Route::get('dons',[UserController::class,'dons'])->name('dons');
 Route::get('galerie',[UserController::class,'galerie'])->name('galerie');
+Route::get('news',[UserController::class,'news'])->name('news');
 Route::put('/profile', [UserController::class, 'profil'])->name('photo');
 
 

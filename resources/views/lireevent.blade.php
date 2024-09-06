@@ -62,6 +62,26 @@
                 @endif
                 <h1 class="mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl dark:text-white">{{ $evenement->titre }}</h1>
                 
+
+                @php
+                    $date_debut = \Carbon\Carbon::createFromFormat('Y-m-d', $evenement->date_debut)->startOfDay();
+                    $date_fin = \Carbon\Carbon::createFromFormat('Y-m-d', $evenement->date_fin)->startOfDay();
+
+                    $dateDebut = \Carbon\Carbon::parse($date_debut);
+                    $dateFin = \Carbon\Carbon::parse($date_fin);
+                @endphp
+
+            <p class="mt-4 text-sm/relaxed text-start mb-4 ">
+                @if ($dateDebut->equalTo($dateFin))
+                Le  <strong> {{ $date_debut->translatedFormat('d F Y') }}</strong> 
+                @elseif ($dateDebut->lessThan($dateFin))
+                Du  <strong> {{ $date_debut->translatedFormat('d F Y') }}</strong> au <strong> {{ $date_fin->translatedFormat('d F Y') }}</strong>
+                @else
+                @endif
+                 
+            </p>
+
+
                 @if ($evenement->image)
                 <img class="h-auto max-w-xl rounded-lg shadow-xl dark:shadow-gray-800" src="{{ $evenement->imageUrls() }}" alt="image description">
 
@@ -112,7 +132,7 @@
                     </svg>
                     <span class="sr-only">Info</span>
                     <div>
-                      <span class="font-medium"> {{ $count>1 ? "".$count."  personnes vont participer à ce evenement" : "".$count."Personne va perticiper à ce evenement" }} 
+                      <span class="font-medium"> { { $count>1 ? "".$count."  personnes vont participer à ce evenement" : "".$count."Personne va perticiper à ce evenement" }} 
                     </div>
                   </div>
                 @endguest

@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Storage;
 class Evenements extends Model
 {
     use HasFactory;
+    protected $table = 'evenements';
+
     protected $fillable = [
         'titre',
         'description',
@@ -35,6 +37,10 @@ class Evenements extends Model
     public function commentaires()
     {
         return $this->hasMany(CommentaireEvent::class, 'evenements_id');
+    }
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
     }
     
 }
