@@ -109,6 +109,7 @@ Route::prefix('programme')->name('programme.')->controller(UserController::class
 Route::get('lecture-jour',[UserController::class,'lecture'])->name('lecture-jour');
 Route::get('dons',[UserController::class,'dons'])->name('dons');
 Route::get('galerie',[UserController::class,'galerie'])->name('galerie');
+Route::put('/profile', [UserController::class, 'profil'])->name('photo');
 
 
 Route::prefix('event')->name('event.')->controller(UserController::class)->group( function () {

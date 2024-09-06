@@ -12,6 +12,11 @@
                     @include('profile.partials.update-profile-information-form')
                 </div>
             </div>
+            <div class="p-4 sm:p-8 bg-body shadow sm:rounded-lg">
+                <div class="max-w-xl">
+                    @include('profile.partials.picture')
+                </div>
+            </div>
 
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <div class="max-w-xl">
@@ -26,4 +31,16 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.getElementById('fileUpload1').addEventListener('change', function() {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var img = document.createElement('img');
+                img.src = e.target.result;
+                document.getElementById('imageDiv1').appendChild(img);
+            }
+            reader.readAsDataURL(this.files[0]);
+        });
+    </script>
 </x-app-layout>

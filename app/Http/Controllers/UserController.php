@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Photoprofilvalidator;
 use App\Http\Requests\RechercheEvent;
 use App\Http\Requests\RechercherProgramme;
 use App\Http\Requests\ValiderCommentaire;
@@ -12,6 +13,7 @@ use App\Models\Programme;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -195,5 +197,29 @@ class UserController extends Controller
         $id->delete();
         return back()->with('success','Commentaire supprimer avec success');
     
+    }
+
+    public function profil( Photoprofilvalidator $profile){
+        //dd($profile->validated());
+        $user= User::find(Auth::user()->id);
+        if($user){
+            $image=$profile->validated('image');
+
+            if($image==null || $image->getError()){
+                
+                return null;
+            }
+            if($user->image){
+            //dd($data);
+    
+                Storage::disk('public')->delete($user->image);
+            }
+                $data['image']=$image->store("profilimage",'public');
+            $user->image=($data['image']);
+            $user->save();
+            return to_route('dashboard');
+        }
+        
+
     }
 }
