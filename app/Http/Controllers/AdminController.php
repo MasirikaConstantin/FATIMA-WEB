@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ActuValidator;
 use App\Http\Requests\EvenementsValidateur;
+use App\Http\Requests\LectureRequest;
 use App\Http\Requests\ValiderProgramme;
 use App\Models\Actu;
 use App\Models\Evenements;
+use App\Models\Lecture;
 use App\Models\Programme;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -393,5 +395,34 @@ public function editevents_archive(Request $request, Evenements $id){
 
    // Redirection après la mise à jour
    return redirect()->route('admin.alleve')->with('success', 'L\'événement  a été modifier  avec Success ! ! !');
+}
+
+public function newlecture(Lecture $id){
+    return view("admin.newlecture",['actus' =>$id]);
+}
+public function newlecturesave(LectureRequest $request){
+   $data = $request->validated();
+   Lecture::create($data);
+    return view('admin.touslecture') ;
+}
+public function alllecture(){
+    return view('admin.touslecture', [
+        'nombre_eve' => Lecture::count(),
+            'nombre_actif_eve' => Lecture::where("etat", 1)->count(),
+            'tous_eve' => Lecture::orderBy('id', 'desc')->get(),
+
+    ])->with('success', 'La lecture  a été créer  avec Success ! ! !') ;
+
+}
+public function modiflect(Lecture $id){
+    return view('admin.newlecture',['actus' =>$id]);
+}
+
+public function modiflects(LectureRequest $request, Lecture $id)  {
+    $data=$request->validated();
+        $lecture=$id;
+    $lecture->update($data);
+        
+    return redirect()->route('lecture.alllecture')->with('success', 'Modification réalisée avec avec succès !');
 }
 }

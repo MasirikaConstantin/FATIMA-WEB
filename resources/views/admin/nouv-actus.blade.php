@@ -9,7 +9,7 @@
                 <form {{route($actus->exists ? 'admin.edit_actus': 'admin.newactus', $actus->id)}} method="POST" enctype="multipart/form-data" class="space-y-6">
                     @if ($actus->exists) 
                         @method('PUT')
-                        @endif
+                    @endif
                     @csrf
                     <input type="hidden"  autocomplete="off" name="user_id" value="{{ Auth::user()->id }}" >
                     @error('user_id')

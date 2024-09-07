@@ -171,3 +171,14 @@ Route::prefix('event')->name('event.')->controller(UserController::class)->group
     Route::get('/supp/{id}', 'commentedeleteevent')->name('deletecomm');
  
 });
+
+Route::prefix('lecture')->name('lecture.')->controller(AdminController::class)->group(function(){
+    Route::get('adm/newlecture',"newlecture")->name("newlecture");
+    Route::post('adm/newlecture',"newlecturesave");
+
+    Route::get('adm/newlecture/{id}','modiflect')->name("modiflect");
+    Route::put('adm/newlecture/{id}','modiflects');
+
+    Route::get('adm/lecture',"alllecture")->name("alllecture");
+
+});

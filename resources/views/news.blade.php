@@ -11,20 +11,24 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Article 1 - Grande taille -->
                 <div class="col-span-1 lg:col-span-2 row-span-2 bg-white rounded-lg shadow-md overflow-hidden">
-                    @if ($dernier->image)
-                    <img src="{{ $dernier->imageUrls()  }}" alt="Actualité Image 1" class="w-full h-64 object-cover">
+                    @if ($dernier)
+                        @if ($dernier->image)
+                        <img src="{{ $dernier->imageUrls()  }}" alt="Actualité Image 1" class="w-full h-64 object-cover">
 
+                        @else
+                            <img src="{{ asset('presentation/IMG_20240827_122849_600.jpg')  }}" alt="Actualité 1" class="w-full h-48 object-cover">
+
+                        @endif
+                        <div class="p-4">
+                            <a href="{{ route('actuslire', ['pro' => $dernier->slug, 'id' => $dernier->id]) }}" class="text-2xl font-semibold mb-2">{{ $dernier->titre }}</a>
+                            <p>
+                                🚨🚨
+                            </p>
+                            <p class="text-gray-600 text-sm">{{ $dernier->description }}</p>
+                        </div>
                     @else
-                        <img src="{{ asset('presentation/IMG_20240827_122849_600.jpg')  }}" alt="Actualité 1" class="w-full h-48 object-cover">
-
+                        
                     @endif
-                    <div class="p-4">
-                        <a href="{{ route('actuslire', ['pro' => $dernier->slug, 'id' => $dernier->id]) }}" class="text-2xl font-semibold mb-2">{{ $dernier->titre }}</a>
-                        <p>
-                            🚨🚨
-                        </p>
-                        <p class="text-gray-600 text-sm">{{ $dernier->description }}</p>
-                    </div>
                 </div>
 
                 @forelse ($deux as $d )
