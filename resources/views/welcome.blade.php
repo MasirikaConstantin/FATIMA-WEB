@@ -42,7 +42,53 @@
                 </div>
             </div>
         </div>
+
+
     </section>
+
+
+
+    
+    @php
+// Définir la timezone et la localisation en français
+date_default_timezone_set('Europe/Paris');
+setlocale(LC_TIME, 'fr_FR.UTF-8');
+\Carbon\Carbon::setLocale('fr');
+
+// Créer un objet Carbon à partir de la chaîne de date
+$date = \Carbon\Carbon::createFromFormat('Y-m-d', $dernier['date'])->startOfDay();
+
+@endphp
+        <!-- En-tête -->
+        <header class="bg-blue-900 text-white py-6">
+            <div class="container mx-auto text-center">
+                <h1 class="text-3xl font-bold">Lectures du jour</h1>
+                <p class="text-lg mt-2">Découvrez les lectures spirituelles et méditations quotidiennes</p>
+            </div>
+        </header>
+    
+        <!-- Section Lecture du Jour -->
+        <section class="py-12">
+            <div class="container mx-auto bg-white shadow-lg rounded-lg p-8">
+                <!-- Date de la lecture -->
+                <div class="text-center mb-8">
+                    <p class="text-lg text-gray-500">{{ $date->translatedFormat('l, ') }} le {{ $date->translatedFormat('d/m/Y ') }} </p>
+                    <h2 class="text-2xl font-bold text-gray-900 mt-2">1ère Lecture : {{  $dernier['titre_1'] }}</h2>
+                </div>
+    
+                <!-- Contenu de la lecture -->
+                <div class="prose prose-lg max-w-full text-gray-700 mx-auto leading-loose">
+                    <p>
+                        
+                        {{  $dernier['description_1'] }}
+                    </p>
+    
+                </div>
+
+                <a href="{{ route('lecture-jour') }}" class="text-blue-600 hover:underline mt-4 inline-block">Lire plus</a>
+            </div>
+        </section>
+
 
     <!-- Section Programmes -->
     <section id="programmes" class="py-16 bg-white">

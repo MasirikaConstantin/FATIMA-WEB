@@ -1,3 +1,5 @@
+@section("titre",'Les Actualités')
+
 <x-app-layout>
 
 
@@ -47,7 +49,7 @@
                         </div>
                     </div>
                 @empty
-                    vide
+                    
                 @endforelse
 
                 

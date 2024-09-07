@@ -403,7 +403,11 @@ public function newlecture(Lecture $id){
 public function newlecturesave(LectureRequest $request){
    $data = $request->validated();
    Lecture::create($data);
-    return view('admin.touslecture') ;
+    return view('admin.touslecture',[
+        'nombre_eve' => Lecture::count(),
+            'nombre_actif_eve' => Lecture::where("etat", 1)->count(),
+            'tous_eve' => Lecture::orderBy('id', 'desc')->get(),
+    ]) ->with('success', 'La lecture  a été créer  avec Success ! ! !') ;
 }
 public function alllecture(){
     return view('admin.touslecture', [
@@ -411,7 +415,7 @@ public function alllecture(){
             'nombre_actif_eve' => Lecture::where("etat", 1)->count(),
             'tous_eve' => Lecture::orderBy('id', 'desc')->get(),
 
-    ])->with('success', 'La lecture  a été créer  avec Success ! ! !') ;
+    ]);
 
 }
 public function modiflect(Lecture $id){

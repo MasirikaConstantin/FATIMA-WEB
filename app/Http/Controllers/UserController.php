@@ -10,6 +10,7 @@ use App\Models\Actu;
 use App\Models\Commentaire;
 use App\Models\CommentaireEvent;
 use App\Models\Evenements;
+use App\Models\Lecture;
 use App\Models\Programme;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -144,7 +145,24 @@ class UserController extends Controller
     }
 
     public function lecture(){
-        return view('lecture');
+       // $dernier = Lecture::orderByDesc('id')->limit(1)->get();
+    $dernier = Lecture::orderBy('id', 'desc')->first();
+        // Récupérer le dernier enregistrement
+        $dernierProgramme = $dernier;
+            
+        // Récupérer tous les programmes sauf le dernier, avec une pagination de 4
+        $programmesSansDernierQuery = Lecture::orderBy('id', 'desc');
+        
+        if ($dernierProgramme) {
+            $programmesSansDernierQuery = $programmesSansDernierQuery->where('id', '<>', $dernierProgramme->id);
+        }
+        
+        $programmesSansDernier = $programmesSansDernierQuery->paginate(3);
+        return view('lecture',
+    [
+        'dernier' => $dernier,
+        'autres' =>$programmesSansDernier
+    ]);
     }
     public function dons(){
         return view('dons');
@@ -250,8 +268,8 @@ class UserController extends Controller
     public function news () {
 
         // Récupérer le dernier enregistrement
-    $dernierProgramme = Actu::orderBy('id', 'desc')->where('etat',"==",0)->first();
-    
+    $dernierProgramme = Actu::orderBy('id', 'desc')->get()->where('etat',"==",0)->first();
+    //dd($dernierProgramme);
     // Récupérer tous les programmes sauf le dernier, avec une pagination de 4
     $programmesSansDernierQuery = Actu::orderBy('id', 'desc')->where('etat',"==",0);
     

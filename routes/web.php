@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Models\Actu;
 use App\Models\Evenements;
+use App\Models\Lecture;
 use App\Models\Programme;
 use Illuminate\Support\Facades\Route;
 
@@ -23,11 +24,15 @@ Route::get('/', function () {
     
     $programmesSansDernier = $programmesSansDernierQuery->paginate(4);
 */
+$dernier = Lecture::orderBy('id', 'desc')->first();
+
     return view('welcome', [
        // "presentation" => Programme::latest()->where('etat',"==",0)->first(),
-        'programmes' => Programme::orderBy('id', 'desc')->where('etat',"==",0)->paginate(4),
-        'evenements' => Evenements::orderBy('id', 'desc')->where('etat',"==",0)->paginate(2),
-        'actus' => Actu::orderBy('id', 'desc')->where('etat',"==",0)->paginate(3),
+        'programmes' => Programme::orderBy('id', 'desc')->limit(4)->get()->where('etat',"==",0),
+        'evenements' => Evenements::orderBy('id', 'desc')->limit(2)->get()->where('etat',"==",0),
+        'actus' => Actu::orderBy('id', 'desc')->limit(3)->get()->where('etat',"==",0),
+        'dernier' => $dernier,
+
     ]);
 })->name('welcome');
 /*
