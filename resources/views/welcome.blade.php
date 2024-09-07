@@ -50,44 +50,53 @@
 
     
     @php
-// Définir la timezone et la localisation en français
-date_default_timezone_set('Europe/Paris');
-setlocale(LC_TIME, 'fr_FR.UTF-8');
-\Carbon\Carbon::setLocale('fr');
-
-// Créer un objet Carbon à partir de la chaîne de date
-$date = \Carbon\Carbon::createFromFormat('Y-m-d', $dernier['date'])->startOfDay();
-
-@endphp
-        <!-- En-tête -->
-        <header class="bg-blue-900 text-white py-6">
-            <div class="container mx-auto text-center">
-                <h1 class="text-3xl font-bold">Lectures du jour</h1>
-                <p class="text-lg mt-2">Découvrez les lectures spirituelles et méditations quotidiennes</p>
+    // Définir la timezone et la localisation en français
+    date_default_timezone_set('Europe/Paris');
+    setlocale(LC_TIME, 'fr_FR.UTF-8');
+    \Carbon\Carbon::setLocale('fr');
+    
+    // Assurez-vous que la variable $dernier est définie et contient les clés nécessaires
+    $date = null;
+    $title1 = null;
+    $description1 = null;
+    
+    if (isset($dernier) && is_array($dernier)) {
+        $date = isset($dernier['date']) ? \Carbon\Carbon::createFromFormat('Y-m-d', $dernier['date'])->startOfDay() : \Carbon\Carbon::now()->startOfDay();
+        $title1 = $dernier['titre_1'] ?? 'Titre non disponible';
+        $description1 = $dernier['description_1'] ?? 'Description non disponible';
+    } else {
+        $date = \Carbon\Carbon::now()->startOfDay(); // Valeur par défaut si $dernier n'est pas valide
+        $title1 = 'Titre non disponible';
+        $description1 = 'Description non disponible';
+    }
+    @endphp
+    
+    <!-- En-tête -->
+    <header class="bg-blue-900 text-white py-6">
+        <div class="container mx-auto text-center">
+            <h1 class="text-3xl font-bold">Lectures du jour</h1>
+            <p class="text-lg mt-2">Découvrez les lectures spirituelles et méditations quotidiennes</p>
+        </div>
+    </header>
+    
+    <!-- Section Lecture du Jour -->
+    <section class="py-12">
+        <div class="container mx-auto bg-white shadow-lg rounded-lg p-8">
+            <!-- Date de la lecture -->
+            <div class="text-center mb-8">
+                <p class="text-lg text-gray-500">{{ $date->translatedFormat('l, ') }} le {{ $date->translatedFormat('d/m/Y') }}</p>
+                <h2 class="text-2xl font-bold text-gray-900 mt-2">1ère Lecture : {{ $title1 }}</h2>
             </div>
-        </header>
     
-        <!-- Section Lecture du Jour -->
-        <section class="py-12">
-            <div class="container mx-auto bg-white shadow-lg rounded-lg p-8">
-                <!-- Date de la lecture -->
-                <div class="text-center mb-8">
-                    <p class="text-lg text-gray-500">{{ $date->translatedFormat('l, ') }} le {{ $date->translatedFormat('d/m/Y ') }} </p>
-                    <h2 class="text-2xl font-bold text-gray-900 mt-2">1ère Lecture : {{  $dernier['titre_1'] }}</h2>
-                </div>
-    
-                <!-- Contenu de la lecture -->
-                <div class="prose prose-lg max-w-full text-gray-700 mx-auto leading-loose">
-                    <p>
-                        
-                        {{  $dernier['description_1'] }}
-                    </p>
-    
-                </div>
-
-                <a href="{{ route('lecture-jour') }}" class="text-blue-600 hover:underline mt-4 inline-block">Lire plus</a>
+            <!-- Contenu de la lecture -->
+            <div class="prose prose-lg max-w-full text-gray-700 mx-auto leading-loose">
+                <p>{{ $description1 }}</p>
             </div>
-        </section>
+    
+            <a href="{{ route('lecture-jour') }}" class="text-blue-600 hover:underline mt-4 inline-block">Lire plus</a>
+        </div>
+    </section>
+    
 
 
     <!-- Section Programmes -->
