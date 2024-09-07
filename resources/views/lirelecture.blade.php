@@ -1,8 +1,5 @@
-@section("titre",'Lecture du jour')
-
 <x-app-layout>
-
-
+    
     @php
 // Définir la timezone et la localisation en français
 date_default_timezone_set('Europe/Paris');
@@ -116,7 +113,7 @@ $date = \Carbon\Carbon::createFromFormat('Y-m-d', $dernier['date'])->startOfDay(
                             <p class="text-lg text-gray-500">{{ $dates->translatedFormat('l, ') }} le {{ $dates->translatedFormat('d/m/Y ') }}</p>
                             <h3 class="text-2xl font-bold text-gray-900 mt-2">Évangile :   {{Str::limit($a->titre_3,100)}}</h3>
                             <p class="mt-4 text-gray-700"> {{Str::limit($a->description_3,150)}}</p>
-                            <a href="#" class="text-blue-600 hover:underline mt-4 inline-block">Lire plus</a>
+                            <a href="{{ route("lectureid",["id" =>$a->id]) }}" class="text-blue-600 hover:underline mt-4 inline-block">Lire plus</a>
                         </div>
                     @empty
                         
@@ -132,6 +129,4 @@ $date = \Carbon\Carbon::createFromFormat('Y-m-d', $dernier['date'])->startOfDay(
 
         
 
-      
-    
 </x-app-layout>

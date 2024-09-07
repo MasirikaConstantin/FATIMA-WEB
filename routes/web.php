@@ -186,4 +186,8 @@ Route::prefix('lecture')->name('lecture.')->controller(AdminController::class)->
 
     Route::get('adm/lecture',"alllecture")->name("alllecture");
 
+
 });
+
+Route::get('lecture/tous',[ UserController::class,'touslecture'])->name("lecture.lecture");
+Route::get('lecture/{id}',[ UserController::class,'lectureid'])->name("lectureid");

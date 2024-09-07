@@ -107,6 +107,9 @@
                       <li>
                         <a href="{{ route('news') }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Actualités</a>
                       </li>
+                      <li>
+                        <a href="{{ route('lecture.lecture') }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Les Lectures</a>
+                      </li>
                       
                     </ul>
                 </div>

@@ -288,4 +288,27 @@ class UserController extends Controller
     );
     }
 
+    public function touslecture(){
+        return view('touslecture',['autres'=>Lecture::orderBy('id', 'desc')->paginate(6)]);
+    }
+    public function lectureid(string $id){
+        $lecture = Lecture::find($id);
+
+        // Filtrer les programmes en excluant celui avec l'ID donné
+        $autresQuery = Lecture::where('id', '!=', $id)
+                                 ->orderBy('id', 'desc');
+                                 
+    
+        // Appliquer la pagination
+        $autres = $autresQuery->paginate(3);
+        if($lecture->id  != $id){
+            return to_route('lecture');
+        }
+
+        
+    //dd($autres);
+
+
+        return view('lirelecture',['dernier'=> $lecture, 'autres'=>$autres]);
+    }
 }

@@ -59,8 +59,9 @@
     $date = null;
     $title1 = null;
     $description1 = null;
+    // dd($dernier);
     
-    if (isset($dernier) && is_array($dernier)) {
+    if (isset($dernier) ) {
         $date = isset($dernier['date']) ? \Carbon\Carbon::createFromFormat('Y-m-d', $dernier['date'])->startOfDay() : \Carbon\Carbon::now()->startOfDay();
         $title1 = $dernier['titre_1'] ?? 'Titre non disponible';
         $description1 = $dernier['description_1'] ?? 'Description non disponible';
