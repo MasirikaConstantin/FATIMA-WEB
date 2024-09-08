@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable
 {
@@ -58,4 +59,13 @@ public function programs()
     {
         return $this->belongsToMany(Evenements::class);
     }
+    public function imageUrls(){
+        return Storage::disk('public')->url($this->image); 
+    }
+
+    public function posts()
+    {
+        return $this->hasMany(Blog::class);
+    }
+    
 }

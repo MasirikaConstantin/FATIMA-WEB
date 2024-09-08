@@ -401,6 +401,7 @@ public function newlecture(Lecture $id){
     return view("admin.newlecture",['actus' =>$id]);
 }
 public function newlecturesave(LectureRequest $request){
+
    $data = $request->validated();
    Lecture::create($data);
     return view('admin.touslecture',[

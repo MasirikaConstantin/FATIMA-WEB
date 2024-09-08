@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CommentaireControle;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -79,6 +80,7 @@ Route::get('utilisateur/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/monprofile', [ProfileController::class, 'monprofil'])->name('monprofile');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
@@ -141,12 +143,6 @@ Route::prefix('programme')->name('programme.')->controller(UserController::class
 
     Route::get('tous','all')->name('tous');
 
-   /* Route::post('/{pro}-{id}', 'attend')->where([
-        'id'=>'[0-9]+',
-        'pro'=>'[a-zA-Z0-9\-]+'
-    ])->name('attend');
-   -*/
-    //Route::get('/{pro}-{id}', 'countParticipants')->name('programs.count');
 
 });
 
@@ -191,3 +187,19 @@ Route::prefix('lecture')->name('lecture.')->controller(AdminController::class)->
 
 Route::get('lecture/tous',[ UserController::class,'touslecture'])->name("lecture.lecture");
 Route::get('lecture/{id}',[ UserController::class,'lectureid'])->name("lectureid");
+
+
+Route::prefix('membre')->name('blog.')->controller(BlogController::class)->group(function(){
+    Route::get('/','recherche')->name("blog");
+    //Route::get('/tous' ,'recherche')->name('tous');
+
+
+    Route::get('/nouveau', 'nouveau')->name('newblog');
+    Route::post('/nouveau', 'save');
+    
+    Route::get('/{pro}-{id}','show')->where([
+        'id'=>'[0-9]+',
+        'pro'=>'[a-zA-Z0-9\-]+'
+    ])->name('show');
+
+});

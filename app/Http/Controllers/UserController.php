@@ -87,10 +87,6 @@ class UserController extends Controller
             ]);
         
         
-
-        //$programes = Programme::paginate(2);
-
-       // return view('all',['program'=>$programes]);
     }
     public function storecomme(ValiderCommentaire $request , string $pro,string $id)
     {
