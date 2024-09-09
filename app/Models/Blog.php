@@ -27,6 +27,11 @@ class Blog extends Model
 {
     return $this->belongsTo(Categorie::class,"categorie_id");
 }
+public function commentaires()
+{
+    return $this->hasMany(CommentaireBlog::class, 'blog_id');
+}
+
 
 
 }

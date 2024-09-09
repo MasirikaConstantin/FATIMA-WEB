@@ -202,4 +202,16 @@ Route::prefix('membre')->name('blog.')->controller(BlogController::class)->group
         'pro'=>'[a-zA-Z0-9\-]+'
     ])->name('show');
 
+    Route::post('/{pro}-{id}',  'storecomme')->where([
+        'id'=>'[0-9]+',
+        'pro'=>'[a-zA-Z0-9\-]+'
+    ])->name('commentaire');
+
+
+    Route::get('/supp/{id}', 'commentedelete')->name('deletecomm');
+   
+
 });
+
+Route::get('/commentaire/modifier/{id}', [BlogController::class, 'editComment'])->name('comment.edit');
+Route::put('/commentaire/modifier/{id}', [BlogController::class, 'updateComment'])->name('comment.update');
