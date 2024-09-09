@@ -7,9 +7,10 @@
     },
     "devDependencies": {
         "@tailwindcss/forms": "^0.5.2",
+        "@vitejs/plugin-vue": "^5.1.3",
         "alpinejs": "^3.4.2",
-        "autoprefixer": "^10.4.2",
-        "axios": "^1.6.4",
+        "axios": "^1.7.7",
+        "laravel-mix": "^6.0.49",
         "laravel-vite-plugin": "^1.0",
         "postcss": "^8.4.31",
         "tailwindcss": "^3.1.0",
@@ -17,5 +18,15 @@
     },
     "dependencies": {
         "flowbite": "^2.5.1"
-    }
+    },
+    "name": "fatima-web",
+    "version": "1.0.0",
+    "description": "Pour configurer un projet Laravel après avoir cloné le dépôt depuis Git, suivez ces étapes :",
+    "main": "postcss.config.js",
+    "directories": {
+        "test": "tests"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
 }

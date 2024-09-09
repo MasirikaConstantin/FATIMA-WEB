@@ -47,6 +47,7 @@
 
             
             <main style="width: 100%" class=" bg-gray-100" >
+                @yield('content')
                 {{ $slot }}
 
                 
@@ -141,6 +142,8 @@
 
 
               @vite(['resources/js/app.js'])
+              <!-- JS -->
+    @vite('resources/js/app.js')
               <script>
                 
                 // Sélectionnez tous les éléments du tableau

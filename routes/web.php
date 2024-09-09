@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CommentaireControle;
+use App\Http\Controllers\LiveStreamController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Models\Actu;
@@ -215,3 +216,12 @@ Route::prefix('membre')->name('blog.')->controller(BlogController::class)->group
 
 Route::get('/commentaire/modifier/{id}', [BlogController::class, 'editComment'])->name('comment.edit');
 Route::put('/commentaire/modifier/{id}', [BlogController::class, 'updateComment'])->name('comment.update');
+
+
+
+
+
+
+Route::middleware(['auth', 'can:stream'])->post('/start-stream', [LiveStreamController::class, 'startStream']);
+Route::middleware(['auth', 'can:stream'])->post('/stop-stream', [LiveStreamController::class, 'stopStream']);
+Route::get('/check-stream-status', [LiveStreamController::class, 'checkStreamStatus']);
