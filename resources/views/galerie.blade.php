@@ -83,6 +83,7 @@
     </div>
 </div>
 
+Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rem impedit cumque ullam porro et nobis ab minima similique repellat. Blanditiis magnam atque assumenda qui quod corrupti quos voluptatem excepturi aperiam!
                 <!-- Photo 4 -->
                 <div class="bg-white  rounded-lg shadow-lg overflow-hidden">
                     <!-- Titre au-dessus de l'image -->
