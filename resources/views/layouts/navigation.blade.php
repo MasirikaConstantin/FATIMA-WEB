@@ -1,9 +1,9 @@
 
 <nav  class="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 ">
-    <a href="https://flowbite.com/" class="flex items-center space-x-3 rtl:space-x-reverse">
-        <img src="https://flowbite.com/docs/images/logo.svg" class="h-8" alt="Flowbite Logo" />
-        <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
+    <a href="{{ route("welcome") }}" class="flex items-center space-x-3 rtl:space-x-reverse">
+        <img src="{{ asset("mas product.png") }}" class="h-8" alt="Notre dame Fatima" />
+        <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Notre dame de Fatima</span>
     </a>
         <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
             <button type="button" class="flex text-sm " id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
