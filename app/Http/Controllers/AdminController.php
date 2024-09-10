@@ -10,6 +10,7 @@ use App\Models\Actu;
 use App\Models\Evenements;
 use App\Models\Lecture;
 use App\Models\Programme;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -102,6 +103,8 @@ class AdminController extends Controller
     public function edit(ValiderProgramme $request, Programme $id)
     {
         $data=$request->validated();
+
+        //dd($data);
         $image=$request->validated('image');
         $programme=$id;
         $status=$request->validated('status');
@@ -111,11 +114,11 @@ class AdminController extends Controller
             if($status==null){
                 $data['status']=0;
                 $programme->update($data);
-                return redirect()->route('admin')->with('success','programme  Modifiée  avec Success ! ! ! ');
+                return redirect()->route('admin.allpro')->with('success','programme  Modifiée  avec Success ! ! ! ');
 
             }else{
                 $programme->update($data);
-                return redirect()->route('admin')->with('success','programme  Modifiée  avec Success ! ! ! ');
+                return redirect()->route('admin.allpro')->with('success','programme  Modifiée  avec Success ! ! ! ');
 
             }
 
@@ -130,14 +133,14 @@ class AdminController extends Controller
 
             $data['status']=0;
             $programme->update($data);
-            return redirect()->route('admin')->with('success','programme  Modifiée  avec Success ! ! ! ');
+            return redirect()->route('admin.allpro')->with('success','programme  Modifiée  avec Success ! ! ! ');
 
         }else{
         $data['image']=$image->store('imageprogramme','public');
 
             $programme->update($data);
         
-        return redirect()->route('admin')->with('success', 'Programme modifié avec succès !');
+        return redirect()->route('admin.allpro')->with('success', 'Programme modifié avec succès !');
     }
 
 }
@@ -379,6 +382,25 @@ public function editnews_archive(Request $request, Actu $id){
     return redirect()->route('admin.allnew')->with('success', 'L\'actus  a été modifier  avec Success ! ! !');
 }
 
+
+public function editevents_programme(Request $request, Programme $id){
+
+    
+    // Valider uniquement le champ 'etat'
+    $request->validate([
+       'etat' => 'required|boolean',
+   ]);
+
+   // Récupérer la valeur de 'etat'
+   $etat = $request->input('etat');
+   //dd($etat);
+   // Mettre à jour le champ 'etat' du post
+   $id->update(['etat' => $etat]);
+
+   // Redirection après la mise à jour
+   return redirect()->route('admin.allpro')->with('success', 'Le Programme  a été modifier  avec Success ! ! !');
+}
+
 public function editevents_archive(Request $request, Evenements $id){
 
     
@@ -430,4 +452,42 @@ public function modiflects(LectureRequest $request, Lecture $id)  {
         
     return redirect()->route('lecture.alllecture')->with('success', 'Modification réalisée avec avec succès !');
 }
+public function nommer_admin( User $id){
+
+    //dd($id);
+    
+    
+   $id->update(["role" => 0]);
+
+   // Redirection après la mise à jour
+   return redirect()->route('admin')->with('success', "L'utilisateur $id->name  a été nommer Administrateur ! ! !");
+}
+
+public function supprimer_admin( User $id){
+
+    //dd($id);
+    
+    
+   $id->update(["role" => 1]);
+
+   // Redirection après la mise à jour
+   return redirect()->route('admin')->with('success', "L'utilisateur $id->name  n'est plus Administrateur ! ! !");
+}
+
+
+
+public function supprimer_user( User $id){
+
+    //dd($id);
+    
+    
+   $id->delete();
+
+   // Redirection après la mise à jour
+   return redirect()->route('admin')->with('success', "L'utilisateur $id->name  a était supprimer avec success ! ! !");
+}
+
+
+
+
 }

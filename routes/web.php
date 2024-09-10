@@ -9,6 +9,7 @@ use App\Models\Actu;
 use App\Models\Evenements;
 use App\Models\Lecture;
 use App\Models\Programme;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -70,6 +71,8 @@ Route::get('gest-admin/dashboard', function () {
     return view('admin', [
         'tous_act' => Actu::orderBy('id', 'desc')->paginate(6),
         'nombre_act' => Actu::count(),
+        "admins"=>User::orderBy('id', 'desc')->where('role',"0")->get(),
+        "users"=>User::orderBy('id', 'desc')->where('role',"1")->paginate(6),
         'nombre_actif_act' => Actu::where("etat", 1)->count(),
     ]);
 })->middleware(['auth', 'verified', 'rolemanager:admin'])->name('admin');
@@ -116,6 +119,10 @@ Route::prefix('admin')->name('admin.')->controller(AdminController::class)->midd
     //archiver
     Route::put('/modif-news/{id}','editnews_archive')->name('editnews_archive');
     Route::put('/modif_events/{id}','editevents_archive')->name('editevents_archive');
+    Route::put('/editevents_programme/{id}','editevents_programme')->name('editevents_programme');
+    Route::put('/nommer_admin/{id}','nommer_admin')->name('nommer_admin');
+    Route::put('/supprimer_admin/{id}','supprimer_admin')->name('supprimer_admin');
+    Route::put('/supprimer_user/{id}','supprimer_user')->name('supprimer_user');
 
 
 

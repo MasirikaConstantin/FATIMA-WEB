@@ -5,6 +5,8 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
+
 class ValiderProgramme extends FormRequest
 {
     /**
@@ -37,6 +39,7 @@ class ValiderProgramme extends FormRequest
                 'dimensions:min_width=100,min_height=200,max_width=2000,max_height=4000', 
             ],
             'slug'=>['required', 'min:8' ,'regex:/^[0-9a-z\-]+$/', 'unique:programmes,slug'],
+
             'user_id'=>['required', 'exists:users,id'],
 
 
@@ -44,9 +47,13 @@ class ValiderProgramme extends FormRequest
     }
 
     protected function prepareForValidation(){
-        $this->merge([
+        /*$this->merge([
             'slug'=>$this->input('slug')?: Str::slug($this->input('titre'))
     
+            ]);*/
+
+            $this->merge([
+                'slug' => $this->input('slug') ?: Str::slug($this->input('titre') . '-' . Carbon::now()->format('Y-m-d-H-i-s'))
             ]);
 
         // Formater le champ h_debut pour enlever les secondes

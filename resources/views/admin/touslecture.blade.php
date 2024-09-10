@@ -12,7 +12,7 @@
                 </svg>
                 <span class="sr-only">Info</span>
                 <div>
-                  <span class="font-medium">Success alert!</span> {{ session('success') }}
+                  <span class="font-medium"> {{ session('success') }}</span>
                 </div>
               </div>
             @endif
@@ -29,7 +29,6 @@
                     </div>
                     <input type="search" id="myInput" onkeyup="filterTable()" name="titre"value="{{ request('titre') }}" id="simple-search" class="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-2.5 ps-9 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder="Rechercher par titre"  />
                 </div>
-                 <button  class="btnn  text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center  dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800">Rechercher</button>
         
                 </form>
     

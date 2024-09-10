@@ -263,5 +263,7 @@
     "Write a description..." :"Écrivez une description...",
     "Home" : "Accueil",
     "Read more" :"Lire plus ",
-    "Delete account":"Supprimer le compte"
+    "Delete account":"Supprimer le compte",
+    "User Name":"Nom d'Utilisateur"
+
 }

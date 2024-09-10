@@ -107,10 +107,12 @@
         <div>
             <h3 class="text-2xl font-semibold mb-4">Liens Utiles</h3>
             <ul class="text-gray-400 space-y-2">
-                <li><a href="#" class="hover:text-yellow-500">Accueil</a></li>
-                <li><a href="#" class="hover:text-yellow-500">Nos Programmes</a></li>
-                <li><a href="#" class="hover:text-yellow-500">Événements</a></li>
-                <li><a href="#" class="hover:text-yellow-500">Actualités</a></li>
+                <li><a href="{{route('welcome')}}" class="hover:text-yellow-500">Accueil</a></li>
+                <li><a href="{{route('programme.tous')}}" class="hover:text-yellow-500">Nos Programmes</a></li>
+                <li><a href="{{ route('event.tousevent') }}" class="hover:text-yellow-500">Événements</a></li>
+                <li><a href="{{ route('news') }}" class="hover:text-yellow-500">Actualités</a></li>
+                <li><a href="{{ route('lecture.lecture') }}" class="hover:text-yellow-500">Lectures</a></li>
+                <li><a href="{{ route('galerie') }}" class="hover:text-yellow-500">Galerie</a></li>
             </ul>
         </div>
 

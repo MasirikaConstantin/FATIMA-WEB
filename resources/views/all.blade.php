@@ -69,7 +69,7 @@
                                         <a href="{{ route('programme.lireprogramme',['pro'=>$pr->slug,"id"=>$pr->id]) }}" class="text-xl font-semibold text-gray-900 hover:underline dark:text-white">{{$pr->titre}}</a>
                                         </div>
                                         <p class="text-base font-normal text-gray-500 dark:text-gray-400">{{Str::limit($pr->description,200)}}</p>
-                                        @if ($pr->etat == 0)
+                                        @if ($pr->etat == 1)
                                         <div>
                                             <span class="inline-block rounded bg-red-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-red-900 dark:text-red-300 md:mb-0">Evenement déjà passer ou annuler
 
@@ -127,19 +127,6 @@
                 </div>
             </div>
         </div>
-        <script src="{{ mix('js/app.js') }}"></script>
-<script>
-    $.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-});
-
-$.get('/programme/tous', { titre: 'hfv' }, function(response) {
-    console.log(response);
-});
-</script>
-        @vite(['resources/js/app.js'])
-    
+       
     </x-app-layout>
     

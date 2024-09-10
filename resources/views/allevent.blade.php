@@ -127,19 +127,6 @@
                 </div>
             </div>
         </div>
-        <script src="{{ mix('js/app.js') }}"></script>
-<script>
-    $.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-});
-
-$.get('/eventsme/tous', { titre: 'hfv' }, function(response) {
-    console.log(response);
-});
-</script>
-        @vite(['resources/js/app.js'])
-    
+        
     </x-app-layout>
     

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
 
@@ -49,7 +50,7 @@ class EvenementsValidateur extends FormRequest
     {
         // Générer le slug si non fourni
         $this->merge([
-            'slug' => $this->input('slug') ?: Str::slug($this->input('titre'))
+            'slug' => $this->input('slug') ?: Str::slug($this->input('titre') . '-' . Carbon::now()->format('Y-m-d-H-i-s'))
         ]);
 
         // Formater le champ h_debut pour enlever les secondes
