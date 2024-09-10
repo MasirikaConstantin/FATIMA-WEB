@@ -9,18 +9,16 @@
 
         <!-- Galerie -->
         <section>
-
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 
                 <!-- Photo 1 -->
-
                 <div class="bg-white rounded-lg shadow-lg overflow-hidden">
                     <!-- Titre au-dessus de l'image -->
                     <div class="bg-teal-500 text-white text-2xl font-semibold p-4">
                         <p>Événement 1</p>
                     </div>
                     <!-- Image -->
-                    <img src="{{ asset('presentation/presentation.jpg') }}" alt="Événement" class="w-full h-64 object-cover">
+                    <img src="{{ asset('presentation/IMG_20240827_122849_600.jpg') }}" alt="Événement" class="w-full h-64 object-cover">
                     <!-- Description en bas -->
                     <div class="p-4">
                         <p class="text-gray-700">Ceci est une description pour l'Événement 1. Un moment marquant de notre communauté où nous avons célébré notre unité et solidarité.</p>
@@ -34,7 +32,7 @@
                         <p>Événement 2</p>
                     </div>
                     <!-- Image -->
-                    <img src="{{ asset('presentation/presentation.jpg') }}" alt="Événement" class="w-full h-64 object-cover">
+                    <img src="{{ asset('presentation/IMG_20240827_122849_600.jpg') }}" alt="Événement" class="w-full h-64 object-cover">
                     <!-- Description en bas -->
                     <div class="p-4">
                         <p class="text-gray-700">Description de l'Événement 2. Une journée spéciale avec des activités de groupe et des moments de partage.</p>
@@ -48,7 +46,7 @@
                         <p>Événement 3</p>
                     </div>
                     <!-- Image -->
-                    <img src="{{ asset('presentation/presentation.jpg') }}" alt="Événement" class="w-full h-64 object-cover">
+                    <img src="{{ asset('presentation/IMG_20240827_122849_600.jpg') }}" alt="Événement" class="w-full h-64 object-cover">
                     <!-- Description en bas -->
                     <div class="p-4">
                         <p class="text-gray-700">Voici la description de l'Événement 3. Un événement marquant pour notre communauté avec des moments inoubliables.</p>
@@ -62,7 +60,7 @@
                         <p>Événement 4</p>
                     </div>
                     <!-- Image -->
-                    <img src="{{ asset('presentation/presentation.jpg') }}" alt="Événement" class="w-full h-64 object-cover">
+                    <img src="{{ asset('presentation/IMG_20240827_122849_600.jpg') }}" alt="Événement" class="w-full h-64 object-cover">
                     <!-- Description en bas -->
                     <div class="p-4">
                         <p class="text-gray-700">Description pour l'Événement 4. Une journée remplie de joie et de festivités qui a rapproché notre communauté.</p>
@@ -76,7 +74,7 @@
                         <p>Événement 5</p>
                     </div>
                     <!-- Image -->
-                    <img src="{{ asset('presentation/presentation.jpg') }}" alt="Événement" class="w-full h-64 object-cover">
+                    <img src="{{ asset('presentation/IMG_20240827_122849_600.jpg') }}" alt="Événement" class="w-full h-64 object-cover">
                     <!-- Description en bas -->
                     <div class="p-4">
                         <p class="text-gray-700">Description de l'Événement 5. Un moment de réflexion et de rassemblement autour de notre mission commune.</p>
@@ -90,7 +88,7 @@
                         <p>Événement 6</p>
                     </div>
                     <!-- Image -->
-                    <img src="{{ asset('presentation/presentation.jpg') }}" alt="Événement" class="w-full h-64 object-cover">
+                    <img src="{{ asset('presentation/IMG_20240827_122849_600.jpg') }}" alt="Événement" class="w-full h-64 object-cover">
                     <!-- Description en bas -->
                     <div class="p-4">
                         <p class="text-gray-700">Description de l'Événement 6. Une célébration pleine de couleur et de vie qui a marqué notre année.</p>
@@ -104,7 +102,7 @@
                         <p>Événement 7</p>
                     </div>
                     <!-- Image -->
-                    <img src="{{ asset('presentation/presentation.jpg') }}" alt="Événement" class="w-full h-64 object-cover">
+                    <img src="{{ asset('presentation/IMG_20240827_122849_600.jpg') }}" alt="Événement" class="w-full h-64 object-cover">
                     <!-- Description en bas -->
                     <div class="p-4">
                         <p class="text-gray-700">Description de l'Événement 7. Une occasion spéciale qui a mis en avant les talents et les efforts de notre communauté.</p>
@@ -114,7 +112,7 @@
                
       <div class="relative bg-gray-200 rounded-lg shadow-lg overflow-hidden">
         <!-- Image de l'événement -->
-        <img src="{{ asset('presentation/presentation.jpg') }}" alt="Événement" class="w-full h-64 object-cover">
+        <img src="{{ asset('presentation/IMG_20240827_122849_600.jpg') }}" alt="Événement" class="w-full h-64 object-cover">
     
         <!-- Titre superposé sur l'image -->
         <div class="absolute top-0 left-0 w-full h-16 bg-teal-500 bg-opacity-75 flex items-center justify-center text-white text-2xl font-semibold">
