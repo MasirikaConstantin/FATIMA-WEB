@@ -1,3 +1,4 @@
+@section('titre', "Gallerie")
 <x-app-layout>
 
     <div class="container mx-auto px-4 py-8">
@@ -7,9 +8,14 @@
             <p class="text-gray-700">Découvrez les moments forts et les événements récents de notre communauté.</p>
         </header>
 
+    
+  
+
+  
+  
         <!-- Galerie -->
         <section>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
                 
                 <!-- Photo 1 -->
                 <div class="bg-white rounded-lg shadow-lg overflow-hidden">
@@ -28,33 +34,57 @@
                 <!-- Photo 2 -->
                 <div class="bg-white rounded-lg shadow-lg overflow-hidden">
                     <!-- Titre au-dessus de l'image -->
-                    <div class="bg-green-500 text-white text-2xl font-semibold p-4">
-                        <p>Événement 2</p>
+                    <div class="bg-gray-100 text-white text-2xl font-semibold p-4   ">
+                        <figure class="relative max-w-sm transition-all duration-300 cursor-pointer filter hover:grayscale">
+                            <a href="#">
+                                
+                              <img class="rounded-lg" src="{{ asset('presentation/presentation.jpg') }}" alt="image description">
+                            </a>
+                            <figcaption class="absolute px-4 text-lg text-white bottom-6">
+                                <p>Do you want to get notified when a new component is added to Flowbite?</p>
+                            </figcaption>
+                          </figure>
+                          
                     </div>
                     <!-- Image -->
-                    <img src="{{ asset('presentation/presentation.jpg') }}" alt="Événement" class="w-full h-64 object-cover">
                     <!-- Description en bas -->
                     <div class="p-4">
                         <p class="text-gray-700">Description de l'Événement 2. Une journée spéciale avec des activités de groupe et des moments de partage.</p>
                     </div>
                 </div>
 
-                <!-- Photo 3 -->
-                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                    <!-- Titre au-dessus de l'image -->
-                    <div class="bg-red-500 text-white text-2xl font-semibold p-4">
-                        <p>Événement 3</p>
-                    </div>
-                    <!-- Image -->
-                    <img src="{{ asset('presentation/presentation.jpg') }}" alt="Événement" class="w-full h-64 object-cover">
-                    <!-- Description en bas -->
-                    <div class="p-4">
-                        <p class="text-gray-700">Voici la description de l'Événement 3. Un événement marquant pour notre communauté avec des moments inoubliables.</p>
-                    </div>
-                </div>
+                <!-- Vidéo 1 -->
+<div class="bg-white rounded-lg shadow-lg overflow-hidden">
+    <!-- Titre au-dessus de l'image -->
+    <div class="bg-gray-100 text-black text-2xl font-semibold p-4">
+        <video class="w-full rounded-lg" controls>
+            <source src="{{ asset('videos.mp4') }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <!-- Description en bas -->
+    <div class="p-4">
+        <p class="text-gray-700">Voici la description de l'Événement 1. Un événement marquant pour notre communauté avec des moments inoubliables.</p>
+    </div>
+</div>
+
+<!-- Vidéo 2 -->
+<div class="bg-white rounded-lg shadow-lg overflow-hidden mt-6"> <!-- Ajout de margin-top pour espacement -->
+    <!-- Titre au-dessus de l'image -->
+    <div class="bg-gray-100 text-black text-2xl font-semibold p-4">
+        <video class="w-full rounded-lg" controls>
+            <source src="{{ asset('vvv.mp4') }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <!-- Description en bas -->
+    <div class="p-4">
+        <p class="text-gray-700">Voici la description de l'Événement 2. Un événement marquant pour notre communauté avec des moments inoubliables.</p>
+    </div>
+</div>
 
                 <!-- Photo 4 -->
-                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="bg-white  rounded-lg shadow-lg overflow-hidden">
                     <!-- Titre au-dessus de l'image -->
                     <div class="bg-yellow-500 text-white text-2xl font-semibold p-4">
                         <p>Événement 4</p>
