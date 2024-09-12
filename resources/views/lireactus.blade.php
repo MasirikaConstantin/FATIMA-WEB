@@ -1,62 +1,66 @@
 <x-app-layout>
-    <div class="flex flex-col lg:flex-row min-h-screen bg-gray-100">
-        <!-- Contenu principal à gauche -->
-        <main class="flex-1 p-1 text-center" style="margin-top:2px !important;">
-            <h1 class="text-3xl font-bold mb-6 text-center mt-6">Actualités</h1>
+    <div class="min-h-screen bg-gradient-to-br from-gray-900 to-blue-800 text-white antialiased">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="flex flex-col lg:flex-row">
+                <!-- Contenu principal à gauche -->
+                <main class="flex-1 pr-0 lg:pr-8">
+                    <h1 class="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-purple-400 mb-8">Actualités</h1>
 
-            <!-- Grille pour les articles avec tailles variées -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6">
-                <!-- Article 1 - Grande taille -->
-                <article class="mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert" style="overflow: hidden">
-                    <header class="mb-4 lg:mb-6 not-format">
-                        @if (session('success'))
-                        <div class="flex items-center p-4 mb-4 text-sm text-green-800 border border-green-300 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400 dark:border-green-800" role="alert">
-                            <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
-                            </svg>
-                            <div>
-                                <span class="font-medium">Success alert!</span> {{ session('success') }}
+                    <!-- Article principal -->
+                    <article class="bg-gray-800 bg-opacity-50 rounded-xl overflow-hidden shadow-2xl transform hover:scale-102 transition duration-300 mb-8">
+                        @if ($actuslire)
+                            <div class="relative">
+                                @if ($actuslire->image)
+                                    <img src="{{ $actuslire->imageUrls() }}" alt="Actualité Image" class="w-full h-96 object-cover">
+                                @else
+                                    <img src="{{ asset('presentation/presentation.jpg') }}" alt="Actualité Image" class="w-full h-96 object-cover">
+                                @endif
+                                <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                                <div class="absolute bottom-0 left-0 p-6 text-white">
+                                    <span class="bg-blue-700 text-xs font-semibold px-2.5 py-1 rounded-full mb-2 inline-block">À la une</span>
+                                    <h2 class="text-4xl font-bold mb-3 leading-tight">{{ $actuslire->titre }}</h2>
+                                    <p class="text-sm font-semibold">Le {{ \Carbon\Carbon::parse($actuslire->created_at)->translatedFormat('d F Y') }}</p>
+                                </div>
                             </div>
+                            <div class="p-6">
+                                <p class="text-gray-300 text-lg leading-relaxed mb-4">{{ $actuslire->description }}</p>
+                            </div>
+                        @endif
+                    </article>
+
+                    @if (session('success'))
+                        <div class="bg-green-800 bg-opacity-50 border border-green-600 text-green-100 px-4 py-3 rounded relative mb-6" role="alert">
+                            <span class="block sm:inline">{{ session('success') }}</span>
                         </div>
-                        @endif
-
-                        <h1 class="mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl dark:text-white">{{ $actuslire->titre }}</h1>
-                        @php
-                            $dateDebut = \Carbon\Carbon::parse($actuslire->created_at);
-                        @endphp
-                        <p class="text-sm/relaxed text-start mb-4">
-                            Le <strong>{{ $dateDebut->translatedFormat('d F Y') }}</strong> 
-                        </p>
-
-                        @if ($actuslire->image)
-                        <img class="h-auto max-w-xl rounded-lg shadow-xl dark:shadow-gray-800" style="object-fit: contain" src="{{ $actuslire->imageUrls() }}" alt="image description">
-                        @endif
-                    </header>
-                    <p class="lead mb-4">{{ $actuslire->description }}</p>
-                    <hr class="mb-4">
-                </article>
-            </div>
-        </main>
-
-        <!-- Sidebar droite -->
-        <aside class="w-full lg:w-1/4 bg-white shadow-lg p-6 mt-2 mb-3 lg:sticky lg:top-0 lg:h-screen">
-            <div class="space-y-4">
-                <h2 class="text-2xl font-bold mb-4">Plus anciens</h2>
-                @forelse ($autres as $a)
-                <div class="flex items-center p-4 bg-blue-50 rounded-lg shadow-md">
-                    @if ($a->image)
-                    <img src="{{ $a->imageUrls() }}" alt="Catégorie Image 1" class="w-12 h-12 object-cover rounded-full mr-4">
-                    @else
-                    <img src="{{ asset('presentation/IMG_20240827_122849_600.jpg') }}" alt="Catégorie Image 1" class="w-12 h-12 object-cover rounded-full mr-4">
                     @endif
-                    <div>
-                        <a href="{{ route('actuslire', ['pro' => $a->slug, 'id' => $a->id]) }}" class="font-semibold text-lg">{{ Str::limit($a->titre, 15) }}</a>
-                        <p class="text-sm text-gray-600">🚨🚨{{ Str::limit($a->description, 50) }}</p>
+                </main>
+
+                <!-- Sidebar droite -->
+                <aside class="lg:w-1/4 mt-8 lg:mt-0">
+                    <div class="bg-gray-800 bg-opacity-50 rounded-xl p-6">
+                        <h2 class="text-2xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-purple-400">Plus anciens</h2>
+
+                        <div class="space-y-6">
+                            @forelse ($autres as $a)
+                                <div class="flex items-center bg-gray-700 bg-opacity-50 rounded-lg p-4 transform hover:scale-105 transition duration-300">
+                                    @if ($a->image)
+                                        <img src="{{ $a->imageUrls() }}" alt="Catégorie Image" class="w-16 h-16 object-cover rounded-full mr-4">
+                                    @else
+                                        <img src="{{ asset('presentation/presentation.jpg') }}" alt="Catégorie Image" class="w-16 h-16 object-cover rounded-full mr-4">
+                                    @endif
+                                    <div>
+                                        <a href="{{ route('actuslire', ['pro' => $a->slug, 'id' => $a->id]) }}" class="font-semibold text-lg hover:text-blue-300 transition duration-300">{{ Str::limit($a->titre, 15) }}</a>
+                                        <p class="text-sm text-gray-300 mt-1">{{ Str::limit($a->description, 50) }}</p>
+                                        <p class="text-xs text-gray-400 mt-2">🚨🚨 {{ \Carbon\Carbon::parse($a->created_at)->translatedFormat('d F Y') }}</p>
+                                    </div>
+                                </div>
+                            @empty
+                                <p class="text-gray-400">Aucun article ancien disponible.</p>
+                            @endforelse
+                        </div>
                     </div>
-                </div>
-                @empty
-                @endforelse
+                </aside>
             </div>
-        </aside>
+        </div>
     </div>
 </x-app-layout>

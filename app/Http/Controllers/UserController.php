@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Photoprofilvalidator;
+use App\Http\Requests\PropertyContactRequest;
+use App\Http\Requests\RechercheBlog;
 use App\Http\Requests\RechercheEvent;
 use App\Http\Requests\RechercherProgramme;
 use App\Http\Requests\ValiderCommentaire;
+use App\Http\Requests\RechercheGalerie;
+use App\Mail\PropartyContactMail;
 use App\Models\Actu;
 use App\Models\Commentaire;
 use App\Models\CommentaireEvent;
@@ -16,6 +20,7 @@ use App\Models\Programme;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
@@ -31,7 +36,7 @@ class UserController extends Controller
                                  ->orderBy('id', 'desc');
     
         // Appliquer la pagination
-        $autres = $autresQuery->paginate(5);
+        $autres = $autresQuery->paginate(4);
         if($programe->slug  != $pro){
             return to_route('programme.commentaire',['id'=>$programe,'pro'=>$programe->slug,'Commentaire'=>$programe->Commentaire()->orderBy('id','desc')->paginate(5)]);
         }
@@ -165,8 +170,13 @@ class UserController extends Controller
         return view('dons');
     }
 
-    public function galerie(){
-        return view('galerie',['galerie'=>Gallerie::paginate(5)]);
+    public function galerie(RechercheGalerie $request){
+        $query=Gallerie::query();
+        if($description=$request->validated('description')){
+            $query=$query->where('description','like', "%{$description}%" );
+        }
+       
+        return view('galerie',['galerie'=> $query->orderByDesc('id')->paginate(5)]);
     }
     public function allevents(RechercheEvent $request){
         $query=Evenements::query();
@@ -190,7 +200,7 @@ class UserController extends Controller
                                  ->orderBy('id', 'desc');
     
         // Appliquer la pagination
-        $autres = $autresQuery->paginate(5);
+        $autres = $autresQuery->paginate(4);
         if($evenement->slug  != $pro){
             return to_route('programme.commentaire',['id'=>$evenement,'pro'=>$evenement->slug]);
         }
@@ -307,5 +317,11 @@ class UserController extends Controller
 
 
         return view('lirelecture',['dernier'=> $lecture, 'autres'=>$autres]);
+    }
+
+
+    public function contact(PropertyContactRequest $request){
+        Mail::send(new PropartyContactMail($request->validated() ));
+        return back()->with("success",'Votre Message a était bien envoyé');
     }
 }

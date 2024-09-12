@@ -30,7 +30,7 @@ $dernier = Lecture::orderBy('id', 'desc')->first();
 
     return view('welcome', [
        // "presentation" => Programme::latest()->where('etat',"==",0)->first(),
-        'programmes' => Programme::orderBy('id', 'desc')->limit(4)->get()->where('etat',"==",0),
+        'programmes' => Programme::orderBy('id', 'desc')->limit(3)->get()->where('etat',"==",0),
         'evenements' => Evenements::orderBy('id', 'desc')->limit(2)->get()->where('etat',"==",0),
         'actus' => Actu::orderBy('id', 'desc')->limit(3)->get()->where('etat',"==",0),
         'dernier' => $dernier,
@@ -147,9 +147,9 @@ Route::prefix('admin')->name('admin.')->controller(AdminController::class)->midd
 });
 
 Route::prefix('programme')->name('programme.')->controller(UserController::class)->group( function () {
-    Route::get('/{pro}-{id}','lirepro')->where([
-        'id'=>'[0-9]+',
-        'pro'=>'[a-zA-Z0-9\-]+'
+    Route::get('/{pro}-{id}', 'lirepro')->where([
+        'id' => '[0-9]+',
+        'pro' => '[a-zA-Z0-9\-_]+'
     ])->name('lireprogramme');
 
     
@@ -237,3 +237,7 @@ Route::prefix('membre')->name('blog.')->controller(BlogController::class)->group
 
 Route::get('/commentaire/modifier/{id}', [BlogController::class, 'editComment'])->name('comment.edit');
 Route::put('/commentaire/modifier/{id}', [BlogController::class, 'updateComment'])->name('comment.update');
+Route::post('/contact',[UserController::class, 'contact'])->name('contact.update');
+Route::get('/apropos',function ()  {
+    return view('apropos');
+})->name('apropos');

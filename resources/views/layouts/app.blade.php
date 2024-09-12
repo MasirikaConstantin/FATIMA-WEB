@@ -31,7 +31,7 @@
                     }
                     
     </style>
-    <body class="font-sans bg-gray-100 antialiased" style="width: 100% ;" >
+    <body class="font-sans bg-gradient-to-br from-gray-900 to-blue-900 antialiased" style="width: 100% ;" >
 
                             
 
@@ -40,7 +40,7 @@
 
 
 
-        <div class="min-h-screen bg-gray-100 bg-white">
+        <div class="min-h-screen bg-gradient-to-br from-gray-900 to-blue-900 ">
             
         
             @include('layouts.navigation')
@@ -51,7 +51,7 @@
             <!-- Page Content -->
 
             
-            <main style="width: 100%" class=" bg-gray-100" >
+            <main  class=" bg-gradient-to-br from-gray-500 to-blue-500 " >
                 {{ $slot }}
 
                 
@@ -115,21 +115,35 @@
                 <li><a href="{{ route('news') }}" class="hover:text-yellow-500">Actualités</a></li>
                 <li><a href="{{ route('lecture.lecture') }}" class="hover:text-yellow-500">Lectures</a></li>
                 <li><a href="{{ route('galerie') }}" class="hover:text-yellow-500">Galerie</a></li>
+                <li><a href="{{ route('apropos') }}" class="hover:text-yellow-500">A - propos</a></li>
             </ul>
         </div>
 
         <!-- Section Nous Contacter -->
         <div>
             <h3 class="text-2xl font-semibold mb-4">Nous Contacter</h3>
-            <form>
+            <form action="{{ route("contact.update") }}" method="post">
+                @csrf
                 <div class="mb-4">
-                    <input type="text" placeholder="Votre nom" class="w-full p-3 bg-gray-800 text-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                    <input type="text" name="nom" placeholder="Votre nom"  class="w-full p-3 bg-gray-800 text-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                    @error("nom")
+                    <p class="mt-2 text-sm text-red-600 dark:text-red-500"> {{ $message }} </p>
+                        
+                    @enderror
                 </div>
                 <div class="mb-4">
-                    <input type="email" placeholder="Votre email" class="w-full p-3 bg-gray-800 text-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                    <input type="email" name="email" placeholder="Votre email"  class="w-full p-3 bg-gray-800 text-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                    @error("email")
+                    <p class="mt-2 text-sm text-red-600 dark:text-red-500"> {{ $message }} </p>
+                        
+                    @enderror
                 </div>
                 <div class="mb-4">
-                    <textarea placeholder="Votre message" rows="4" class="w-full p-3 bg-gray-800 text-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"></textarea>
+                    <textarea placeholder="Votre message" name="message" rows="4" class="w-full p-3 bg-gray-800 text-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"></textarea>
+                    @error("message")
+                    <p class="mt-2 text-sm text-red-600 dark:text-red-500"> {{ $message }} </p>
+                        
+                    @enderror
                 </div>
                 <button type="submit" class="w-full bg-yellow-500 text-black py-3 px-4 rounded-lg hover:bg-yellow-600 font-semibold">Envoyer</button>
             </form>
@@ -137,7 +151,7 @@
     </div>
 
     <!-- Bottom Footer -->
-    <div class="mt-12 border-t border-gray-800 pt-8 text-center text-gray-400">
+    <div class="mt-8 border-t border-gray-800 pt-4 text-center text-gray-400">
         <p>&copy; 2024 Paroisse Notre Dame de Fatima. Tous droits réservés.</p>
     </div>
 </footer>

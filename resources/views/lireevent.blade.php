@@ -3,7 +3,7 @@
 <x-app-layout>
    
 
-<main class="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white dark:bg-gray-900 antialiased overflow-hidden">
+<main class="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-gray-100 dark:bg-gray-900 antialiased overflow-hidden">
     <div class="flex justify-between px-4 mx-auto max-w-screen-xl ">
         <article class="mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert">
             <header class="mb-4 lg:mb-6 not-format">
@@ -84,39 +84,7 @@
 
             
 
-                @auth
-                <!--form action="{ { route('evenement.attend', ['pro'=>$evenement->slug, "id"=>$evenement->id]) }}" method="POST">
-                    @ csrf
-                    
-
-                    
-
-                    @ if (auth()->user()->programs->contains($evenement))
-                    
-                        <button type="submit" class="text-white bg-[#FF9119] hover:bg-[#FF9119]/80 focus:ring-4 focus:outline-none focus:ring-[#FF9119]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:hover:bg-[#FF9119]/80 dark:focus:ring-[#FF9119]/40 me-2 mb-2">
-                            
-                              <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-                              </svg>
-            
-                              Se désinscrire
-                        </button>
-                    @ else
-                    <button type="submit" class="text-white bg-[#2557D6] hover:bg-[#2557D6]/90 focus:ring-4 focus:ring-[#2557D6]/50 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#2557D6]/50 me-2 mb-2">
-
-                        <svg class="w-4 h-4 me-2 -ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="m8.032 12 1.984 1.984 4.96-4.96m4.55 5.272.893-.893a1.984 1.984 0 0 0 0-2.806l-.893-.893a1.984 1.984 0 0 1-.581-1.403V7.04a1.984 1.984 0 0 0-1.984-1.984h-1.262a1.983 1.983 0 0 1-1.403-.581l-.893-.893a1.984 1.984 0 0 0-2.806 0l-.893.893a1.984 1.984 0 0 1-1.403.581H7.04A1.984 1.984 0 0 0 5.055 7.04v1.262c0 .527-.209 1.031-.581 1.403l-.893.893a1.984 1.984 0 0 0 0 2.806l.893.893c.372.372.581.876.581 1.403v1.262a1.984 1.984 0 0 0 1.984 1.984h1.262c.527 0 1.031.209 1.403.581l.893.893a1.984 1.984 0 0 0 2.806 0l.893-.893a1.985 1.985 0 0 1 1.403-.581h1.262a1.984 1.984 0 0 0 1.984-1.984V15.7c0-.527.209-1.031.581-1.403Z"/>
-                          </svg>
-                        J'y serait
-                        </button>
-                        
-                    @ endif
-
-                </form>
-                <p>Participants : <span id="count-{ { $evenement->id }}">{ { $count }}</span></p-->
-
-                @endauth
-                
+               
 
             <hr class="mb-4" >
             
@@ -174,7 +142,7 @@
                             $count =  $count . $k;
                             
                         @endphp
-                        <article class="p-6 mb-6 text-base bg-white rounded-lg dark:bg-gray-900">
+                        <article class="bg-white dark:bg-gray-800 rounded-lg p-4 shadow transition-all duration-300 hover:shadow-md mb-3">
                             <footer class="flex justify-between items-center mb-2">
                                 <div class="flex items-center">
                                 @if ($c->user->image)
@@ -284,7 +252,7 @@
                         @if ($au->image)
                         <img src="{{$au->imageUrls()}}" class="mb-5 rounded-lg" alt="Image 1">
                         @else
-                        <img src="{{asset('presentation/IMG_20240827_122849_600.jpg')}}" class="w-full h-auto max-w-xl rounded-lg" style="object-fit: cover;" alt="Image 1">
+                        <img src="{{asset('presentation/presentation.jpg')}}" class="w-full h-auto max-w-xl rounded-lg" style="object-fit: cover;" alt="Image 1">
 
                         @endif
                     </a>
