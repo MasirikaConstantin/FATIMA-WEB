@@ -123,11 +123,16 @@ class BlogController extends Controller
     public function editComment($id)
 {
     $comment = CommentaireBlog::findOrFail($id);
+    //dd($comment);
 
     // Vérifier si l'utilisateur connecté est l'auteur du commentaire
     if ($comment->user_id !== Auth::id()) {
-        return redirect()->route('blog.show', ['id' => $comment->id])
+        return redirect()->route('blog.show', ['id' => $comment->blogs->id,"pro" => $comment->blogs->slug])
                          ->with('error', 'Vous n\'êtes pas autorisé à modifier ce commentaire.');
+    }
+    if (empty($comment)) {
+        return redirect()->route('blog.show', ['id' => $comment->blogs->id,"pro" => $comment->blogs->slug])
+                         ->with('error', 'Ce commentaire est introuvable');
     }
 
     // Afficher la vue pour modifier le commentaire

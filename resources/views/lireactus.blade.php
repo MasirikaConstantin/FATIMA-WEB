@@ -2,12 +2,12 @@
     <div class="flex flex-col lg:flex-row min-h-screen bg-gray-100">
         <!-- Contenu principal à gauche -->
         <main class="flex-1 p-1 text-center" style="margin-top:2px !important;">
-            <h1 class="text-3xl font-bold mb-6 text-center">Actualités</h1>
+            <h1 class="text-3xl font-bold mb-6 text-center mt-6">Actualités</h1>
 
             <!-- Grille pour les articles avec tailles variées -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6">
                 <!-- Article 1 - Grande taille -->
-                <article class="mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert">
+                <article class="mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert" style="overflow: hidden">
                     <header class="mb-4 lg:mb-6 not-format">
                         @if (session('success'))
                         <div class="flex items-center p-4 mb-4 text-sm text-green-800 border border-green-300 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400 dark:border-green-800" role="alert">
@@ -29,7 +29,7 @@
                         </p>
 
                         @if ($actuslire->image)
-                        <img class="h-auto max-w-xl rounded-lg shadow-xl dark:shadow-gray-800" src="{{ $actuslire->imageUrls() }}" alt="image description">
+                        <img class="h-auto max-w-xl rounded-lg shadow-xl dark:shadow-gray-800" style="object-fit: contain" src="{{ $actuslire->imageUrls() }}" alt="image description">
                         @endif
                     </header>
                     <p class="lead mb-4">{{ $actuslire->description }}</p>

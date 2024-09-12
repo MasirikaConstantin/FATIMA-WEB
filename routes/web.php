@@ -129,6 +129,21 @@ Route::prefix('admin')->name('admin.')->controller(AdminController::class)->midd
     Route::get('/allpro', 'allpro')->name('allpro');
     Route::get('/alleve', 'alleve')->name('alleve');
     Route::get('/allnew', 'allnew')->name('allnew');
+
+
+    Route::get('/newgallerie', 'nouvgallerie')->name('nouvgallerie');
+    Route::post('/newgallerie', 'envgallerie');
+    Route::get('/allgalleries', 'allgalleries')->name('allgalleries');
+
+
+    Route::get('/modif_gallerie/{id}','modif_gallerie')->name('modif_gallerie');
+    Route::put('/modif_gallerie/{id}','modif_galleriev');
+
+    Route::get('/delet-gallerie/{id}','delet_gallerie')->name('delet_gallerie');
+
+
+
+    
 });
 
 Route::prefix('programme')->name('programme.')->controller(UserController::class)->group( function () {

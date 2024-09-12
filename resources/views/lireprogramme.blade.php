@@ -1,9 +1,9 @@
-@section("titre",'Programme');
+@section("titre",'Programme')
 
 <x-app-layout>
    
 
-<main class="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white dark:bg-gray-900 antialiased">
+<main class="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white dark:bg-gray-900 antialiased" style="overflow: hidden">
     <div class="flex justify-between px-4 mx-auto max-w-screen-xl ">
         <article class="mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert">
             <header class="mb-4 lg:mb-6 not-format">
@@ -203,7 +203,7 @@
                                         <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
                                         </svg>
-                                        <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Êtes vous sur de vouloir supprimer ce Programme?</h3>
+                                        <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Êtes vous sur de vouloir supprimer ce Commentaire?</h3>
                                         <a href="{{route('programme.deletecomm',['id'=>$c->id])}}" data-modal-hide="popup-modal{{  $count }}" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
                                             Oui je suis sur
                                         </a>
@@ -239,12 +239,12 @@
         <h2 class="mb-8 text-2xl font-bold text-gray-900 dark:text-white">Autres Programmes</h2>
         <div class="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
             @foreach ($autres as $au )
-                <article class="max-w-xs" style="overflow: hidden;">
-                    <a href="{{ route('programme.lireprogramme',['pro'=>$au->slug,"id"=>$au->id]) }}">
+                <article  class="max-w-xs" >
+                    <a class="" href="{{ route('programme.lireprogramme',['pro'=>$au->slug,"id"=>$au->id]) }}">
                         @if ($au->image)
-                        <img src="{{$au->imageUrls()}}" class="mb-5 rounded-lg" alt="Image 1">
+                        <img src="{{$au->imageUrls()}}" class="mb-5 rounded-lg w-30 h-30" alt="Image 1">
                         @else
-                        <img src="{{asset('presentation/IMG_20240827_122849_600.jpg')}}" class="w-full h-auto max-w-xl rounded-lg" style="object-fit: cover;" alt="Image 1">
+                        <img src="{{asset('presentation/IMG_20240827_122849_600.jpg')}}" class="h-auto  rounded-lg shadow-xl dark:shadow-gray-800" style="object-fit: cover;" alt="Image 1">
 
                         @endif
                     </a>

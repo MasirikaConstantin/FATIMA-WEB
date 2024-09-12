@@ -79,6 +79,11 @@ setlocale(LC_TIME,'fr_FR.utf8');
                           Mettre à jour la lecture
                         </a>
                       </li>
+
+                      <li class="me-3 mb-3">
+                        <a href="{{ route('admin.nouvgallerie') }}" class="px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+Ajouter à la gallerie                        </a>
+                      </li>
                     
                   </ul>
                   </div>
@@ -106,6 +111,12 @@ setlocale(LC_TIME,'fr_FR.utf8');
                         <li class="me-3 mb-3">
                           <a href="{{ route('lecture.alllecture') }}" class="px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                             Toutes les  Lectures
+                          </a>
+                        </li>
+
+                        <li class="me-3 mb-3">
+                          <a href="{{ route('admin.allgalleries') }}" class="px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            Toutes les galleries
                           </a>
                         </li>
                     </ul>

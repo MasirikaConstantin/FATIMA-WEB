@@ -18,7 +18,7 @@
     <!-- Section Programmes -->
     <section id="programmes" class="py-16 bg-white">
         <div class="container mx-auto text-center">
-            <h2 class="text-4xl font-bold mb-8">Nos Programmes</h2>
+            <h2 class="text-4xl font-bold mb-8">Nos Rendez - Vous</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <!-- Programme 1 -->
                 <div class="bg-gray-100 p-6 rounded-lg shadow-lg">

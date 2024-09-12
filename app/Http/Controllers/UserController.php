@@ -10,6 +10,7 @@ use App\Models\Actu;
 use App\Models\Commentaire;
 use App\Models\CommentaireEvent;
 use App\Models\Evenements;
+use App\Models\Gallerie;
 use App\Models\Lecture;
 use App\Models\Programme;
 use App\Models\User;
@@ -165,7 +166,7 @@ class UserController extends Controller
     }
 
     public function galerie(){
-        return view('galerie');
+        return view('galerie',['galerie'=>Gallerie::paginate(5)]);
     }
     public function allevents(RechercheEvent $request){
         $query=Evenements::query();

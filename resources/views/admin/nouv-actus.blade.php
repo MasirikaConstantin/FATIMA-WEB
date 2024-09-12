@@ -74,8 +74,7 @@
                 }
                 reader.readAsDataURL(this.files[0]);
             });
-        </script>
-        <script>
+        
             document.getElementById('fileUpload').addEventListener('change', function() {
                 var reader = new FileReader();
                 reader.onload = function(e) {

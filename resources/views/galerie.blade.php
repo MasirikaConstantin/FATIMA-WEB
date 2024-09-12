@@ -1,4 +1,6 @@
 @section('titre', "Gallerie")
+
+
 <x-app-layout>
 
     <div class="container mx-auto px-4 py-8">
@@ -17,31 +19,20 @@
         <section>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
                 
-                <!-- Photo 1 -->
-                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                    <!-- Titre au-dessus de l'image -->
-                    <div class="bg-teal-500 text-white text-2xl font-semibold p-4">
-                        <p>Événement 1</p>
-                    </div>
-                    <!-- Image -->
-                    <img src="{{ asset('presentation/presentation.jpg') }}" alt="Événement" class="w-full h-64 object-cover">
-                    <!-- Description en bas -->
-                    <div class="p-4">
-                        <p class="text-gray-700">Ceci est une description pour l'Événement 1. Un moment marquant de notre communauté où nous avons célébré notre unité et solidarité.</p>
-                    </div>
-                </div>
+               @forelse ($galerie as $g )
+                   
 
                 <!-- Photo 2 -->
                 <div class="bg-white rounded-lg shadow-lg overflow-hidden">
                     <!-- Titre au-dessus de l'image -->
                     <div class="bg-gray-100 text-white text-2xl font-semibold p-4   ">
                         <figure class="relative max-w-sm transition-all duration-300 cursor-pointer filter hover:grayscale">
-                            <a href="#">
+                            <a href="{{ $g->imageUrls() }}" data-fancybox="gallery">
                                 
-                              <img class="rounded-lg" src="{{ asset('presentation/presentation.jpg') }}" alt="image description">
+                              <img class="rounded-lg" src="{{ $g->imageUrls() }}" >
                             </a>
                             <figcaption class="absolute px-4 text-lg text-white bottom-6">
-                                <p>Do you want to get notified when a new component is added to Flowbite?</p>
+                                <p>{{ $g->titre }}</p>
                             </figcaption>
                           </figure>
                           
@@ -49,125 +40,31 @@
                     <!-- Image -->
                     <!-- Description en bas -->
                     <div class="p-4">
-                        <p class="text-gray-700">Description de l'Événement 2. Une journée spéciale avec des activités de groupe et des moments de partage.</p>
+                        <p class="text-gray-700">{{ $g->description }}</p>
+
+                        @if ($g->lien)
+                        <a href="{{ $g->lien }}" class="text-blue-600 hover:underline mt-4 inline-block">Voir plus</a>
+                            
+                        @endif
+
                     </div>
                 </div>
 
-                <!-- Vidéo 1 -->
-<div class="bg-white rounded-lg shadow-lg overflow-hidden">
-    <!-- Titre au-dessus de l'image -->
-    <div class="bg-gray-100 text-black text-2xl font-semibold p-4">
-        <video class="w-full rounded-lg" controls>
-            <source src="{{ asset('videos.mp4') }}" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    </div>
-    <!-- Description en bas -->
-    <div class="p-4">
-        <p class="text-gray-700">Voici la description de l'Événement 1. Un événement marquant pour notre communauté avec des moments inoubliables.</p>
-    </div>
-</div>
-
-<!-- Vidéo 2 -->
-<div class="bg-white rounded-lg shadow-lg overflow-hidden mt-6"> <!-- Ajout de margin-top pour espacement -->
-    <!-- Titre au-dessus de l'image -->
-    <div class="bg-gray-100 text-black text-2xl font-semibold p-4">
-        <video class="w-full rounded-lg" controls>
-            <source src="{{ asset('vvv.mp4') }}" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    </div>
-    <!-- Description en bas -->
-    <div class="p-4">
-        <p class="text-gray-700">Voici la description de l'Événement 2. Un événement marquant pour notre communauté avec des moments inoubliables.</p>
-    </div>
-</div>
-
-Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rem impedit cumque ullam porro et nobis ab minima similique repellat. Blanditiis magnam atque assumenda qui quod corrupti quos voluptatem excepturi aperiam!
-                <!-- Photo 4 -->
-                <div class="bg-white  rounded-lg shadow-lg overflow-hidden">
-                    <!-- Titre au-dessus de l'image -->
-                    <div class="bg-yellow-500 text-white text-2xl font-semibold p-4">
-                        <p>Événement 4</p>
-                    </div>
-                    <!-- Image -->
-                    <img src="{{ asset('presentation/presentation.jpg') }}" alt="Événement" class="w-full h-64 object-cover">
-                    <!-- Description en bas -->
-                    <div class="p-4">
-                        <p class="text-gray-700">Description pour l'Événement 4. Une journée remplie de joie et de festivités qui a rapproché notre communauté.</p>
-                    </div>
-                </div>
-
-                <!-- Photo 5 -->
-                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                    <!-- Titre au-dessus de l'image -->
-                    <div class="bg-purple-500 text-white text-2xl font-semibold p-4">
-                        <p>Événement 5</p>
-                    </div>
-                    <!-- Image -->
-                    <img src="{{ asset('presentation/presentation.jpg') }}" alt="Événement" class="w-full h-64 object-cover">
-                    <!-- Description en bas -->
-                    <div class="p-4">
-                        <p class="text-gray-700">Description de l'Événement 5. Un moment de réflexion et de rassemblement autour de notre mission commune.</p>
-                    </div>
-                </div>
-
-                <!-- Photo 6 -->
-                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                    <!-- Titre au-dessus de l'image -->
-                    <div class="bg-pink-500 text-white text-2xl font-semibold p-4">
-                        <p>Événement 6</p>
-                    </div>
-                    <!-- Image -->
-                    <img src="{{ asset('presentation/presentation.jpg') }}" alt="Événement" class="w-full h-64 object-cover">
-                    <!-- Description en bas -->
-                    <div class="p-4">
-                        <p class="text-gray-700">Description de l'Événement 6. Une célébration pleine de couleur et de vie qui a marqué notre année.</p>
-                    </div>
-                </div>
-
-                <!-- Photo 7 -->
-                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                    <!-- Titre au-dessus de l'image -->
-                    <div class="bg-indigo-500 text-white text-2xl font-semibold p-4">
-                        <p>Événement 7</p>
-                    </div>
-                    <!-- Image -->
-                    <img src="{{ asset('presentation/presentation.jpg') }}" alt="Événement" class="w-full h-64 object-cover">
-                    <!-- Description en bas -->
-                    <div class="p-4">
-                        <p class="text-gray-700">Description de l'Événement 7. Une occasion spéciale qui a mis en avant les talents et les efforts de notre communauté.</p>
-                    </div>
-                </div>
-
+               @empty
+                   
+               @endforelse
                
-      <div class="relative bg-gray-200 rounded-lg shadow-lg overflow-hidden">
-        <!-- Image de l'événement -->
-        <img src="{{ asset('presentation/presentation.jpg') }}" alt="Événement" class="w-full h-64 object-cover">
+               
     
-        <!-- Titre superposé sur l'image -->
-        <div class="absolute top-0 left-0 w-full h-16 bg-teal-500 bg-opacity-75 flex items-center justify-center text-white text-2xl font-semibold">
-            <p>Événement 8</p>
-        </div>
-    
-        <!-- Description en dessous de l'image -->
-        <div class="p-4">
-            <p class="text-gray-700">Votre description ici.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim, sed, possimus ullam eum laudantium aspernatur, incidunt beatae nesciunt obcaecati magni ducimus et! Cumque eius nam pariatur nemo similique enim minima.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda mollitia consequatur quos, saepe debitis incidunt doloremque repellat maxime recusandae temporibus, molestiae dolorem. Ex ab architecto tenetur, aspernatur voluptates placeat quod?
-            </p>
-        </div>
-    </div>
-
-
-            </div>
         </section>
+        <div>
+            {{ $galerie->links() }}
+           </div>   
     </div>
 
-    <div class="min-h-screen bg-gray-100 flex flex-col items-center py-6">
+    <!--div class="min-h-screen bg-gray-100 flex flex-col items-center py-6">
         <h2 class="text-2xl font-bold mb-6">Galerie des Événements</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-6xl">
-          <!-- Carte d'événement avec une couleur en fond -->
           <div class="bg-blue-300 shadow-lg rounded-lg p-4">
             <h3 class="text-lg font-semibold mb-2">Événement 1</h3>
             <p class="text-gray-700 mb-4">Description de l'événement important, détails sur la communauté.</p>
@@ -198,6 +95,6 @@ Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rem impedit cumque ull
             <p class="text-gray-700 mb-4">Description de l'événement important, détails sur la communauté.</p>
           </div>
         </div>
-      </div>
+      </div-->
         
 </x-app-layout>

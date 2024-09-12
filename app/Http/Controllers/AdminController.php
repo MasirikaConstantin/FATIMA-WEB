@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ActuValidator;
 use App\Http\Requests\EvenementsValidateur;
+use App\Http\Requests\GallerieValidator;
 use App\Http\Requests\LectureRequest;
 use App\Http\Requests\ValiderProgramme;
 use App\Models\Actu;
 use App\Models\Evenements;
+use App\Models\Gallerie;
 use App\Models\Lecture;
 use App\Models\Programme;
 use App\Models\User;
@@ -488,6 +490,90 @@ public function supprimer_user( User $id){
 }
 
 
+public function nouvgallerie(Gallerie $galleries){
+    return view("admin.creergallerie",['galleries'=>$galleries]);
+}
+
+public function envgallerie(GallerieValidator $request){
+    //dd($request->validated());
+    Gallerie::create($this->extractDataGallerie(new Gallerie(), $request));
+
+    return redirect()->route('admin')->with('success','Photo ajoutée avec Success ! ! ! ');
+
+}
+private function extractDataGallerie(Gallerie $programme,GallerieValidator $request){
+    $data=$request->validated();
+
+    
+  
+
+   // dd($data);
+    /**
+    * @var UploadedFile $image
+     */
+    $image=$request->validated('image');
+    if($image==null || $image->getError()){
+        return $data;
+    }
+    if($programme->image){
+        Storage::disk('public')->delete($programme->image);
+    }
+        $data['image']=$image->store("imggallerie",'public');
+    return $data;
+}
+public function allgalleries(){
+    return view("admin.tous-gallerie",[
+       'tous_act' => Gallerie::orderBy('id', 'desc')->get(),
+            'nombre_act' => Gallerie::count(),
+
+    ]);
+}
+
+public function modif_gallerie(Gallerie $id){
+    //    dd($id);
+        return view('admin.creergallerie',['galleries' =>$id]);
+}
 
 
+
+
+public function modif_galleriev(GallerieValidator $request, Gallerie $id)
+    {
+        $data=$request->validated();
+        $image=$request->validated('image');
+        $programme=$id;
+
+        //dd($id);
+        if($image == null || $image->getError()){
+                $programme->update($data);
+                return redirect()->route('admin.allgalleries')->with('success','Gallerie  Modifiée  avec Success ! ! ! ');
+
+           
+
+        }
+        if($programme->image){
+            Storage::disk('public')->delete($programme->image);
+
+        }
+
+        
+        $data['image']=$image->store('imggallerie','public');
+
+            $programme->update($data);
+        
+        return redirect()->route('admin.allgalleries')->with('success', 'Gallerie modifié avec succès !');
+
+}
+
+
+public function delet_gallerie( Gallerie  $id ){
+    if($id->image){
+        Storage::disk('public')->delete($id->image);
+    }
+
+    $id->delete();
+    return redirect()->route('admin.allgalleries')->with('success','La Gallerie  a été supprimer  avec Success ! ! ! ');
+
+
+}
 }

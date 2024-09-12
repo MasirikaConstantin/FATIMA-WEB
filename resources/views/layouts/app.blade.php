@@ -16,6 +16,8 @@
         
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <script src="{{ asset('fancybox.umd.js') }}"></script>
+        <link rel="stylesheet" href="{{ asset('fancybox.css') }}">
     </head>
     <style>
         @font-face {
@@ -196,6 +198,13 @@
         }
 
 </script>
+
+<script>
+    Fancybox.bind("[data-fancybox]", {
+    // Your custom options
+    });
+  
+  </script>
               
         </body>
 </html>
