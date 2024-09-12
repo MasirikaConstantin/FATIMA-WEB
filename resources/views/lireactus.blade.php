@@ -1,3 +1,4 @@
+@section('titre',"Actualité")
 <x-app-layout>
     <div class="min-h-screen bg-gradient-to-br from-gray-900 to-blue-800 text-white antialiased">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -11,7 +12,11 @@
                         @if ($actuslire)
                             <div class="relative">
                                 @if ($actuslire->image)
+
+                                <a href="{{ $actuslire->imageUrls() }}" data-fancybox="gallery">
                                     <img src="{{ $actuslire->imageUrls() }}" alt="Actualité Image" class="w-full h-96 object-cover">
+                                                        
+                                          </a>
                                 @else
                                     <img src="{{ asset('presentation/presentation.jpg') }}" alt="Actualité Image" class="w-full h-96 object-cover">
                                 @endif

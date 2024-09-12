@@ -178,7 +178,7 @@ $date_fin = \Carbon\Carbon::createFromFormat('Y-m-d', $ev->date_fin)->startOfDay
 $dateDebut = \Carbon\Carbon::parse($date_debut);
 $dateFin = \Carbon\Carbon::parse($date_fin);
 @endphp
-                    <a href="{{ route('event.lireeventsme', ['pro' => $ev->slug, 'id' => $ev->id]) }}" class="flex flex-col items-start gap-6 overflow-hidden rounded-lg bg-white p-6 shadow-lg transition duration-300 hover:shadow-xl">
+                    <!--a href="{{ route('event.lireeventsme', ['pro' => $ev->slug, 'id' => $ev->id]) }}" class="flex flex-col items-start gap-6 overflow-hidden rounded-lg bg-white p-6 shadow-lg transition duration-300 hover:shadow-xl">
                         <div class="relative flex w-full flex-1 items-stretch">
                             <img src="@if ($ev->image == '') {{ asset('presentation/presentation.jpg') }}@else{{ $ev->imageUrls() }} @endif"
                                 alt="{{ $ev->titre }}"
@@ -200,7 +200,67 @@ $dateFin = \Carbon\Carbon::parse($date_fin);
                                 </p>
                             </div>
                         </div>
-                    </a>
+                    </a-->
+
+
+
+
+
+                    <main class="flex-1 pr-0 lg:pr-8 ">
+                        <h1 class="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-purple-400 mb-8">Actualités</h1>
+    
+                        <!-- Article principal -->
+                        <article class="bg-gray-800 bg-opacity-50 rounded-xl overflow-hidden shadow-2xl transform hover:scale-102 transition duration-300 mb-8">
+                            @if ($ev)
+                                <div class="relative">
+                                    @if ($ev->image)
+                                        <img src="{{ $ev->imageUrls() }}" alt="Actualité Image" class="w-full h-96 object-cover">
+                                    @else
+                                        <img src="{{ asset('presentation/presentation.jpg') }}" alt="Actualité Image" class="w-full h-96 object-cover">
+                                    @endif
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                                    <div class="absolute bottom-0 left-0 p-6 text-white">
+                                        @if($date_debut->isPast())
+                                        <span class="bg-blue-700 text-xs items-start font-semibold px-2.5 py-1 rounded-full mb-2 inline-block">Evénement passé</span>
+                                        @elseif($date_fin->isPast())
+                                        <span class="bg-blue-700 text-xs items-start font-semibold px-2.5 py-1 rounded-full mb-2 inline-block">Evénement passé</span>
+                                        @else
+                                        <span class="bg-red-700 text-xs items-start font-semibold px-2.5 py-1 rounded-full mb-2 inline-block">À la une</span>
+
+                                        @endif
+                                        <h2 class="text-4xl font-bold mb-3 leading-tight">{{ $ev->titre }}</h2>
+                                        <p class="text-sm font-semibold">
+                                            @if ($dateDebut->equalTo($dateFin))
+                                    Le <strong>{{ $date_debut->translatedFormat('d F Y') }}</strong> 
+                                    @elseif ($dateDebut->lessThan($dateFin))
+                                    Du <strong>{{ $date_debut->translatedFormat('d F Y') }}</strong> au <strong>{{ $date_fin->translatedFormat('d F Y') }}</strong>
+                                    @endif    
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="p-6 text-start">
+                                    <p class="text-gray-300 text-lg leading-relaxed mb-4">{{ Str::limit($ev->description, 200) }}</p>
+
+                                    <div class="items-start">
+                                        <a href="{{ route('event.lireeventsme', ['pro' => $ev->slug, 'id' => $ev->id]) }}" 
+                                            class="text-yellow-500 font-semibold hover:underline transition-colors duration-300 mb-3">
+                                            Lire plus →
+                                        </a>
+    
+                                        
+                                    </div>
+                                </div>
+                                
+                                
+                            @endif
+                        </article>
+    
+                        @if (session('success'))
+                            <div class="bg-green-800 bg-opacity-40 border border-green-600 text-green-100 px-4 py-3 rounded relative mb-6" role="alert">
+                                <span class="block sm:inline">{{ session('success') }}</span>
+                            </div>
+                        @endif
+                    </main>
                 @empty
                     <p class="text-center col-span-full text-white">Aucun événement à venir pour le moment.</p>
                 @endforelse

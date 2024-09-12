@@ -30,7 +30,7 @@ $date = \Carbon\Carbon::createFromFormat('Y-m-d', $dernier['date'])->startOfDay(
                 <!-- Date de la lecture -->
                 <div class="text-center mb-8">
                     <p class="text-lg text-gray-500">{{ $date->translatedFormat('l, ') }} le {{ $date->translatedFormat('d/m/Y ') }} </p>
-                    <h2 class="text-2xl font-bold text-gray-900 mt-2 truncate">Évangile : {{ Str::limit($dernier['titre_3'], 100) }}</h2>
+                    <h2 class="text-2xl font-bold text-gray-900 mt-2 truncate">1ère : {{ Str::limit($dernier['titre_3'], 100) }}</h2>
                 </div>
         
                 <!-- Contenu de la lecture -->

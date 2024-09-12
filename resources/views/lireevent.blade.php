@@ -74,7 +74,12 @@
 
 
                 @if ($evenement->image)
+
+                
+                <a href="{{ $evenement->imageUrls() }}" data-fancybox="gallery">
                 <img class="h-auto  rounded-lg shadow-xl dark:shadow-gray-800" src="{{ $evenement->imageUrls() }}" alt="image description">
+                                    
+                      </a>
 
                 @endif
             </header>
