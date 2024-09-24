@@ -92,16 +92,17 @@
            
 
     <!-- Footer Futuriste -->
-<footer class="bg-gray-900 text-white py-16">
+<footer class="bg-gray-900 text-white py-10 px-4">
     <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
         <!-- Section À Propos -->
         <div>
             <h3 class="text-2xl font-semibold mb-4">À propos de nous</h3>
             <p class="text-gray-400 mb-6">La Paroisse Notre Dame de Fatima est un lieu de paix et de foi, dédié à la communauté et à la spiritualité.</p>
             <div class="flex space-x-4">
-                <a href="#" class="text-gray-400 hover:text-yellow-500"><i class="fab fa-facebook fa-2x"></i></a>
-                <a href="#" class="text-gray-400 hover:text-yellow-500"><i class="fab fa-twitter fa-2x"></i></a>
-                <a href="#" class="text-gray-400 hover:text-yellow-500"><i class="fab fa-instagram fa-2x"></i></a>
+                <a href="#" class="text-gray-400 hover:text-blue-500"><i class="fab fa-facebook fa-2x"></i></a>
+                <a href="#" class="text-gray-400 hover:text-red-500"><i class="fab fa-youtube fa-2x"></i></a>
+                <!--a href="#" class="text-gray-400 hover:text-yellow-500"><i class="fab fa-twitter fa-2x"></i></a>
+                <a href="#" class="text-gray-400 hover:text-yellow-500"><i class="fab fa-instagram fa-2x"></i></a-->
             </div>
         </div>
 
@@ -151,8 +152,9 @@
     </div>
 
     <!-- Bottom Footer -->
-    <div class="mt-8 border-t border-gray-800 pt-4 text-center text-gray-400">
+    <div class="mt-4 border-t border-gray-800 pt-2 text-center text-gray-400">
         <p>&copy; 2024 Paroisse Notre Dame de Fatima. Tous droits réservés.</p>
+        <p>Réaliser par <a href="https://mas-product.kesug.com/">Mas Code Product</a> </p>
     </div>
 </footer>
 
