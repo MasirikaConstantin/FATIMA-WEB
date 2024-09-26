@@ -74,28 +74,53 @@ style="background-image: url('{{ asset('presentation/presentation.jpg') }}');">
     <section id="programmes" class="py-16 bg-gray-100">
         <div class="container mx-auto text-center">
             <h2 class="text-4xl font-bold mb-8 text-blue-900">Nos Rendez - Vous</h2>
+            
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <!-- Programme 1 -->
                 <div class="bg-white p-6 rounded-lg shadow-lg">
-                    <h3 class="text-2xl font-semibold mb-4 text-blue-800">Messe du Dimanche</h3>
-                    <p class="text-gray-700">Chaque dimanche à 10h.</p>
+                    <h3 class="text-2xl font-semibold mb-4 text-blue-800">Messe en semaine</h3>
+                    <ul class="text-gray-700 space-y-2">
+                        <li>
+                            <span class="font-bold">Mercredi :</span>
+                            <p class="ml-4">Adoration et Chapelet : 17h-18h30</p>
+                            <p class="ml-4">Messe du soir : 18h30</p>
+                        </li>
+                        <li>
+                            <span class="font-bold">Vendredi :</span>
+                            <p class="ml-4">Lecture biblique : 17h-18h30</p>
+                            <p class="ml-4">Vêpres : 18h30</p>
+                        </li>
+                    </ul>
                 </div>
+                
                 <!-- Programme 2 -->
                 <div class="bg-white p-6 rounded-lg shadow-lg">
-                    <h3 class="text-2xl font-semibold mb-4 text-blue-800">Prière Communautaire</h3>
-                    <p class="text-gray-700">Tous les vendredis à 18h.</p>
+                    <h3 class="text-2xl font-semibold mb-4 text-blue-800">Messe du Dimanche</h3>
+                    <ul class="text-gray-700 space-y-2">
+                        <li>Messe de l'Aurore : 7h00</li>
+                        <li>Grand-Messe : 10h00 <span class="text-red-400 font-bold">(en direct 🔴)</span></li>
+                        <li>Messe du soir : 18h00</li>
+                    </ul>
                 </div>
+                
                 <!-- Programme 3 -->
                 <div class="bg-white p-6 rounded-lg shadow-lg">
                     <h3 class="text-2xl font-semibold mb-4 text-blue-800">Confession</h3>
-                    <p class="text-gray-700">Chaque premier samedi du mois à 16h.</p>
+                    <ul class="text-gray-700 space-y-2">
+                        <li><span class="font-bold">Avant chaque messe :</span> 30 min avant chaque messe</li>
+                    </ul>
                 </div>
+                
                 <!-- Programme 4 -->
                 <div class="bg-white p-6 rounded-lg shadow-lg">
-                    <h3 class="text-2xl font-semibold mb-4 text-blue-800">Catéchèse</h3>
-                    <p class="text-gray-700">Tous les mercredis à 15h.</p>
+                    <h3 class="text-2xl font-semibold mb-4 text-blue-800">1er Samedi du Mois</h3>
+                    <ul class="text-gray-700 space-y-2">
+                        <li><span class="font-bold">Messe votive :</span> 9h00</li>
+                        <li>Suivie du Rosaire</li>
+                    </ul>
                 </div>
             </div>
+            
         </div>
     </section>
 

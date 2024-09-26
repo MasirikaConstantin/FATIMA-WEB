@@ -30,17 +30,17 @@ $date = \Carbon\Carbon::createFromFormat('Y-m-d', $dernier['date'])->startOfDay(
                 <!-- Date de la lecture -->
                 <div class="text-center mb-8">
                     <p class="text-lg text-gray-500">{{ $date->translatedFormat('l, ') }} le {{ $date->translatedFormat('d/m/Y ') }} </p>
-                    <h2 class="text-2xl font-bold text-gray-900 mt-2 truncate">1ère : {{ Str::limit($dernier['titre_3'], 100) }}</h2>
+                    <h2 class="text-2xl font-bold text-gray-900 mt-2 truncate">1ère : {{ $dernier['titre_3'] }}</h2>
                 </div>
         
                 <!-- Contenu de la lecture -->
                 <div class="prose prose-lg max-w-full text-gray-700 mx-auto leading-loose break-words">
                     <p>
-                        {{ Str::limit($dernier['description_3'], 200) }}
+                        {{ $dernier['description_3'] }}
                     </p>
         
                     <blockquote class="break-words">
-                        <p class="text-xl italic text-gray-600 mt-6">{{ Str::limit($dernier['description_3'], 150) }}</p>
+                        <p class="text-xl italic text-gray-600 mt-6">{{$dernier['description_3']}}</p>
                     </blockquote>
                 </div>
             </div>
@@ -103,7 +103,7 @@ $date = \Carbon\Carbon::createFromFormat('Y-m-d', $dernier['date'])->startOfDay(
         <!-- Section pour les lectures des jours passés -->
         <section class="py-12">
             <div class="container mx-auto">
-                <h2 class="text-3xl font-bold text-center text-gray-900 mb-8">Lectures passées</h2>
+                <h2 class="text-3xl font-bold text-center text-gray-200 mb-8">Lectures passées</h2>
     
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <!-- Lecture passée 1 -->
@@ -116,7 +116,7 @@ $date = \Carbon\Carbon::createFromFormat('Y-m-d', $dernier['date'])->startOfDay(
                             <p class="text-lg text-gray-500">{{ $dates->translatedFormat('l, ') }} le {{ $dates->translatedFormat('d/m/Y ') }}</p>
                             <h3 class="text-2xl font-bold text-gray-900 mt-2">Évangile :   {{Str::limit($a->titre_3,100)}}</h3>
                             <p class="mt-4 text-gray-700"> {{Str::limit($a->description_3,150)}}</p>
-                            <a href="#" class="text-blue-600 hover:underline mt-4 inline-block">Lire plus</a>
+                            <a href="{{ route("lectureid",["id" =>$a->id]) }}" class="text-blue-600 hover:underline mt-4 inline-block">Lire plus</a>
                         </div>
                     @empty
                         

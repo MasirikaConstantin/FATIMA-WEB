@@ -1,3 +1,4 @@
+@section("titre","Créer un blog")
 <x-app-layout>
 
 <div class="min-h-screen bg-gray-100 text-gray-100 flex flex-col items-center">

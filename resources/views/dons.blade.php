@@ -1,12 +1,12 @@
 @section('titre','Faire un don')
 <x-app-layout>
 
-    <div class="container min-h-screen bg-gradient-to-br from-gray-500 to-blue-500  mx-auto">
+    <div class="container min-h-screen bg-gradient-to-br from-gray-500 to-blue-500  mx-auto px-5 py-3    ">
         <!-- En-tête -->
-        <header class="text-center mb-8">
-            <h1 class="text-3xl font-bold mb-4">Faire un Don</h1>
+        <div class="text-center mb-8 " >
+            <h1 class="text-3xl font-bold mb-4 mt-10">Faire un Don</h1>
             <p class="text-gray-700">Merci pour votre générosité. Choisissez un mode de paiement et contribuez selon le type de don qui vous convient.</p>
-        </header>
+        </div>
 
         <!-- Options de Paiement -->
         <section class="mb-8">

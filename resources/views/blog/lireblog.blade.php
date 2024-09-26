@@ -63,13 +63,13 @@
             <h3 class="text-2xl font-semibold mb-4 text-gray-600 dark:text-blue-400">Laissez un commentaire</h3>
             <form action="" method="POST">
               @csrf
-              <textarea 
+              <textarea {{ Auth::user() == null ? 'disabled' : '' }} 
                 @error("contenus")
                   class="bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500"
                 @enderror 
                 name="contenus" 
                 class="w-full p-4 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300" 
-                placeholder="Écrire votre commentaire..."
+                placeholder="{{ Auth::user() == null ? 'Connectez - vous pour commenter ce Post' : 'Écrire votre commentaire...' }}"
               >{{ old('contenus') }}</textarea>
               @error('contenus')
                 <p class="mt-2 text-sm text-red-600 dark:text-red-500"> {{ $message }} </p>
@@ -192,9 +192,7 @@
                     <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
                   </svg>
                   <span class="sr-only">Info</span>
-                  <div>
-                    <span class="font-medium">Aucun commentaire pour le moment</span> 
-                  </div>
+                  
                 </div>
               @endforelse
               <div class="mt-4">

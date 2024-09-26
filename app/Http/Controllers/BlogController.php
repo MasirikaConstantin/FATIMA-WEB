@@ -31,28 +31,34 @@ class BlogController extends Controller
 
         return redirect()->route("monprofile")->with('success', 'Post publié avec succès');
     }
-    public function show(string $pro , string $id){
+    public function show(string $pro, string $id, Request $request)
+{
+    $blog = Blog::findOrFail($id);
 
-         $blog = Blog::find($id);
-
-       
-         $autresQuery = Blog::where('id', '!=', $id)
-                                  ->orderBy('id', 'desc');
-     
-         $autres = $autresQuery->paginate(5);
-         if($blog->slug  != $pro){
-             return to_route('blog.show',['id'=>$blog,'pro'=>$blog->slug]);
-         }
- 
-         
-         return view('blog.lireblog', [
-             'blog' => $blog,
-             'autres' => $autres,
-             //'count' => $count,
-             'Commentaire'=>$blog->commentaires()->orderBy('id','desc')->paginate(5)
-         ]);
+    if ($blog->slug != $pro) {
+        return to_route('blog.show', ['id' => $blog->id, 'pro' => $blog->slug]);
     }
 
+    $autresQuery = Blog::where('id', '!=', $id)->orderBy('id', 'desc');
+    $autres = $autresQuery->paginate(5, ['*'], 'autres_page');
+
+    $commentaires = $blog->commentaires()->orderBy('id', 'desc')->paginate(5, ['*'], 'page');
+
+    if ($request->ajax()) {
+        if ($request->has('autres_page')) {
+            return view('blog.partials.autres', compact('autres'))->render();
+        }
+        if ($request->has('page')) {
+            return view('blog.partials.commentaires', compact('commentaires'))->render();
+        }
+    }
+
+    return view('blog.lireblog', [
+        'blog' => $blog,
+        'autres' => $autres,
+        'Commentaire' => $commentaires
+    ]);
+}
 
     public function recherche(RechercheBlog $request){
         $query=Blog::query();

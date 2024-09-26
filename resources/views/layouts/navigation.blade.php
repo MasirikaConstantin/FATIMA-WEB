@@ -2,7 +2,7 @@
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
       <a href="{{ route('welcome') }}" class="flex items-center space-x-3 rtl:space-x-reverse">
           <img src="{{ asset('mas product.png') }}" class="h-8" alt="Notre dame Fatima" />
-          <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Fatima</span>
+          <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Notre Dame de Fatima</span>
       </a>
       <div class="flex items-center md:order-2">
           <button type="button" class="flex text-sm" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">

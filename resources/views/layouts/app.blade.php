@@ -31,13 +31,12 @@
                     }
                     
     </style>
-    <body class="font-sans bg-gradient-to-br from-gray-900 to-blue-900 antialiased" style="width: 100% ;" >
+    <body class="font-sans  antialiased" style="width: 100% ;" >
 
                             
 
 
-        
-
+        <!------Body classe  (bg-gradient-to-br from-gray-900 to-blue-900) -->
 
 
         <div class="min-h-screen bg-gradient-to-br from-gray-900 to-blue-900 ">
@@ -51,7 +50,7 @@
             <!-- Page Content -->
 
             
-            <main  class=" bg-gradient-to-br from-gray-500 to-blue-500 " >
+            <main  class="{{ Route::currentRouteName() == 'dons' ? 'bg-gradient-to-br from-gray-500 to-blue-500' : '' }} " >
                 {{ $slot }}
 
                 
@@ -99,11 +98,53 @@
             <h3 class="text-2xl font-semibold mb-4">À propos de nous</h3>
             <p class="text-gray-400 mb-6">La Paroisse Notre Dame de Fatima est un lieu de paix et de foi, dédié à la communauté et à la spiritualité.</p>
             <div class="flex space-x-4">
-                <a href="#" class="text-gray-400 hover:text-blue-500"><i class="fab fa-facebook fa-2x"></i></a>
-                <a href="#" class="text-gray-400 hover:text-red-500"><i class="fab fa-youtube fa-2x"></i></a>
+                <a href="https://facebook.com" class="text-gray-400 hover:text-blue-500"><i class="fab fa-facebook fa-2x"></i></a>
+                <a href="youtube.com" class="text-gray-400 hover:text-red-500"><i class="fab fa-youtube fa-2x"></i></a>
                 <!--a href="#" class="text-gray-400 hover:text-yellow-500"><i class="fab fa-twitter fa-2x"></i></a>
                 <a href="#" class="text-gray-400 hover:text-yellow-500"><i class="fab fa-instagram fa-2x"></i></a-->
             </div>
+
+            <!--div class="container mx-auto">
+                <h2 class="text-2xl font-semibold mb-4 text-center">NOS CÉLÉBRATIONS</h2>
+                
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div>
+                        <h3 class="text-lg font-medium mb-2 text-blue-300">En semaine</h3>
+                        <ul class="space-y-2 text-sm">
+                            <li>
+                                <span class="font-bold">Mercredi :</span>
+                                <p class="ml-4">Adoration et Chapelet : 17h-18h30</p>
+                                <p class="ml-4">Messe du soir : 18h30</p>
+                            </li>
+                            <li>
+                                <span class="font-bold">Vendredi :</span>
+                                <p class="ml-4">Lecture biblique : 17h-18h30</p>
+                                <p class="ml-4">Vêpres : 18h30</p>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-lg font-medium mb-2 text-blue-300">Dimanche</h3>
+                        <ul class="space-y-2 text-sm">
+                            <li>Messe de l'Aurore : 7h00</li>
+                            <li>Grand-Messe : 10h00 <span class="text-red-400 font-bold">(en direct 🔴)</span></li>
+                            <li>Messe du soir : 18h00</li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-lg font-medium mb-2 text-blue-300">Autres</h3>
+                        <ul class="space-y-2 text-sm">
+                            <li><span class="font-bold">Confessions :</span> 30 min avant chaque messe</li>
+                            <li><span class="font-bold">1er samedi du mois :</span></li>
+                            <li class="ml-4">Messe votive : 9h00, suivie du Rosaire</li>
+                        </ul>
+                    </div>
+                </div>
+            </div-->
+
+            
         </div>
 
         <!-- Section Liens Utiles -->

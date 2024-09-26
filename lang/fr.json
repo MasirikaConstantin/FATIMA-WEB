@@ -264,6 +264,7 @@
     "Home" : "Accueil",
     "Read more" :"Lire plus ",
     "Delete account":"Supprimer le compte",
-    "User Name":"Nom d'Utilisateur"
+    "User Name":"Nom d'Utilisateur",
+    "Upload file" :  "Charger un fichier"
 
 }

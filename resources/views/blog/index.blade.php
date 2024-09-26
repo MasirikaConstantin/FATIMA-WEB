@@ -1,10 +1,10 @@
 @section("titre", 'Les Membres')
 <x-app-layout>
-  <div class="min-h-screen mb-4 bg-gradient-to-br from-gray-900 to-blue-800 text-white antialiased flex flex-col items-center">
+  <div class="min-h-screen mb-4 bg-gradient-to-br from-gray-900 to-blue-800 text-white antialiased flex flex-col items-center mt-6">
     <!-- Search Section -->
     <div class="w-full max-w-2xl p-6 bg-gradient-to-r from-blue-400 to-blue-600 rounded-lg shadow-lg mt-6">
       <h1 class="text-2xl font-bold mb-4 text-white text-center">Rechercher un Post</h1>
-      <form class="space-y-4" method="GET">
+      <form class="space-y-4  " method="GET">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <!-- Title Field -->
           <div class="relative">
@@ -29,9 +29,15 @@
           </div>
         </div>
         <div class="flex justify-center">
-          <button class="px-6 py-2 bg-blue-700 rounded-full text-white text-sm font-semibold hover:bg-blue-800 transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 shadow-md">
+          <button class="px-6 me-5 py-2 bg-blue-700 rounded-full text-white text-sm font-semibold hover:bg-blue-800 transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 shadow-md">
             Rechercher
           </button>
+          
+         @auth
+         <a href="{{ route('blog.newblog') }}" class="px-6 py-2 ms-6 bg-blue-700 rounded-full text-white text-sm font-semibold hover:bg-blue-800 transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 shadow-md">
+          Créer un post
+        </a>
+         @endauth
         </div>
       </form>
     </div>
