@@ -17,6 +17,12 @@ Pour configurer un projet Laravel après avoir cloné le dépôt depuis Git, sui
    ```bash
    composer install
    ```
+   Autres Hosts
+   ```bash
+    php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+    php composer-setup.php --2
+    php -r "unlink('composer-setup.php');"
+    ```
 
 4. **Configurez le fichier `.env` :**
    - Copiez le fichier `.env.example` en `.env` si ce fichier n'existe pas encore :
